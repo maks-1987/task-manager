@@ -1,0 +1,24 @@
+.sign-up-form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.sign-up-form__title {
+    text-align: center;
+}
+
+.sign-up-form__item {
+    width: 100%;
+}
+
+.sign-up-form__item input {
+    display: block;
+    width: inherit;
+}
+
+.sign-up-form__item.buttons {
+    display: flex;
+    justify-content: space-between;
+}
