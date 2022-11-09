@@ -10,7 +10,7 @@ export default function WelcomePage() {
         {localeEN.FORM_LINK_LOGIN}
       </Link>
       <Link to="/register" className="">
-        {localeEN.FORM_LINK_LOGIN}
+        {localeEN.FORM_LINK_REGISTRATION}
       </Link>
     </div>
   );

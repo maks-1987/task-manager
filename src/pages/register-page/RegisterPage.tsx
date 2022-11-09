@@ -4,6 +4,8 @@ import { localeEN } from '../../locales/localeEN';
 import './registerPage.css';
 import { Endpoints } from '../../endpoints/endpoints';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../redux/hooks';
+import { userSlice } from '../../redux/user-slice/userSlice';
 
 type FieldValues = {
   name: string;
@@ -15,6 +17,7 @@ export const RegisterPage = () => {
   const { register, handleSubmit, reset, formState } = useForm<FieldValues>({
     mode: 'onChange',
   });
+  const dispatch = useAppDispatch();
 
   const onSubmitForm: SubmitHandler<FieldValues> = async (data) => {
     const response = await fetch(Endpoints.SIGN_UP, {
@@ -25,9 +28,9 @@ export const RegisterPage = () => {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) console.log(response.status);
+    if (!response.ok) console.error(response.status);
     const userData = await response.json();
-    localStorage.setItem('userData', JSON.stringify(userData));
+    dispatch(userSlice.actions.setUserData(userData));
   };
 
   useEffect(() => {
