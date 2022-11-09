@@ -1,17 +1,32 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { SignIn } from '../../components/sign-in/SignIn';
-import { SignUp } from '../../components/sign-up/SignUp';
+import { localeEN } from '../../locales/localeEN';
 import './loginPage.css';
+import { Link } from 'react-router-dom';
 
 export const LoginPage = () => {
-  const [logIn, setLogIn] = useState(true);
-
-  const switchForms = (isClick: boolean) => setLogIn(isClick);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+  };
 
   return (
-    <div className="login-container container">
-      {logIn ? <SignIn switchForm={switchForms} /> : <SignUp switchForm={switchForms} />}
-    </div>
+    <form className="sign-in-form" onSubmit={handleSubmit}>
+      <p className="">{localeEN.FORM_BUTTON_LOGIN}</p>
+      <div className="">
+        <label htmlFor="login">Login</label>
+        <input type="text" id="login" required />
+      </div>
+      <div className="">
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" required />
+      </div>
+      <div className="">
+        <Link to="/register" className="">
+          {localeEN.FORM_LINK_REGISTRATION}
+        </Link>
+        <button type="submit" className="">
+          {localeEN.FORM_BUTTON_LOGIN}
+        </button>
+      </div>
+    </form>
   );
 };
