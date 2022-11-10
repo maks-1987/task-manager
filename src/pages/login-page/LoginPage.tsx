@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { localeEN } from '../../locales/localeEN';
-import './loginPage.css';
+import '../register-page/registerPage.css';
 import { Link } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../redux/hooks';
@@ -26,11 +26,11 @@ export const LoginPage = () => {
     if (formState.isSubmitSuccessful) {
       reset({ login: '', password: '' });
     }
-  }, [formState.isSubmitSuccessful]);
+  }, [formState.isSubmitSuccessful, reset]);
 
   return (
     <form className="sign-in-form" onSubmit={handleSubmit(onSubmitForm)}>
-      <p className="sign-in-form__title">{localeEN.FORM_BUTTON_LOGIN}</p>
+      <p className="sign-in-form__title">{localeEN.FORM_TITLE_LOGIN}</p>
       <div className="sign-in-form__item login">
         <label htmlFor="login">Login</label>
         <input

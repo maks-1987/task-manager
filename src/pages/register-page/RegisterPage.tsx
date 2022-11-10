@@ -21,7 +21,7 @@ export const RegisterPage = () => {
     if (formState.isSubmitSuccessful) {
       reset({ name: '', login: '', password: '' });
     }
-  }, [formState.isSubmitSuccessful]);
+  }, [formState.isSubmitSuccessful, reset]);
 
   return (
     <form className="sign-up-form" onSubmit={handleSubmit(onSubmitForm)}>
@@ -80,7 +80,7 @@ export const RegisterPage = () => {
           })}
         />
         <p className="form-messages">
-          {errors.password?.type === 'required' && <span>{errors.name?.message}</span>}
+          {errors.password?.type === 'required' && <span>{errors.password?.message}</span>}
           {errors.password?.type === 'minLength' && (
             <span>
               *{localeEN.FORM_MESSAGE_LETTERS} & {localeEN.FORM_MESSAGE_MIN_LENGTH}

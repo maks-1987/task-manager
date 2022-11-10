@@ -2,7 +2,7 @@ export const localeEN = {
   FORM_TITLE_REGISTRATION: 'Registration',
   FORM_BUTTON_REGISTRATION: 'Registration',
   FORM_LINK_REGISTRATION: 'to registration',
-  FORM_TITLE_LOGIN: 'Login',
+  FORM_TITLE_LOGIN: 'Authorization',
   FORM_BUTTON_LOGIN: 'Login',
   FORM_LINK_LOGIN: 'to login',
   FORM_MESSAGE_REQUIRED: 'this is required field',

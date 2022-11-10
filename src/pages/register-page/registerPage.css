@@ -1,24 +1,71 @@
-.sign-up-form {
+.sign-up-form,
+.sign-in-form {
     display: flex;
     flex-wrap: wrap;
     width: 300px;
     margin: 0 auto;
 }
 
-.sign-up-form__title {
+.sign-up-form__title,
+.sign-in-form__title {
     text-align: center;
-}
-
-.sign-up-form__item {
     width: 100%;
+    margin: 0px 0px 24px;
+    font-size: 20px;
+    font-weight: 600;
 }
 
-.sign-up-form__item input {
+.sign-up-form__item,
+.sign-in-form__item {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.sign-up-form__item input,
+.sign-in-form__item input {
+    padding: 4px 6px;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.sign-up-form__item label,
+.sign-in-form__item label {
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.sign-up-form__item button,
+.sign-in-form__item button {
+    min-width: 130px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid black;
+    font-family: inherit;
+    line-height: inherit;
+    font-size: inherit;
+}
+
+.sign-up-form__item:nth-last-child(2),
+.sign-in-form__item:nth-last-child(2) {
+    margin-bottom: 30px;
+}
+
+.sign-up-form__item input,
+.sign-in-form__item input {
     display: block;
     width: inherit;
 }
 
-.sign-up-form__item.buttons {
+.sign-up-form__item.buttons,
+.sign-in-form__item.buttons {
     display: flex;
     justify-content: space-between;
+}
+
+.form-messages {
+    font-size: 16px;
+    color: #e1001f;
+    min-height: 1.2rem;
 }
