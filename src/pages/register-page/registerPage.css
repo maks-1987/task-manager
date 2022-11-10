@@ -36,7 +36,8 @@
 }
 
 .sign-up-form__item button,
-.sign-in-form__item button {
+.sign-in-form__item button,
+.form-success__button {
     min-width: 130px;
     padding: 4px 8px;
     cursor: pointer;
@@ -47,8 +48,8 @@
     font-size: inherit;
 }
 
-.sign-up-form__item:nth-last-child(2),
-.sign-in-form__item:nth-last-child(2) {
+.sign-up-form__item.password,
+.sign-in-form__item.password {
     margin-bottom: 30px;
 }
 
@@ -65,7 +66,40 @@
 }
 
 .form-messages {
+    width: 100%;
     font-size: 16px;
     color: #e1001f;
     min-height: 1.2rem;
+}
+
+.form-success,
+.form-failed {
+    width: 100%;
+    min-height: 1rem;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.form-failed {
+    color: #e1001f;
+}
+
+.form-success {
+    color: green;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    column-gap: 30px;
+    align-items: center;
+}
+
+.form-success__message {
+    margin-bottom: 14px;
+}
+
+.form-success__button {
+    font-size: 16px;
 }

@@ -1,25 +1,27 @@
 import * as React from 'react';
 import { localeEN } from '../../locales/localeEN';
 import '../register-page/registerPage.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../redux/hooks';
-import { fetchLogin } from '../../redux/user-slice/userSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
 import { useEffect } from 'react';
-
-type FieldValues = {
-  login: string;
-  password: string;
-};
+import { IUserForm } from '../../types/types';
 
 export const LoginPage = () => {
-  const { register, handleSubmit, reset, formState } = useForm<FieldValues>({
+  const navigation = useNavigate();
+  const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
+  const { error } = useAppSelector((state) => state.userSlice);
+
   const { errors } = formState;
-  const onSubmitForm: SubmitHandler<FieldValues> = (data) => {
+  const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
     dispatch(fetchLogin(data));
+    if (error) {
+      navigation('/');
+    }
   };
 
   useEffect(() => {
@@ -27,6 +29,11 @@ export const LoginPage = () => {
       reset({ login: '', password: '' });
     }
   }, [formState.isSubmitSuccessful, reset]);
+
+  useEffect(() => {
+    dispatch(userSlice.actions.setError(''));
+    dispatch(userSlice.actions.setPassword(''));
+  }, [dispatch]);
 
   return (
     <form className="sign-in-form" onSubmit={handleSubmit(onSubmitForm)}>
@@ -73,6 +80,7 @@ export const LoginPage = () => {
           {localeEN.FORM_BUTTON_LOGIN}
         </button>
       </div>
+      <p className="form-failed">{error}</p>
     </form>
   );
 };
