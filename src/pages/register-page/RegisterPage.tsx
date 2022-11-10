@@ -12,7 +12,7 @@ export const RegisterPage = () => {
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
-
+  const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
     dispatch(fetchRegistration(data));
   };
@@ -32,12 +32,21 @@ export const RegisterPage = () => {
           type="text"
           id="name"
           {...register('name', {
-            required: true,
+            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
             maxLength: 20,
             minLength: 3,
             pattern: /^[A-Za-z]+$/i,
           })}
         />
+        <p className="form-messages">
+          {errors.name?.type === 'required' && <span>{errors.name.message}</span>}
+          {errors.name?.type === 'minLength' && (
+            <span>
+              *{localeEN.FORM_MESSAGE_LETTERS} & {localeEN.FORM_MESSAGE_MIN_LENGTH}
+            </span>
+          )}
+          {errors.name?.type === 'maxLength' && <span>*{localeEN.FORM_MESSAGE_MAX_LENGTH}</span>}
+        </p>
       </div>
       <div className="sign-up-form__item login">
         <label htmlFor="login">Login</label>
@@ -45,19 +54,39 @@ export const RegisterPage = () => {
           type="text"
           id="login"
           {...register('login', {
-            required: true,
+            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
             maxLength: 20,
             minLength: 3,
           })}
         />
+        <p className="form-messages">
+          {errors.login?.type === 'required' && <span>{errors.login.message}</span>}
+          {errors.login?.type === 'minLength' && (
+            <span>
+              *{localeEN.FORM_MESSAGE_LETTERS} & {localeEN.FORM_MESSAGE_MIN_LENGTH}
+            </span>
+          )}
+          {errors.login?.type === 'maxLength' && <span>*{localeEN.FORM_MESSAGE_MAX_LENGTH}</span>}
+        </p>
       </div>
       <div className="sign-up-form__item password">
         <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
-          {...register('password', { required: true, minLength: 3 })}
+          {...register('password', {
+            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
+            minLength: 3,
+          })}
         />
+        <p className="form-messages">
+          {errors.password?.type === 'required' && <span>{errors.name?.message}</span>}
+          {errors.password?.type === 'minLength' && (
+            <span>
+              *{localeEN.FORM_MESSAGE_LETTERS} & {localeEN.FORM_MESSAGE_MIN_LENGTH}
+            </span>
+          )}
+        </p>
       </div>
       <div className="sign-up-form__item buttons">
         <Link to="/login" className="">

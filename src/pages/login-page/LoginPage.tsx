@@ -37,15 +37,15 @@ export const LoginPage = () => {
           type="text"
           id="login"
           {...register('login', {
-            required: '*this is required field',
+            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
             maxLength: 20,
             minLength: 3,
           })}
         />
         <p className="form-messages">
           {errors.login?.type === 'required' && <span>{errors.login.message}</span>}
-          {errors.login?.type === 'minLength' && <span>*min length 3 symbols</span>}
-          {errors.login?.type === 'maxLength' && <span>*max length 20 symbols</span>}
+          {errors.login?.type === 'minLength' && <span>*{localeEN.FORM_MESSAGE_MIN_LENGTH}</span>}
+          {errors.login?.type === 'maxLength' && <span>*{localeEN.FORM_MESSAGE_MAX_LENGTH}</span>}
         </p>
       </div>
       <div className="sign-in-form__item password">
@@ -53,11 +53,16 @@ export const LoginPage = () => {
         <input
           type="password"
           id="password"
-          {...register('password', { required: '*this is required field', minLength: 3 })}
+          {...register('password', {
+            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
+            minLength: 3,
+          })}
         />
         <p className="form-messages">
           {errors.password?.type === 'required' && <span>{errors.password?.message}</span>}
-          {errors.password?.type === 'minLength' && <span>*min length 3 symbols</span>}
+          {errors.password?.type === 'minLength' && (
+            <span>*{localeEN.FORM_MESSAGE_MIN_LENGTH}</span>
+          )}
         </p>
       </div>
       <div className="sign-in-form__item buttons">

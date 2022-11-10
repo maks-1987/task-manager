@@ -5,4 +5,8 @@ export const localeEN = {
   FORM_TITLE_LOGIN: 'Login',
   FORM_BUTTON_LOGIN: 'Login',
   FORM_LINK_LOGIN: 'to login',
+  FORM_MESSAGE_REQUIRED: 'this is required field',
+  FORM_MESSAGE_MIN_LENGTH: 'min length 3 symbols',
+  FORM_MESSAGE_MAX_LENGTH: 'max length 20 symbols',
+  FORM_MESSAGE_LETTERS: 'only letters',
 };
