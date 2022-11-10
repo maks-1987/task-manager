@@ -12,7 +12,7 @@ export default function AppRouter() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<WelcomePage />} />
-        <Route path="boards/:id" element={<BoardsPage />} />
+        <Route path="boards/:login/:id" element={<BoardsPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
