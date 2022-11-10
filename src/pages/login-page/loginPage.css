@@ -7,5 +7,26 @@
 }
 
 .sign-in-form {
-    /*padding: 10px 14px;*/
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.sign-in-form__title {
+    text-align: center;
+}
+
+.sign-in-form__item {
+    width: 100%;
+}
+
+.sign-in-form__item input {
+    display: block;
+    width: inherit;
+}
+
+.sign-in-form__item.buttons {
+    display: flex;
+    justify-content: space-between;
 }

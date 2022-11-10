@@ -6,6 +6,7 @@ import { Endpoints } from '../../endpoints/endpoints';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../redux/hooks';
 import { userSlice } from '../../redux/user-slice/userSlice';
+import { IUser, IUserForm } from '../../types/types';
 
 type FieldValues = {
   name: string;
@@ -14,12 +15,12 @@ type FieldValues = {
 };
 
 export const RegisterPage = () => {
-  const { register, handleSubmit, reset, formState } = useForm<FieldValues>({
+  const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
 
-  const onSubmitForm: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmitForm: SubmitHandler<IUserForm> = async (data) => {
     const response = await fetch(Endpoints.SIGN_UP, {
       method: 'POST',
       headers: {
@@ -28,9 +29,12 @@ export const RegisterPage = () => {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) console.error(response.status);
-    const userData = await response.json();
-    dispatch(userSlice.actions.setUserData(userData));
+    if (!response.ok) {
+      console.error(response.status);
+    } else {
+      const userData: IUser = await response.json();
+      dispatch(userSlice.actions.setUserData(userData));
+    }
   };
 
   useEffect(() => {
