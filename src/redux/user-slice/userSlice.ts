@@ -1,25 +1,119 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '../../types/types';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUser, IUserForm } from '../../types/types';
+import { Endpoints } from '../../endpoints/endpoints';
 
-const initFormState: IUser = {
-  id: '',
-  name: '',
-  login: '',
-  password: '',
+interface IUserState {
+  user: IUser;
+  token: string;
+  error: string;
+}
+
+const initFormState: IUserState = {
+  user: {
+    id: '',
+    name: '',
+    login: '',
+  },
+  token: '',
+  error: '',
 };
+
+export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValue: string }>(
+  'register/fetchRegister',
+  async (user, { rejectWithValue }) => {
+    const response = await fetch(Endpoints.SIGN_UP, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      const userData = await response.json();
+      return rejectWithValue(userData.message);
+    }
+
+    const userData: IUser = await response.json();
+    return userData;
+  }
+);
+
+export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: string }>(
+  'login/fetchLogin',
+  async (user, { rejectWithValue, dispatch }) => {
+    const response = await fetch(Endpoints.SIGN_IN, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      const userData = await response.json();
+      return rejectWithValue(userData.message);
+    }
+
+    const userData = await response.json();
+    dispatch(userSlice.actions.setUserLogin(user.login));
+    return userData.token;
+  }
+);
 
 export const userSlice = createSlice({
   name: 'userData',
   initialState: initFormState,
   reducers: {
     setUserData(state, action: PayloadAction<IUser>) {
-      state.id = action.payload.id;
-      state.name = action.payload.name;
-      state.login = action.payload.login;
-      state.password = action.payload.password;
+      state.user = action.payload;
+    },
+    setUserToken(state, action: PayloadAction<string>) {
+      state.token = action.payload;
+    },
+    setUserLogin(state, action: PayloadAction<string>) {
+      state.user.login = action.payload;
+    },
+    setUserName(state, action: PayloadAction<string>) {
+      state.user.login = action.payload;
+    },
+    setUserId(state, action: PayloadAction<string>) {
+      state.user.login = action.payload;
     },
   },
-  extraReducers: () => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchRegistration.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(fetchRegistration.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.error = '';
+      })
+      .addCase(fetchRegistration.rejected, (state, action) => {
+        state.token = '';
+        state.user.login = '';
+        state.user.name = '';
+        state.user.id = '';
+        state.error = action.payload ? action.payload : '';
+      })
+      .addCase(fetchLogin.pending, (state) => {
+        state.user.name = '';
+        state.user.id = '';
+        state.error = '';
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        state.token = action.payload;
+        state.error = '';
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
+        state.token = '';
+        state.error = action.payload ? action.payload : '';
+        state.user.login = '';
+        state.user.name = '';
+        state.user.id = '';
+      });
+  },
 });
 
 export default userSlice.reducer;
