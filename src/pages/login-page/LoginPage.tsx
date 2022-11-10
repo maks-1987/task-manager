@@ -17,7 +17,7 @@ export const LoginPage = () => {
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
-
+  const { errors } = formState;
   const onSubmitForm: SubmitHandler<FieldValues> = (data) => {
     dispatch(fetchLogin(data));
   };
@@ -37,19 +37,28 @@ export const LoginPage = () => {
           type="text"
           id="login"
           {...register('login', {
-            required: true,
+            required: '*this is required field',
             maxLength: 20,
             minLength: 3,
           })}
         />
+        <p className="form-messages">
+          {errors.login?.type === 'required' && <span>{errors.login.message}</span>}
+          {errors.login?.type === 'minLength' && <span>*min length 3 symbols</span>}
+          {errors.login?.type === 'maxLength' && <span>*max length 20 symbols</span>}
+        </p>
       </div>
       <div className="sign-in-form__item password">
         <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
-          {...register('password', { required: true, minLength: 3 })}
+          {...register('password', { required: '*this is required field', minLength: 3 })}
         />
+        <p className="form-messages">
+          {errors.password?.type === 'required' && <span>{errors.password?.message}</span>}
+          {errors.password?.type === 'minLength' && <span>*min length 3 symbols</span>}
+        </p>
       </div>
       <div className="sign-in-form__item buttons">
         <Link to="/register" className="">
