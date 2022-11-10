@@ -2,17 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { localeEN } from '../../locales/localeEN';
 import './registerPage.css';
-import { Endpoints } from '../../endpoints/endpoints';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../redux/hooks';
-import { userSlice } from '../../redux/user-slice/userSlice';
-import { IUser, IUserForm } from '../../types/types';
-
-type FieldValues = {
-  name: string;
-  login: string;
-  password: string;
-};
+import { fetchRegistration } from '../../redux/user-slice/userSlice';
+import { IUserForm } from '../../types/types';
 
 export const RegisterPage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
@@ -20,21 +13,8 @@ export const RegisterPage = () => {
   });
   const dispatch = useAppDispatch();
 
-  const onSubmitForm: SubmitHandler<IUserForm> = async (data) => {
-    const response = await fetch(Endpoints.SIGN_UP, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      console.error(response.status);
-    } else {
-      const userData: IUser = await response.json();
-      dispatch(userSlice.actions.setUserData(userData));
-    }
+  const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
+    dispatch(fetchRegistration(data));
   };
 
   useEffect(() => {

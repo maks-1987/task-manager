@@ -5,7 +5,6 @@ import { Endpoints } from '../../endpoints/endpoints';
 interface IUserState {
   user: IUser;
   token: string;
-  loading: boolean;
   error: string;
 }
 
@@ -16,13 +15,12 @@ const initFormState: IUserState = {
     login: '',
   },
   token: '',
-  loading: false,
   error: '',
 };
 
 export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValue: string }>(
   'register/fetchRegister',
-  async (user, { rejectWithValue, dispatch }) => {
+  async (user, { rejectWithValue }) => {
     const response = await fetch(Endpoints.SIGN_UP, {
       method: 'POST',
       headers: {
@@ -31,15 +29,18 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
       body: JSON.stringify(user),
     });
 
-    if (!response.ok) console.error(response.status);
+    if (!response.ok) {
+      const userData = await response.json();
+      return rejectWithValue(userData.message);
+    }
+
     const userData: IUser = await response.json();
-    dispatch(userSlice.actions.setUserData(userData));
     return userData;
   }
 );
 
 export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: string }>(
-  'register/fetchRegister',
+  'login/fetchLogin',
   async (user, { rejectWithValue, dispatch }) => {
     const response = await fetch(Endpoints.SIGN_IN, {
       method: 'POST',
@@ -49,10 +50,14 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
       body: JSON.stringify(user),
     });
 
-    if (!response.ok) console.error(response.status);
-    const userData: string = await response.json();
-    // dispatch(userSlice.actions.setUserData(userData));
-    return userData;
+    if (!response.ok) {
+      const userData = await response.json();
+      return rejectWithValue(userData.message);
+    }
+
+    const userData = await response.json();
+    dispatch(userSlice.actions.setUserLogin(user.login));
+    return userData.token;
   }
 );
 
@@ -66,8 +71,49 @@ export const userSlice = createSlice({
     setUserToken(state, action: PayloadAction<string>) {
       state.token = action.payload;
     },
+    setUserLogin(state, action: PayloadAction<string>) {
+      state.user.login = action.payload;
+    },
+    setUserName(state, action: PayloadAction<string>) {
+      state.user.login = action.payload;
+    },
+    setUserId(state, action: PayloadAction<string>) {
+      state.user.login = action.payload;
+    },
   },
-  extraReducers: () => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchRegistration.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(fetchRegistration.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.error = '';
+      })
+      .addCase(fetchRegistration.rejected, (state, action) => {
+        state.token = '';
+        state.user.login = '';
+        state.user.name = '';
+        state.user.id = '';
+        state.error = action.payload ? action.payload : '';
+      })
+      .addCase(fetchLogin.pending, (state) => {
+        state.user.name = '';
+        state.user.id = '';
+        state.error = '';
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        state.token = action.payload;
+        state.error = '';
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
+        state.token = '';
+        state.error = action.payload ? action.payload : '';
+        state.user.login = '';
+        state.user.name = '';
+        state.user.id = '';
+      });
+  },
 });
 
 export default userSlice.reducer;

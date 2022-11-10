@@ -3,9 +3,8 @@ import { localeEN } from '../../locales/localeEN';
 import './loginPage.css';
 import { Link } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { Endpoints } from '../../endpoints/endpoints';
-import { userSlice } from '../../redux/user-slice/userSlice';
+import { useAppDispatch } from '../../redux/hooks';
+import { fetchLogin } from '../../redux/user-slice/userSlice';
 import { useEffect } from 'react';
 
 type FieldValues = {
@@ -18,25 +17,9 @@ export const LoginPage = () => {
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector((state) => state.userSlice);
 
-  const onSubmitForm: SubmitHandler<FieldValues> = async (data) => {
-    const response = await fetch(Endpoints.SIGN_IN, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      console.error(response.status);
-      // error = response;
-    } else {
-      const userData = await response.json();
-      console.log(userData);
-      dispatch(userSlice.actions.setUserToken(userData));
-    }
+  const onSubmitForm: SubmitHandler<FieldValues> = (data) => {
+    dispatch(fetchLogin(data));
   };
 
   useEffect(() => {
