@@ -21,6 +21,7 @@ export default function CreateBoardForm() {
     };
     dispatch(fetchAddNewUserBoard(dataForFetch));
   };
+
   useEffect(() => {
     isSubmitSuccessful && reset();
   }, [isSubmitSuccessful, reset]);
@@ -42,6 +43,10 @@ export default function CreateBoardForm() {
         <input
           {...register('description', {
             required: 'This field is requaered',
+            minLength: {
+              value: 5,
+              message: 'Should be min 5 character',
+            },
           })}
           type="text"
           placeholder={
