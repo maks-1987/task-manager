@@ -7,32 +7,45 @@
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: end;
   align-items: center;
   width: 100%;
-  height: 50px;
-  background-color: var(--color1);
+  height: 40px;
   border-bottom: var(--border1);
+  background-color: var(--color1);
 }
 
 .nav {
   display: flex;
   gap: 10px;
-  padding: 0 15px;
+  padding: 0 10px;
 }
 
 .nav__link,
 .nav__select {
-  display: inline-block;
-  width: 120px;
-  height: 25px;
-  font-size: 18px;
+  width: 100px;
+  height: 23px;
+  font-size: 16px;
+  color: var(--color3);
   text-align: center;
   text-decoration: none;
-  color: var(--color3);
   border: var(--border1);
   border-radius: 5px;
+}
+
+.nav__select {
+  width: 50px;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.nav__option {
+  background-color: var(--color1);
+  color: var(--color3);
 }
 
 .nav__link:hover,
@@ -41,8 +54,3 @@
   cursor: pointer;
 }
 
-.nav__select {
-  width: 50px;
-  font-size: 14px;
-  background-color: transparent;
-}

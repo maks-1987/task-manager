@@ -19,10 +19,18 @@ function Header(): JSX.Element {
         </Link>
 
         <select className="nav__select">
-          <option value="EN">EN</option>
-          <option value="UA">UA</option>
-          <option value="BY">BY</option>
-          <option value="RU">RU</option>
+          <option className="nav__option" value="EN">
+            EN
+          </option>
+          <option className="nav__option" value="UA">
+            UA
+          </option>
+          <option className="nav__option" value="BY">
+            BY
+          </option>
+          <option className="nav__option" value="RU">
+            RU
+          </option>
         </select>
       </nav>
     </header>
