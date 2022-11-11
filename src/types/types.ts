@@ -9,8 +9,13 @@ export interface IUserForm {
   login: string;
   password: string;
 }
-export interface IPreBoard {
+export interface IUserBoard {
   id: string;
   title: string;
   description?: string;
+}
+export interface IFetchQuery {
+  boardData?: IUserBoard;
+  boardId?: string;
+  token: string;
 }
