@@ -1,47 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import CreateBoardForm from '../../components/createBoardForm/CreateBoardForm';
-import { Endpoints } from '../../endpoints/endpoints';
-import { IPreBoard } from '../../types/types';
+import React, { useEffect } from 'react';
+import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPreviewItem';
+import CreateBoardForm from '../../components/boards/createBoardForm/CreateBoardForm';
+import Loader from '../../components/loader/Loader';
+import { fetchGetUserBoards } from '../../redux/boards-slice/boardsSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './borderPage.css';
 
-export const tokeMok =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0NGNmOTZkMi01OGZjLTRlMGMtOTZkOS05YWM0MjhkNGQ0OTUiLCJsb2dpbiI6InVzZXIwMDEiLCJpYXQiOjE2NTIwMDMyMTF9.EUlvrrs0Hl7wq1o-vkW5eh710CeNmhTfivk8aYkO43I';
-
 export default function BoardsPage() {
-  const [board, setBoard] = useState<IPreBoard>({
-    id: '',
-    title: '',
-  });
-  const [boards, setBoards] = useState<IPreBoard[]>([]);
-
-  const getBoards = async (token: string) => {
-    const response = await fetch(Endpoints.BOARDS, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    setBoards(data);
-  };
-  useEffect(() => {
-    return setBoards((boards) => [...boards, board]);
-  }, [board]);
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.userSlice.token);
+  const userBoards = useAppSelector((state) => state.boardsSlice.userBoards);
+  const isLoading = useAppSelector((state) => state.boardsSlice.isLoading);
 
   useEffect(() => {
-    getBoards(tokeMok);
-  }, []);
-  console.log(boards);
+    dispatch(fetchGetUserBoards(token));
+  }, [dispatch, token]);
+
   return (
     <section className="boards-page">
       <div className="boards-page__container">
         <h1 className="boards-page__title">Boards Page</h1>
-        <CreateBoardForm setBoard={setBoard} />
+        <CreateBoardForm />
         <section className="boards-page__container_boards-field">
-          {boards.length === 0
+          {isLoading && <Loader />}
+          {!userBoards.length
             ? 'You have not any boards'
-            : boards.map((board) => <span key={board.id}>board.title</span>)}
+            : userBoards.map((board, index) => (
+                <BoardPreviewItem key={board.id} userBoard={board} index={index} />
+              ))}
         </section>
       </div>
     </section>
