@@ -3,10 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 
 export default function Header() {
-  const { login, id } = useAppSelector((state) => state.userSlice);
+  const login = useAppSelector((state) => state.userSlice.user.login);
+  console.log(login);
   return (
     <div className="header">
-      <NavLink to={`boards/${login}/${id}`}>Boards</NavLink>
+      <NavLink to={`boards/:${login}`}>Boards</NavLink>
     </div>
   );
 }
