@@ -64,6 +64,26 @@ export const fetchRemoveUserBoard = createAsyncThunk<
   return dataForFetch;
 });
 
+export const fetchChangeUserBoard = createAsyncThunk<IUserBoard, IFetchQuery>(
+  'fetch/fetchChangeUserBoard',
+  async (dataForFetch, { rejectWithValue }) => {
+    const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+      body: JSON.stringify(dataForFetch.boardData),
+    });
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+    }
+    const newData = (await response.json()) as IUserBoard;
+    return newData;
+  }
+);
+
 interface IBoardsSlice {
   board: IUserBoard;
   userBoards: IUserBoard[];
@@ -83,11 +103,7 @@ const initialState: IBoardsSlice = {
 export const boardsSlice = createSlice({
   name: 'borads',
   initialState,
-  reducers: {
-    // setBoards(state, action: PayloadAction<IPreBoard>) {
-    //   state.boards = [...state.boards, action.payload];
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchGetUserBoards.pending, (state) => {
@@ -104,6 +120,10 @@ export const boardsSlice = createSlice({
       })
       .addCase(fetchRemoveUserBoard.fulfilled, (state, action) => {
         state.userBoards = state.userBoards.filter((board) => board.id !== action.payload.boardId);
+      })
+      .addCase(fetchChangeUserBoard.fulfilled, (state, action) => {
+        const cahsngedBoards = state.userBoards.filter((board) => board.id !== action.payload.id);
+        state.userBoards = [...cahsngedBoards, action.payload];
       });
   },
 });
