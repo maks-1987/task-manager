@@ -1,5 +1,6 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import {
   fetchChangeUserBoard,
   fetchRemoveUserBoard,
@@ -15,7 +16,10 @@ interface IProp {
 export default function BoardPreviewItem(props: IProp) {
   const { userBoard, index } = props;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector((state) => state.userSlice.user.login);
   const token = useAppSelector((state) => state.userSlice.token);
+
   const { register, handleSubmit } = useForm<IUserBoard>({
     mode: 'onChange',
     defaultValues: {
@@ -23,13 +27,13 @@ export default function BoardPreviewItem(props: IProp) {
       description: userBoard.description,
     },
   });
+
   const changeBoardData: SubmitHandler<IUserBoard> = (newData: IUserBoard) => {
     const newDataForFetch: IFetchQuery = {
       boardData: { ...newData },
       boardId: userBoard.id,
       token,
     };
-    console.log(newData);
     dispatch(fetchChangeUserBoard(newDataForFetch));
   };
 
@@ -40,11 +44,18 @@ export default function BoardPreviewItem(props: IProp) {
       token,
     };
     dispatch(fetchRemoveUserBoard(dataForFetch));
+    e.stopPropagation();
   };
+
   return (
-    <article className="boarder-preview-item">
+    <article
+      onClick={() => {
+        navigate(`/boards/${user}/board${index + 1}`);
+      }}
+      className="boarder-preview-item"
+    >
       <div className="boarder-previwe-item__container" id={userBoard.id}>
-        <h4 className="boarder-previwe-item__item-number">#{index}. </h4>
+        <h4 className="boarder-previwe-item__item-number">#{index + 1}. </h4>
         <form
           onBlur={handleSubmit(changeBoardData)}
           className="boarder-previwe-item__about-item"
@@ -60,6 +71,7 @@ export default function BoardPreviewItem(props: IProp) {
                 message: 'Should be min 5 character',
               },
             })}
+            onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
           />
           <input
             type="text"
@@ -71,6 +83,7 @@ export default function BoardPreviewItem(props: IProp) {
                 message: 'Should be min 5 character',
               },
             })}
+            onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
           />
         </form>
       </div>
