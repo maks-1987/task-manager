@@ -21,3 +21,13 @@
   background-color: blue;
   margin: 0 auto
 }
+.boards-page__container_boards-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-width: 95%;
+  overflow-y: auto;
+  background-color: aquamarine;
+}
