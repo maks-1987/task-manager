@@ -76,7 +76,6 @@
     color: rgba(211, 86, 29, 0.651);
     font-size: 0.75em;
     font-weight: 600;
-    border-bottom: 0.5px solid rgba(211, 86, 29, 0.651);
 }
   .create-board-form__add-board-button_tooltip {
     display: none;
