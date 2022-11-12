@@ -4,7 +4,7 @@ import CreateBoardForm from '../../components/boards/createBoardForm/CreateBoard
 import Loader from '../../components/loader/Loader';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import './borderPage.css';
+import './boardsPage.css';
 
 export default function BoardsPage() {
   const dispatch = useAppDispatch();
