@@ -5,4 +5,5 @@ export const localeEN = {
   FORM_TITLE_LOGIN: 'Login',
   FORM_BUTTON_LOGIN: 'Login',
   FORM_LINK_LOGIN: 'to login',
+  ADD_BOARD_TOOLTIP_MESSAGE: 'Both input fields must be filled',
 };
