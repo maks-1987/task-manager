@@ -7,7 +7,7 @@ export interface IUser {
 export interface IUserForm {
   name?: string;
   login: string;
-  password: string;
+  password?: string;
 }
 export interface IUserBoard {
   id: string;

@@ -1,13 +1,40 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../redux/hooks';
+import { Link } from 'react-router-dom';
+import './Header.css';
 
-export default function Header() {
-  const login = useAppSelector((state) => state.userSlice.user.login);
-  console.log(login);
+function Header(): JSX.Element {
   return (
-    <div className="header">
-      <NavLink to={`boards/:${login}`}>Boards</NavLink>
-    </div>
+    <header className="header">
+      <nav className="nav">
+        <Link className="nav__link" to="boards/:id">
+          Create board
+        </Link>
+
+        <Link className="nav__link" to="profile">
+          Edit profile
+        </Link>
+
+        <Link className="nav__link" to="logout">
+          Sign Out
+        </Link>
+
+        <select className="nav__select">
+          <option className="nav__option" value="EN">
+            EN
+          </option>
+          <option className="nav__option" value="UA">
+            UA
+          </option>
+          <option className="nav__option" value="BY">
+            BY
+          </option>
+          <option className="nav__option" value="RU">
+            RU
+          </option>
+        </select>
+      </nav>
+    </header>
   );
 }
+
+export default Header;
