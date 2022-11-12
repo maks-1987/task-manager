@@ -2,6 +2,14 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button, input {
+  font-family: inherit;
+  line-height: inherit;
+  font-size: inherit;
 }
 
 body {

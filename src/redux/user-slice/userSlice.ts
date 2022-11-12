@@ -6,6 +6,7 @@ interface IUserState {
   user: IUser;
   token: string;
   error: string;
+  password?: string;
 }
 
 const initFormState: IUserState = {
@@ -14,13 +15,14 @@ const initFormState: IUserState = {
     name: '',
     login: '',
   },
+  password: '',
   token: '',
   error: '',
 };
 
 export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValue: string }>(
   'register/fetchRegister',
-  async (user, { rejectWithValue }) => {
+  async (user, { rejectWithValue, dispatch }) => {
     const response = await fetch(Endpoints.SIGN_UP, {
       method: 'POST',
       headers: {
@@ -35,6 +37,9 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
     }
 
     const userData: IUser = await response.json();
+    if (user.password != null) {
+      dispatch(userSlice.actions.setPassword(user.password));
+    }
     return userData;
   }
 );
@@ -57,6 +62,7 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
 
     const userData = await response.json();
     dispatch(userSlice.actions.setUserLogin(user.login));
+    dispatch(userSlice.actions.setPassword(''));
     return userData.token;
   }
 );
@@ -79,6 +85,12 @@ export const userSlice = createSlice({
     },
     setUserId(state, action: PayloadAction<string>) {
       state.user.login = action.payload;
+    },
+    setError(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+    },
+    setPassword(state, action: PayloadAction<string>) {
+      state.password = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -107,9 +119,7 @@ export const userSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchLogin.rejected, (state, action) => {
-        state.token = '';
         state.error = action.payload ? action.payload : '';
-        state.user.login = '';
         state.user.name = '';
         state.user.id = '';
       });
