@@ -19,7 +19,7 @@ export const LoginPage = () => {
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
     dispatch(fetchLogin(data));
-    if (error) {
+    if (!error.length) {
       navigation('/');
     }
   };

@@ -1,12 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import LanguageSelector from '../../UI/global-modal/LanguageSelector/LanguageSelector';
 import './Header.css';
 
 function Header(): JSX.Element {
-  return (
+  const location = useLocation();
+  const paths: string[] = ['/', '/login', '/register'];
+
+  return paths.includes(location.pathname) ? (
+    <></>
+  ) : (
     <header className="header">
       <nav className="nav">
-        <Link className="nav__link" to="boards/:id">
+        <Link className="nav__link" to="boards">
           Create board
         </Link>
 
@@ -18,20 +24,7 @@ function Header(): JSX.Element {
           Sign Out
         </Link>
 
-        <select className="nav__select">
-          <option className="nav__option" value="EN">
-            EN
-          </option>
-          <option className="nav__option" value="UA">
-            UA
-          </option>
-          <option className="nav__option" value="BY">
-            BY
-          </option>
-          <option className="nav__option" value="RU">
-            RU
-          </option>
-        </select>
+        <LanguageSelector />
       </nav>
     </header>
   );
