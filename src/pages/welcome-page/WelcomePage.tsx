@@ -12,6 +12,9 @@ export default function WelcomePage() {
       <Link to="/register" className="">
         {localeEN.FORM_LINK_REGISTRATION}
       </Link>
+      <Link to="/board" className="">
+        To Project Board
+      </Link>
     </div>
   );
 }

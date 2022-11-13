@@ -6,6 +6,7 @@ import WelcomePage from '../../pages/welcome-page/WelcomePage';
 import Layout from './Layout';
 import { RegisterPage } from '../../pages/register-page/RegisterPage';
 import { LoginPage } from '../../pages/login-page/LoginPage';
+import { ProjectBoard } from '../../pages/project-board/ProjectBoard';
 
 export default function AppRouter() {
   return (
@@ -13,6 +14,7 @@ export default function AppRouter() {
       <Route path="/" element={<Layout />}>
         <Route index element={<WelcomePage />} />
         <Route path="boards/:id" element={<BoardsPage />} />
+        <Route path="board" element={<ProjectBoard />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
