@@ -21,9 +21,9 @@
 }
 
 .project-board__columns {
-    height: 84vh;
+    height: 82vh;
     display: flex;
     padding: 10px 15px;
-    column-gap: 10px;
+    column-gap: 20px;
     overflow-x: auto;
 }

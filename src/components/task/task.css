@@ -1,0 +1,6 @@
+.task {
+    margin-bottom: 14px;
+    border: var(--border1);
+    border-radius: 6px;
+    padding: 4px;
+}
