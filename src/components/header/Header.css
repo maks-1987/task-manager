@@ -8,7 +8,9 @@
 
 .header {
   display: flex;
-  justify-content: end;
+  top: 0;
+  left: 0;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   height: 40px;
