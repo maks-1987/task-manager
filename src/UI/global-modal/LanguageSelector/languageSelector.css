@@ -1,0 +1,29 @@
+:root {
+  --color1: #fefefe;
+  --color2: #e1e1e1;
+  --color3: #464646;
+
+  --border1: 1px solid #e1e1e1;
+}
+
+.select {
+  width: 50px;
+  height: 23px;
+  font-size: 14px;
+  color: var(--color3);
+  text-align: center;
+  text-decoration: none;
+  border: var(--border1);
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.select:hover {
+  background-color: var(--color2);
+  cursor: pointer;
+}
+
+.option {
+  background-color: var(--color1);
+  color: var(--color3);
+}
