@@ -9,9 +9,10 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import userSlice from './user-slice/userSlice';
 import storage from 'redux-persist/lib/storage';
+import userSlice from './user-slice/userSlice';
 import modalSlice from './modal-slice/modalSlice';
+import settingsSlise from './settings-slice/settingsSlise';
 
 const persistConfig = {
   key: 'root',
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   userSlice,
   modalSlice,
+  settingsSlise,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
