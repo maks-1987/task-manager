@@ -4,14 +4,9 @@ import Footer from '../footer/Footer';
 import Header from '../header/Header';
 
 export default function Layout() {
-  const location = useLocation();
   return (
     <>
-      {location.pathname === '/' ||
-      location.pathname === '/login' ||
-      location.pathname === '/register' ? null : (
-        <Header />
-      )}
+      <Header />
       <div className="container">
         <Outlet />
       </div>
