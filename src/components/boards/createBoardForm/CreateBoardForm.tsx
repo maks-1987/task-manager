@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './createBoardForm.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
-import { localeEN } from '../../../locales/localeEN';
+import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
+import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 
 export default function CreateBoardForm() {
-  const [toolTip, setToolTip] = useState<string>('');
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const {
@@ -23,14 +23,8 @@ export default function CreateBoardForm() {
       token,
     };
     dispatch(fetchAddNewUserBoard(dataForFetch));
-  };
-  const showToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    !isValid ? setToolTip(localeEN.ADD_BOARD_TOOLTIP_MESSAGE) : null;
-  };
-  const hideToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    !isValid && setToolTip('');
+    dispatch(setModalOpen(false));
+    dispatch(setIsRemoveBoard(false));
   };
   useEffect(() => {
     isSubmitSuccessful && reset();
@@ -64,15 +58,7 @@ export default function CreateBoardForm() {
           }
           className="create-board-form__description-input"
         />
-        <button
-          disabled={!isValid}
-          className="create-board-form__add-board-button"
-          onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => showToolTip(e)}
-          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => hideToolTip(e)}
-        >
-          <div className="create-board-form__add-board-button_tooltip">{toolTip}</div>
-          <span className="add-board-button__yes">&#10004;</span>
-        </button>
+        <ButtonSuccess isValid={isValid} />
       </form>
     </>
   );
