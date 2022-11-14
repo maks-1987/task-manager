@@ -7,13 +7,14 @@ import Layout from './Layout';
 import { RegisterPage } from '../../pages/register-page/RegisterPage';
 import { LoginPage } from '../../pages/login-page/LoginPage';
 import { ProjectBoard } from '../../pages/project-board/ProjectBoard';
+import SingleBoard from '../../pages/single-board-page/SingleBoard';
 
 export default function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<WelcomePage />} />
-        <Route path="boards/:id" element={<BoardsPage />} />
+        <Route path="boards/:user/:boardId" element={<SingleBoard />} />
         <Route path="board" element={<ProjectBoard />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />

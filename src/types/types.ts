@@ -10,6 +10,18 @@ export interface IUserForm {
   password?: string;
 }
 
+export interface IUserBoard {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+export interface IFetchQuery {
+  boardData?: IUserBoard;
+  boardId?: string;
+  token: string;
+}
+
 export interface IBoard {
   id: string;
   title: string;
@@ -47,3 +59,4 @@ export type UserId = {
 export type BoardId = {
   [key: number]: string;
 };
+
