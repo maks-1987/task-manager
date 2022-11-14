@@ -17,7 +17,7 @@
     font-weight: 600;
 }
 
-input[type=text]:not(:focus) {
+.column-item input[type=text]:not(:focus) {
     border-color: transparent;
     color: inherit;
     background: inherit;

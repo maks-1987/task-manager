@@ -7,7 +7,7 @@
 }
 
 .container {
-  height: 100vh;
+
 }
 
 button,
@@ -31,8 +31,8 @@ code {
 
 #root {
   height: 100vh;
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
-  /*flex-wrap: wrap;*/
+
+
+
+
 }
