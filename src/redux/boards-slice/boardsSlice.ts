@@ -1,5 +1,5 @@
 import { IUserBoard, IFetchQuery } from './../../types/types';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
 
 export const fetchGetUserBoards = createAsyncThunk<IUserBoard[], string, { rejectValue: string }>(
@@ -89,6 +89,7 @@ interface IBoardsSlice {
   userBoards: IUserBoard[];
   isLoading: boolean;
   errorMessage: string;
+  removedBoardId: string;
 }
 const initialState: IBoardsSlice = {
   board: {
@@ -99,11 +100,16 @@ const initialState: IBoardsSlice = {
   userBoards: [],
   isLoading: true,
   errorMessage: '',
+  removedBoardId: '',
 };
 export const boardsSlice = createSlice({
   name: 'borads',
   initialState,
-  reducers: {},
+  reducers: {
+    setRemovedBoardId(state, action: PayloadAction<string>) {
+      state.removedBoardId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGetUserBoards.pending, (state) => {
@@ -127,5 +133,5 @@ export const boardsSlice = createSlice({
       });
   },
 });
-// export const {} = boardsSlice.actions;
+export const { setRemovedBoardId } = boardsSlice.actions;
 export default boardsSlice.reducer;
