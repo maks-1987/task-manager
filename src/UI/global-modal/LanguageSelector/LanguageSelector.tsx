@@ -1,12 +1,6 @@
 import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
-import {
-  setLanguage,
-  selectedEN,
-  selectedUA,
-  selectedBY,
-  selectedRU,
-} from '../../../redux/settings-slice/settingsSlise';
+import { setLanguage } from '../../../redux/settings-slice/settingsSlise';
 import './languageSelector.css';
 
 function LanguageSelector(): JSX.Element {
@@ -16,38 +10,19 @@ function LanguageSelector(): JSX.Element {
   return (
     <select
       className="select"
+      value={state.languageIndex}
       onChange={(event) => dispatch(setLanguage(Number(event.target.value)))}
     >
-      <option
-        className="option"
-        value={0}
-        selected={state.selectedEN}
-        onClick={() => dispatch(selectedEN())}
-      >
+      <option className="option" value={0}>
         EN
       </option>
-      <option
-        className="option"
-        value={1}
-        selected={state.selectedUA}
-        onClick={() => dispatch(selectedUA())}
-      >
+      <option className="option" value={1}>
         UA
       </option>
-      <option
-        className="option"
-        value={2}
-        selected={state.selectedBY}
-        onClick={() => dispatch(selectedBY())}
-      >
+      <option className="option" value={2}>
         BY
       </option>
-      <option
-        className="option"
-        value={3}
-        selected={state.selectedRU}
-        onClick={() => dispatch(selectedRU())}
-      >
+      <option className="option" value={3}>
         RU
       </option>
     </select>
