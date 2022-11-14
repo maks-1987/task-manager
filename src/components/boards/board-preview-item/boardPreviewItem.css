@@ -1,0 +1,79 @@
+.boards-page__container_boards-field::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgba(39, 34, 34, 0.308);
+  border-radius: 5px;
+}
+.boards-page__container_boards-field::-webkit-scrollbar-thumb {
+  width:3px;
+  max-height: 50px;
+  border-radius: 5px;
+  background-color: rgba(39, 34, 34, 0.377);
+}
+.boarder-preview-item {
+  position: relative;
+  width: 90%;
+  min-height: 60px;
+  margin: 3px 0;
+  border-radius: 5px;
+  outline: 1px solid rgba(39, 34, 34, 0.473);
+}
+.boarder-preview-item:hover {
+  cursor: pointer;
+  outline: 2px solid rgba(39, 34, 34, 0.473);
+  border-radius: 5px;
+}
+.boarder-previwe-item__container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  padding: 0px 5px;
+}
+
+.boarder-previwe-item__about-item {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 70%;
+  height: 100%;
+  margin: 0 5px;
+}
+.boarder-previwe-item__title,
+.boarder-previwe-item__description {
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  height: 20px;
+  font-size: 1em;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  margin: 5px 0;
+}
+.boarder-previwe-item__title:hover,
+.boarder-previwe-item__description:hover {
+  cursor: text;
+  border-bottom: 1px solid rgba(39, 34, 34, 0.473);
+} 
+.boarder-previwe-item__todo-btn-block {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.boarder-previwe-item__remove-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  padding: 0px;
+}

@@ -1,28 +1,30 @@
 import React, { ReactElement } from 'react';
 import './globalModal.css';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { modalSlice } from '../../redux/modal-slice/modalSlice';
+import { useAppSelector } from '../../redux/hooks';
+import { localeEN } from '../../locales/localeEN';
+import ConfirmButton from '../modal-confirm-button/ConfirmButton';
+import CloseModalButton from '../close-modal-button/CloseModalButton';
 
-type Props = { component: ReactElement };
+type Props = { component: ReactElement | string };
 
 export const GlobalModal = (props: Props) => {
   const { isModalOpen } = useAppSelector((state) => state.modalSlice);
-  const dispatch = useAppDispatch();
+  const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
 
   return (
-    <div
-      className={isModalOpen ? 'modal active' : 'modal'}
-      onClick={() => dispatch(modalSlice.actions.setModalOpen(false))}
-    >
+    <div className={isModalOpen ? 'modal active' : 'modal'}>
       <div
         className={isModalOpen ? 'modal__content active' : 'modal__content'}
         onClick={(event): void => event.stopPropagation()}
       >
-        <h3>Modal</h3>
-        <button onClick={() => dispatch(modalSlice.actions.setModalOpen(false))}>
-          close modal
-        </button>
-        {props.component}
+        <CloseModalButton />
+        <h3 className="modal-contene-message">
+          {isRemoveBoard && typeof props.component === 'string'
+            ? localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
+            : localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE}
+        </h3>
+        {!isRemoveBoard && props.component}
+        {isRemoveBoard && <ConfirmButton />}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import boardsSlice from './boards-slice/boardsSlice';
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
 import {
   FLUSH,
@@ -23,6 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   userSlice,
   modalSlice,
+  boardsSlice,
   settingsSlise,
 });
 
