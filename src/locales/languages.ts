@@ -1,4 +1,4 @@
 export const languages = {
-  signIn: ['Sign in', 'Вход'],
-  register: ['Register', 'Регистрация'],
+  signIn: ['Sign in', 'Увійти', 'Увайсці', 'Войти'],
+  register: ['Register', 'Реєстрація', 'Рэгiстрацыя', 'Регистрация'],
 };
