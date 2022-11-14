@@ -14,7 +14,6 @@ export const fetchGetUserBoards = createAsyncThunk<IUserBoard[], string, { rejec
     });
 
     if (!response.ok) {
-      // const userBoards = await response.json();
       return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
     }
 
