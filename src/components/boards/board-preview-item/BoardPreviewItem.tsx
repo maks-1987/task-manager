@@ -4,9 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchChangeUserBoard,
   fetchRemoveUserBoard,
+  setRemovedBoardId,
 } from '../../../redux/boards-slice/boardsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
+import CrossButton from '../../../UI/cross-button/CrossButton';
 import './boardPreviewItem.css';
 
 interface IProp {
@@ -37,13 +40,10 @@ export default function BoardPreviewItem(props: IProp) {
     dispatch(fetchChangeUserBoard(newDataForFetch));
   };
 
-  const removeBoard = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const boardId = e.currentTarget.id;
-    const dataForFetch: IFetchQuery = {
-      boardId,
-      token,
-    };
-    dispatch(fetchRemoveUserBoard(dataForFetch));
+  const goToModalWindow = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setIsRemoveBoard(true));
+    dispatch(setModalOpen(true));
+    dispatch(setRemovedBoardId(e.currentTarget.id));
     e.stopPropagation();
   };
 
@@ -88,13 +88,7 @@ export default function BoardPreviewItem(props: IProp) {
         </form>
       </div>
       <div id={userBoard.id} className="boarder-previwe-item__todo-btn-block">
-        <button
-          id={userBoard.id}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => removeBoard(e)}
-          className="boarder-previwe-item__remove-button"
-        >
-          <span className="remove-button__cross">&times;</span>
-        </button>
+        <CrossButton id={userBoard.id} goToModalWindow={goToModalWindow} />
       </div>
     </article>
   );

@@ -9,7 +9,6 @@
   border-radius: 5px;
   background-color: rgba(39, 34, 34, 0.377);
 }
-
 .boarder-preview-item {
   position: relative;
   width: 90%;
@@ -77,22 +76,4 @@
   border: none;
   background-color: transparent;
   padding: 0px;
-}
-.remove-button__cross {
-  display: block;
-  color: rgba(39, 34, 34, 0.473);
-  font-size: 5em;
-  font-weight: 200;
-  line-height: 60px;
-}
-.boarder-previwe-item__remove-button:hover {
-  cursor: pointer;
-  border-radius: 5px;
-  outline: 1px solid rgba(39, 34, 34, 0.473);
-}
-.boarder-previwe-item__remove-button:hover .remove-button__cross{
-  font-weight: 600;
-}
-.boarder-previwe-item__remove-button:active .remove-button__cross{
-  font-weight: 400;
 }
