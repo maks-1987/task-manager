@@ -1,0 +1,45 @@
+.add-board-button-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+  min-width: 300px;
+  height: 40px;
+  padding: 0px 5px;
+}
+.add-board-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  z-index: 1000;
+}
+.add-board-button-label {
+  width: 100px;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin-right: 15px;
+}
+.add-board-button-cross {
+  transform: rotate(45deg);
+  fill: rgba(39, 34, 34, 0.473);
+}
+.add-board-button:hover {
+  cursor: pointer;
+  border: 1px solid rgba(73, 173, 73, 0.411);
+  border-radius: 5px;
+}
+.add-board-button:active {
+  cursor: pointer;
+  border: 1px solid rgba(73, 173, 73, 0.411);
+  border-radius: 5px;
+  transform: scale(0.95);
+}
+.add-board-button:hover .add-board-button-cross {
+  transform: rotate(45deg);
+  fill: rgba(73, 173, 73, 0.411);
+}
