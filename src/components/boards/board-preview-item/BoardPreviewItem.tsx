@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchChangeUserBoard,
   fetchRemoveUserBoard,
+  setCurrentBoardId,
   setRemovedBoardId,
 } from '../../../redux/boards-slice/boardsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -49,8 +50,9 @@ export default function BoardPreviewItem(props: IProp) {
 
   return (
     <article
-      onClick={() => {
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
         navigate(`/boards/${user}/board${index + 1}`);
+        dispatch(setCurrentBoardId(e.currentTarget.id));
       }}
       className="boarder-preview-item"
     >
