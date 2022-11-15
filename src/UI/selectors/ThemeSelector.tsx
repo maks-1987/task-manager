@@ -9,18 +9,18 @@ function ThemeSelector(): JSX.Element {
 
   return (
     <select
-      className="select"
+      className={'select ' + state.themeIndex}
       value={state.themeIndex}
       onChange={(event) => dispatch(setTheme(event.target.value))}
     >
-      <option className={'option  option-' + state.themeIndex} value="light">
+      <option className={'option ' + state.themeIndex} value="light">
         Light
       </option>
-      <option className="option" value="dark">
+      <option className={'option ' + state.themeIndex} value="dark">
         Dark
       </option>
-      <option className="option" value="retro">
-        Retro
+      <option className={'option ' + state.themeIndex} value="color">
+        Color
       </option>
     </select>
   );

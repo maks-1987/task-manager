@@ -1,11 +1,3 @@
-:root {
-  --color1: #fefefe;
-  --color2: #e1e1e1;
-  --color3: #464646;
-
-  --border1: 1px solid #e1e1e1;
-}
-
 .header {
   position: fixed;
   top: 0;
