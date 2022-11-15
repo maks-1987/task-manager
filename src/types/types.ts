@@ -44,7 +44,7 @@ export interface ITask {
   userId: string;
   boardId: string;
   columnId: string;
-  files: IFiles;
+  files?: IFiles;
 }
 
 export interface IFiles {
@@ -60,3 +60,9 @@ export type BoardId = {
   [key: number]: string;
 };
 
+export interface IComleteBoard {
+  id: string;
+  title: string;
+  order: number;
+  tasks?: ITask[];
+}
