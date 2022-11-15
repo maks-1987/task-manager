@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { languages } from '../../locales/languages';
-import LanguageSelector from '../../UI/global-modal/LanguageSelector/LanguageSelector';
+import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import './welcomePage.css';
+import ThemeSelector from '../../UI/selectors/ThemeSelector';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlise);
@@ -11,8 +12,9 @@ function WelcomePage() {
   return (
     <>
       <div className="welcome-page-container">
-        <div className="language-selector-wrapper">
+        <div className="selectors-container">
           <LanguageSelector />
+          <ThemeSelector />
         </div>
         <div className="auth-links">
           <Link to="/login" className="auth-link">

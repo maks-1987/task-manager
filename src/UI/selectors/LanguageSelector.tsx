@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
-import { setLanguage } from '../../../redux/settings-slice/settingsSlise';
-import './languageSelector.css';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { setLanguage } from '../../redux/settings-slice/settingsSlise';
+import './selectors.css';
 
 function LanguageSelector(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import LanguageSelector from '../../UI/global-modal/LanguageSelector/LanguageSelector';
-import './Header.css';
+import LanguageSelector from '../../UI/selectors/LanguageSelector';
+import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import './header.css';
 
 function Header(): JSX.Element {
   const location = useLocation();
@@ -25,6 +26,7 @@ function Header(): JSX.Element {
         </Link>
 
         <LanguageSelector />
+        <ThemeSelector />
       </nav>
     </header>
   );

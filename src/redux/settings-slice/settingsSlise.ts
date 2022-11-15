@@ -4,10 +4,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type ISettingsState = {
   languageIndex: number;
+  themeIndex: string;
 };
 
 const settingsState: ISettingsState = {
   languageIndex: 0,
+  themeIndex: 'light',
 };
 
 const settingsSlice = createSlice({
@@ -17,9 +19,12 @@ const settingsSlice = createSlice({
     setLanguage(state, action: PayloadAction<number>): void {
       state.languageIndex = action.payload;
     },
+    setTheme(state, action: PayloadAction<string>): void {
+      state.themeIndex = action.payload;
+    },
   },
 });
 
-export const { setLanguage } = settingsSlice.actions;
+export const { setLanguage, setTheme } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

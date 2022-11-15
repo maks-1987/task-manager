@@ -1,6 +1,6 @@
 import React from 'react';
 import { ghSvg, rssSvg } from './svg';
-import './Footer.css';
+import './footer.css';
 
 export default function Footer() {
   return (
