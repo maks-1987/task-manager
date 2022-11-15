@@ -1,17 +1,21 @@
 import React from 'react';
 import { localeEN } from '../../locales/localeEN';
 import { useAppDispatch } from '../../redux/hooks';
-import { setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import './addBoardButton.css';
 
 export default function AddBoardButton() {
   const dispatch = useAppDispatch();
+  const addBoardButtonHandler = () => {
+    dispatch(setModalOpen(true));
+    dispatch(setIsCreateBoard(true));
+  };
   return (
     <div className="add-board-button-container">
       <span className="add-board-button-label">
         {localeEN.boardsContet.ADD_NEW_BOARD_BUTTON_LABEL}
       </span>
-      <button className="add-board-button" onClick={() => dispatch(setModalOpen(true))}>
+      <button className="add-board-button" onClick={addBoardButtonHandler}>
         <svg
           className="add-board-button-cross"
           xmlns="http://www.w3.org/2000/svg"
