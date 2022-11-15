@@ -27,6 +27,11 @@ export const columnsSlice = createSlice({
       state.isLoading = true;
       state.errorMessage = '';
     });
+    builder.addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.userComleteColumns = [...action.payload];
+      state.errorMessage = '';
+    });
   },
 });
 // export const { setRemovedBoardId } = boardsSlice.actions;
