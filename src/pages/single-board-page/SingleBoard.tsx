@@ -6,6 +6,7 @@ import { localeEN } from '../../locales/localeEN';
 import { fetchGetAllUserColumns } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IFetchQuery } from '../../types/types';
+import { ButtonNewColumn } from '../../UI/buttons/ButtonNewColumn';
 import './singleBoard.css';
 
 export default function SingleBoard() {
@@ -33,7 +34,7 @@ export default function SingleBoard() {
         {!userComleteColumns.length
           ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
           : userComleteColumns.map((column, index) => <Column key={column.id} />)}
-        <button className="project-board__add-column-button">Add</button>
+        <ButtonNewColumn />
       </article>
     </main>
   );
