@@ -89,6 +89,7 @@ interface IBoardsSlice {
   isLoading: boolean;
   errorMessage: string;
   removedBoardId: string;
+  currentBoardId: string;
 }
 const initialState: IBoardsSlice = {
   board: {
@@ -100,6 +101,7 @@ const initialState: IBoardsSlice = {
   isLoading: true,
   errorMessage: '',
   removedBoardId: '',
+  currentBoardId: '',
 };
 export const boardsSlice = createSlice({
   name: 'borads',
@@ -107,6 +109,9 @@ export const boardsSlice = createSlice({
   reducers: {
     setRemovedBoardId(state, action: PayloadAction<string>) {
       state.removedBoardId = action.payload;
+    },
+    setCurrentBoardId(state, action: PayloadAction<string>) {
+      state.currentBoardId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -132,5 +137,5 @@ export const boardsSlice = createSlice({
       });
   },
 });
-export const { setRemovedBoardId } = boardsSlice.actions;
+export const { setRemovedBoardId, setCurrentBoardId } = boardsSlice.actions;
 export default boardsSlice.reducer;
