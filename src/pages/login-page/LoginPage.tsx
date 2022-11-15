@@ -20,7 +20,7 @@ export const LoginPage = () => {
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
     dispatch(fetchLogin(data));
     if (!error.length) {
-      navigation('/');
+      navigation(`/boards/${data.login}`);
     }
   };
 
