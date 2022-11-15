@@ -1,13 +1,20 @@
 import React from 'react';
 import './closeModalButton.css';
 import { useAppDispatch } from '../../redux/hooks';
-import { modalSlice, setIsRemoveBoard } from '../../redux/modal-slice/modalSlice';
+import {
+  modalSlice,
+  setIsCreateBoard,
+  setIsCreateColumnOrTask,
+  setIsRemoveBoard,
+} from '../../redux/modal-slice/modalSlice';
 
 export default function CloseModalButton() {
   const dispatch = useAppDispatch();
   const closeModalWindow = () => {
     dispatch(setIsRemoveBoard(false));
+    dispatch(setIsCreateColumnOrTask(false));
     dispatch(modalSlice.actions.setModalOpen(false));
+    dispatch(setIsCreateBoard(false));
   };
   return (
     <>
