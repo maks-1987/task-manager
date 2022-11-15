@@ -10,7 +10,14 @@ type Props = { component: ReactElement | string };
 export const GlobalModal = (props: Props) => {
   const { isModalOpen } = useAppSelector((state) => state.modalSlice);
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
+  const isCreateColumnOrTask = useAppSelector((state) => state.modalSlice.isCreateColumnOrTask);
+  const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
 
+  const currentModalTitle = isCreateBoard
+    ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE
+    : isCreateColumnOrTask
+    ? localeEN.modalContetntMessage.CREATE_NEW_COLUMN_MESSAGE
+    : localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE;
   return (
     <div className={isModalOpen ? 'modal active' : 'modal'}>
       <div
@@ -18,11 +25,7 @@ export const GlobalModal = (props: Props) => {
         onClick={(event): void => event.stopPropagation()}
       >
         <CloseModalButton />
-        <h3 className="modal-contene-message">
-          {isRemoveBoard && typeof props.component === 'string'
-            ? localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
-            : localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE}
-        </h3>
+        <h3 className="modal-contene-message">{currentModalTitle}</h3>
         {!isRemoveBoard && props.component}
         {isRemoveBoard && <ConfirmButton />}
       </div>
