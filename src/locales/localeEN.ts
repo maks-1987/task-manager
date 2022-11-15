@@ -14,6 +14,9 @@ export const localeEN = {
     ADD_NEW_BOARD_BUTTON_LABEL: 'Add new board',
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards',
   },
+  columnContet: {
+    HAVE_NOT_COLUMN_MESSAGE: 'You have not any colums',
+  },
   modalContetntMessage: {
     REMOVE_BOARD_CONFIRM_MESSAGE: `If you want to delete the board, confirm the action.`,
     CREATE_NEW_BOARD_MESSAGE: 'Create a new task board.',
