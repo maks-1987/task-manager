@@ -1,17 +1,19 @@
+import { IFetchQuery } from './../../types/types';
 import { IComleteBoard } from '../../types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
 
 export const fetchGetAllUserColumns = createAsyncThunk<
   IComleteBoard[],
-  string,
+  IFetchQuery,
   { rejectValue: string }
->('fetch/fetchGetUserBoards', async (token, { rejectWithValue }) => {
-  const response: Response = await fetch(Endpoints.BOARDS`${}/columns`, {
+>('fetch/fetchGetAllUserBoards', async (dataForFetch, { rejectWithValue }) => {
+  console.log(dataForFetch);
+  const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${dataForFetch.token}`,
     },
   });
 
