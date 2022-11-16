@@ -10,9 +10,12 @@ export const localeEN = {
   FORM_MESSAGE_MAX_LENGTH: 'max length 20 symbols',
   FORM_MESSAGE_LETTERS: 'only letters',
   boardsContet: {
-    ADD_BOARD_TOOLTIP_MESSAGE: 'Both input fields must be filled',
     ADD_NEW_BOARD_BUTTON_LABEL: 'Add new board',
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards',
+  },
+  tooTipContent: {
+    ADD_BOARD_TOOLTIP_MESSAGE: 'Both input fields must be filled',
+    ADD_COLUMN_TOOLTIP_MESSAGE: 'Input field must be filled. Min 2 charcters',
   },
   columnContet: {
     HAVE_NOT_COLUMN_MESSAGE: 'You have not any columns',
