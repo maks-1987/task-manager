@@ -35,7 +35,10 @@ export interface IColumn {
   order: number;
   tasks: ITask;
 }
-
+export interface IFiles {
+  filename: string;
+  fileSize: number;
+}
 export interface ITask {
   id: string;
   title: string;
@@ -45,11 +48,6 @@ export interface ITask {
   boardId: string;
   columnId: string;
   files?: IFiles;
-}
-
-export interface IFiles {
-  filename: string;
-  fileSize: number;
 }
 
 export type UserId = {
