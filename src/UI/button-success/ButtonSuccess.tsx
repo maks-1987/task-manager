@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { localeEN } from '../../locales/localeEN';
+import { useAppSelector } from '../../redux/hooks';
 import './buttonSuccess.css';
 
 interface IProp {
@@ -7,10 +8,16 @@ interface IProp {
 }
 export default function ButtonSuccess(props: IProp) {
   const { isValid } = props;
+  const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
+  const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const [toolTip, setToolTip] = useState<string>('');
   const showToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    !isValid ? setToolTip(localeEN.boardsContet.ADD_BOARD_TOOLTIP_MESSAGE) : null;
+    !isValid && isCreateBoard
+      ? setToolTip(localeEN.tooTipContent.ADD_BOARD_TOOLTIP_MESSAGE)
+      : !isValid && isCreateColumn
+      ? setToolTip(localeEN.tooTipContent.ADD_COLUMN_TOOLTIP_MESSAGE)
+      : null;
   };
   const hideToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
