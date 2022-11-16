@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import Loader from '../../components/loader/Loader';
@@ -16,7 +16,7 @@ export default function SingleBoard() {
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const userComleteColumns = useAppSelector((state) => state.columnsSlice.userComleteColumns);
 
-  useEffect(() => {
+  useMemo(() => {
     const dataForFetch: IFetchQuery = {
       boardId: currentBoardId,
       token,
