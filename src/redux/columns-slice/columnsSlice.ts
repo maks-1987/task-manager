@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAddNewUserColumns, fetchGetAllUserColumns } from './columnsFetchRequest';
+import {
+  fetchAddNewUserColumns,
+  fetchGetAllUserColumns,
+  fetchRemoveUserColumn,
+} from './columnsFetchRequest';
 import { IComleteBoard } from './../../types/types';
 interface IColumnsSlice {
   column: IComleteBoard;
@@ -42,8 +46,15 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.userCompleteColumns.push(action.payload);
         state.errorMessage = '';
+      })
+      .addCase(fetchRemoveUserColumn.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.isLoading = false;
+        state.userCompleteColumns = state.userCompleteColumns.filter(
+          (column) => column.id !== action.payload.columnId
+        );
+        state.errorMessage = '';
       });
   },
 });
-// export const { setRemovedBoardId } = boardsSlice.actions;
 export default columnsSlice.reducer;
