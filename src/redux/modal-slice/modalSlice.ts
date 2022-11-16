@@ -3,14 +3,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 type InitState = {
   isModalOpen: boolean;
   isRemoveBoard: boolean;
-  isCreateColumnOrTask: boolean;
+  isCreateColumn: boolean;
+  isCreateTask: boolean;
   isCreateBoard: boolean;
 };
 
 const initState: InitState = {
   isModalOpen: false,
   isRemoveBoard: false,
-  isCreateColumnOrTask: false,
+  isCreateColumn: false,
+  isCreateTask: false,
   isCreateBoard: false,
 };
 
@@ -27,12 +29,20 @@ export const modalSlice = createSlice({
     setIsRemoveBoard(state, action: PayloadAction<boolean>) {
       state.isRemoveBoard = action.payload;
     },
-    setIsCreateColumnOrTask(state, action: PayloadAction<boolean>) {
-      state.isCreateColumnOrTask = action.payload;
+    setIsCreateColumn(state, action: PayloadAction<boolean>) {
+      state.isCreateColumn = action.payload;
+    },
+    setIsCreateTask(state, action: PayloadAction<boolean>) {
+      state.isCreateTask = action.payload;
     },
   },
 });
 
 export default modalSlice.reducer;
-export const { setModalOpen, setIsRemoveBoard, setIsCreateColumnOrTask, setIsCreateBoard } =
-  modalSlice.actions;
+export const {
+  setModalOpen,
+  setIsRemoveBoard,
+  setIsCreateTask,
+  setIsCreateColumn,
+  setIsCreateBoard,
+} = modalSlice.actions;
