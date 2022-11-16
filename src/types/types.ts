@@ -19,6 +19,8 @@ export interface IUserBoard {
 export interface IFetchQuery {
   boardData?: IUserBoard;
   boardId?: string;
+  columnId?: string;
+  taskId?: string;
   token: string;
 }
 
