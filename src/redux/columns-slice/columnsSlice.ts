@@ -3,7 +3,7 @@ import { fetchAddNewUserColumns, fetchGetAllUserColumns } from './columnsFetchRe
 import { IComleteBoard } from './../../types/types';
 interface IColumnsSlice {
   column: IComleteBoard;
-  userComleteColumns: IComleteBoard[];
+  userCompleteColumns: IComleteBoard[];
   isLoading: boolean;
   errorMessage: string;
 }
@@ -14,7 +14,7 @@ const initialState: IColumnsSlice = {
     order: 1,
     tasks: [],
   },
-  userComleteColumns: [],
+  userCompleteColumns: [],
   isLoading: true,
   errorMessage: '',
 };
@@ -30,7 +30,7 @@ export const columnsSlice = createSlice({
       })
       .addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userComleteColumns = action.payload;
+        state.userCompleteColumns = action.payload;
         state.errorMessage = '';
       })
       .addCase(fetchAddNewUserColumns.pending, (state) => {
@@ -40,7 +40,7 @@ export const columnsSlice = createSlice({
       .addCase(fetchAddNewUserColumns.fulfilled, (state, action) => {
         console.log(action.payload);
         state.isLoading = false;
-        state.userComleteColumns.push(action.payload);
+        state.userCompleteColumns.push(action.payload);
         state.errorMessage = '';
       });
   },
