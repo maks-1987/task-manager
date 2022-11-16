@@ -19,9 +19,13 @@
     border-bottom: var(--border1);
     padding-bottom: 14px;
 }
-
 .project-board__columns {
-    height: 82vh;
+    min-height: 82vh;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 15px;
+}
+.project-board__columns-list {
     display: flex;
     padding: 10px 15px;
     column-gap: 20px;
