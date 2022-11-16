@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { rssSvg } from './svg';
-import './footer.css';
+import './Footer.css';
 
 export default function Footer() {
   const state = useAppSelector((store) => store.settingsSlise);
