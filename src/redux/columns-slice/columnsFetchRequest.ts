@@ -7,7 +7,7 @@ export const fetchGetAllUserColumns = createAsyncThunk<
   IComleteBoard[],
   IFetchQuery,
   { rejectValue: string }
->('fetch/fetchGetAllUserBoards', async (dataForFetch, { rejectWithValue }) => {
+>('fetch/fetchGetAllUserColumns', async (dataForFetch, { rejectWithValue }) => {
   console.log(dataForFetch);
   const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'GET',
@@ -21,6 +21,30 @@ export const fetchGetAllUserColumns = createAsyncThunk<
     return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
   }
 
-  const userBoards: IComleteBoard[] = await response.json();
-  return userBoards;
+  const userColumn: IComleteBoard[] = await response.json();
+  return userColumn;
+});
+
+export const fetchAddNewUserColumns = createAsyncThunk<
+  IComleteBoard,
+  IFetchQuery,
+  { rejectValue: string }
+>('fetch/fetchAddNewUserColumns', async (dataForFetch, { rejectWithValue }) => {
+  console.log(dataForFetch);
+  console.log(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`);
+  const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${dataForFetch.token}`,
+    },
+    body: JSON.stringify(dataForFetch.boardData),
+  });
+
+  if (!response.ok) {
+    return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+  }
+
+  const newUserBoards: IComleteBoard = await response.json();
+  return newUserBoards;
 });
