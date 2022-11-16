@@ -4,7 +4,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { languages } from '../../locales/languages';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
-import './header.css';
+import './Header.css';
 
 function Header(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
