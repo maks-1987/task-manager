@@ -48,3 +48,25 @@ export const fetchAddNewUserColumns = createAsyncThunk<
   const newUserBoards: IComleteBoard = await response.json();
   return newUserBoards;
 });
+
+export const fetchRemoveUserColumn = createAsyncThunk<
+  IFetchQuery,
+  IFetchQuery,
+  { rejectValue: string }
+>('fetch/fetchRemoveUserBoard', async (dataForFetch, { rejectWithValue }) => {
+  const response: Response = await fetch(
+    `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+  }
+  return dataForFetch;
+});
