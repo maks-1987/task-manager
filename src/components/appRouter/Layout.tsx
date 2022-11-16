@@ -11,11 +11,12 @@ import Header from '../header/Header';
 export default function Layout() {
   const isModalOpen = useAppSelector((state) => state.modalSlice.isModalOpen);
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
-  const isCreateColumnsOrTask = useAppSelector((state) => state.modalSlice.isCreateColumnOrTask);
-  
+  const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
+  const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
+
   const currentPropComponent = isRemoveBoard ? (
     localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
-  ) : isCreateColumnsOrTask ? (
+  ) : isCreateColumn || isCreateTask ? (
     <ColumnsAndTaskForm />
   ) : (
     <CreateBoardForm />
