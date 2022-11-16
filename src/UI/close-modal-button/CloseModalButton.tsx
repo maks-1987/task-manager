@@ -4,7 +4,8 @@ import { useAppDispatch } from '../../redux/hooks';
 import {
   modalSlice,
   setIsCreateBoard,
-  setIsCreateColumnOrTask,
+  setIsCreateColumn,
+  setIsCreateTask,
   setIsRemoveBoard,
 } from '../../redux/modal-slice/modalSlice';
 
@@ -12,7 +13,8 @@ export default function CloseModalButton() {
   const dispatch = useAppDispatch();
   const closeModalWindow = () => {
     dispatch(setIsRemoveBoard(false));
-    dispatch(setIsCreateColumnOrTask(false));
+    dispatch(setIsCreateColumn(false));
+    dispatch(setIsCreateTask(false));
     dispatch(modalSlice.actions.setModalOpen(false));
     dispatch(setIsCreateBoard(false));
   };
