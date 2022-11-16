@@ -14,10 +14,12 @@
 
 .footer.dark {
   background-color: var(--color3);
+  border-top: var(--border2);
 }
 
 .footer.color {
   background-color: var(--color4);
+  border-top: var(--border3);
 }
 
 .footer-items {
@@ -39,7 +41,7 @@
 }
 
 .footer-item.color {
-  color: var(--color1);
+  color: var(--color5);
 }
 
 .gh-link {
@@ -73,7 +75,7 @@
 
 .gh-logo-fill1.color,
 .gh-logo-fill2.color {
-  fill: var(--color1);
+  fill: var(--color5);
 }
 
 .gh-link:hover .gh-logo-fill2 {
@@ -96,7 +98,7 @@
 }
 
 .gh-title.color {
-  color: var(--color1);
+  color: var(--color5);
 }
 
 .rss-link {
@@ -116,7 +118,7 @@
 }
 
 .rss-logo.color {
-  fill: var(--color1);
+  fill: var(--color5);
 }
 
 .rss-logo:hover {

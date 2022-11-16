@@ -16,8 +16,8 @@
 }
 
 .select.color {
-  color: var(--color1);
-  border: var(--border2);
+  color: var(--color5);
+  border: var(--border3);
 }
 
 .select:hover {
@@ -37,5 +37,5 @@
 
 .option.color {
   background-color: var(--color4);
-  color: var(--color1);
+  color: var(--color5);
 }

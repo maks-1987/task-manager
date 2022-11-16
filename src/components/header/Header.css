@@ -11,6 +11,16 @@
   background-color: var(--color1);
 }
 
+.header.dark {
+  border-bottom: var(--border2);
+  background-color: var(--color3);
+}
+
+.header.color {
+  border-bottom: var(--border5);
+  background-color: var(--color4);
+}
+
 .nav {
   display: flex;
   gap: 10px;
@@ -18,7 +28,7 @@
 }
 
 .nav__link {
-  width: 100px;
+  width: 150px;
   height: 23px;
   font-size: 16px;
   color: var(--color3);
@@ -28,9 +38,14 @@
   border-radius: 5px;
 }
 
-.nav__option {
-  background-color: var(--color1);
-  color: var(--color3);
+.nav__link.dark {
+  color: var(--color1);
+  border: var(--border2);
+}
+
+.nav__link.color {
+  color: var(--color5);
+  border: var(--border3);
 }
 
 .nav__link:hover {

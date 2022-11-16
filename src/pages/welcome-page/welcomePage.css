@@ -40,7 +40,7 @@
 }
 
 .auth-links.color {
-  border: var(--border2);
+  border: var(--border3);
 }
 
 .auth-link {
@@ -60,8 +60,13 @@
 }
 
 .auth-link.color {
-  color: var(--color1);
-  border: var(--border2);
+  color: var(--color5);
+  border: var(--border3);
+}
+
+.auth-link:hover {
+  background-color: var(--color2);
+  cursor: pointer;
 }
 
 .welcome-page-content {
@@ -83,6 +88,6 @@
 }
 
 .welcome-page-content.color {
-  color: var(--color1);
-  border: var(--border2);
+  color: var(--color5);
+  border: var(--border3);
 }
