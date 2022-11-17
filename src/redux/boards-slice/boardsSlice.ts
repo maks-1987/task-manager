@@ -132,8 +132,8 @@ export const boardsSlice = createSlice({
         state.userBoards = state.userBoards.filter((board) => board.id !== action.payload.boardId);
       })
       .addCase(fetchChangeUserBoard.fulfilled, (state, action) => {
-        const cahsngedBoards = state.userBoards.filter((board) => board.id !== action.payload.id);
-        state.userBoards = [...cahsngedBoards, action.payload];
+        const filteredBoards = state.userBoards.filter((board) => board.id !== action.payload.id);
+        state.userBoards = [...filteredBoards, action.payload];
       });
   },
 });
