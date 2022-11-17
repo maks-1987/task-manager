@@ -7,7 +7,7 @@ export const fetchGetAllUserColumns = createAsyncThunk<
   IFetchQuery,
   { rejectValue: string }
 >('fetch/fetchGetAllUserColumns', async (dataForFetch, { rejectWithValue }) => {
-  console.log(dataForFetch);
+
   const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'GET',
     headers: {
