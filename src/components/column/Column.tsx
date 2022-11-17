@@ -11,7 +11,6 @@ interface IProp {
   column: IComleteColumn;
 }
 export const Column = (props: IProp) => {
-  console.log(props);
   const { id, title, order, tasks } = props.column;
   const [columnTitle, setColumnTitle] = useState(title);
   const dispatch = useAppDispatch();
