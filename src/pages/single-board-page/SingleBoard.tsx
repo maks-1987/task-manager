@@ -15,6 +15,7 @@ export default function SingleBoard() {
   const token = useAppSelector((state) => state.userSlice.token);
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const userCompleteColumns = useAppSelector((state) => state.columnsSlice.userCompleteColumns);
+  const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
 
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
@@ -32,6 +33,9 @@ export default function SingleBoard() {
       <article className="project-board__columns">
         <section className="project-board__columns-list">
           {isLoading && <Loader />}
+          {Boolean(fetchColumnErrorMessage) && (
+            <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
+          )}
           {!userCompleteColumns.length
             ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
             : userCompleteColumns.map((column) => <Column key={column.id} column={column} />)}

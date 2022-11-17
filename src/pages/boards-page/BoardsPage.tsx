@@ -12,6 +12,7 @@ export default function BoardsPage() {
   const token = useAppSelector((state) => state.userSlice.token);
   const userBoards = useAppSelector((state) => state.boardsSlice.userBoards);
   const isLoading = useAppSelector((state) => state.boardsSlice.isLoading);
+  const fetchBoardErrorMessage = useAppSelector((state) => state.boardsSlice.errorMessage);
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
@@ -23,6 +24,9 @@ export default function BoardsPage() {
         <AddBoardButton />
         <section className="boards-page__container_boards-field">
           {isLoading && <Loader />}
+          {Boolean(fetchBoardErrorMessage) && (
+            <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
+          )}
           {!userBoards.length
             ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
             : userBoards.map((board, index) => (
