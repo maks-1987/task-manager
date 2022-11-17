@@ -19,7 +19,6 @@ export default function ColumnsAndTaskForm() {
   } = useForm<IColumn>({ mode: 'onBlur' });
 
   const columnCreateHandler: SubmitHandler<IColumn> = (formData: IColumn) => {
-    console.log(formData);
     const dataForFetch: IFetchQuery = {
       boardData: { ...formData },
       boardId: currentBoardId,

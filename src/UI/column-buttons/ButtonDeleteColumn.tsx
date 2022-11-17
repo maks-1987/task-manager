@@ -13,7 +13,6 @@ export const ButtonDeleteColumn = (props: IProp) => {
   const token = useAppSelector((state) => state.userSlice.token);
 
   const removeColumnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.id);
     const dataForFetch: IFetchQuery = {
       boardId: currentBoardId,
       columnId: e.currentTarget.id,

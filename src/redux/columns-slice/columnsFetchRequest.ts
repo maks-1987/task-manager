@@ -7,7 +7,6 @@ export const fetchGetAllUserColumns = createAsyncThunk<
   IFetchQuery,
   { rejectValue: string }
 >('fetch/fetchGetAllUserColumns', async (dataForFetch, { rejectWithValue }) => {
-  console.log(dataForFetch);
   const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'GET',
     headers: {
@@ -29,8 +28,6 @@ export const fetchAddNewUserColumns = createAsyncThunk<
   IFetchQuery,
   { rejectValue: string }
 >('fetch/fetchAddNewUserColumns', async (dataForFetch, { rejectWithValue }) => {
-  console.log(dataForFetch);
-  console.log(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`);
   const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'POST',
     headers: {
