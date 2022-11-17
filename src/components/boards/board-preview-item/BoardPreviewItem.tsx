@@ -1,11 +1,8 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {
-  fetchChangeUserBoard,
-  setCurrentBoardId,
-  setRemovedBoardId,
-} from '../../../redux/boards-slice/boardsSlice';
+import { fetchChangeUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
+import { setCurrentBoardId, setRemovedBoardId } from '../../../redux/boards-slice/boardsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';

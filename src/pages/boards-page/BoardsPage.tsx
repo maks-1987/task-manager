@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPreviewItem';
 import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
-import { fetchGetUserBoards } from '../../redux/boards-slice/boardsSlice';
+import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
 import './boardsPage.css';
