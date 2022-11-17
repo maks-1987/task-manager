@@ -43,13 +43,11 @@ export const columnsSlice = createSlice({
         state.errorMessage = '';
       })
       .addCase(fetchAddNewUserColumns.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.userCompleteColumns.push(action.payload);
         state.errorMessage = '';
       })
       .addCase(fetchRemoveUserColumn.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.userCompleteColumns = state.userCompleteColumns.filter(
           (column) => column.id !== action.payload.columnId
