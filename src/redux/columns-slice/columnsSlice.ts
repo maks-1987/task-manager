@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchAddNewUserColumns,
   fetchChangeUserColumn,
@@ -61,7 +61,15 @@ export const columnsSlice = createSlice({
           (column) => column.id !== action.payload.id
         );
         state.userCompleteColumns = [...filteredColumns, action.payload];
+      })
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        state.errorMessage = action.payload;
+        state.isLoading = false;
       });
   },
 });
 export default columnsSlice.reducer;
+
+const isError = (action: AnyAction) => {
+  return action.type.endsWith('rejected');
+};

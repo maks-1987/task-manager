@@ -1,5 +1,5 @@
 import { IUserBoard } from './../../types/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchGetUserBoards,
   fetchAddNewUserBoard,
@@ -58,8 +58,16 @@ export const boardsSlice = createSlice({
       .addCase(fetchChangeUserBoard.fulfilled, (state, action) => {
         const filteredBoards = state.userBoards.filter((board) => board.id !== action.payload.id);
         state.userBoards = [...filteredBoards, action.payload];
+      })
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        state.errorMessage = action.payload;
+        state.isLoading = false;
       });
   },
 });
 export const { setRemovedBoardId, setCurrentBoardId } = boardsSlice.actions;
 export default boardsSlice.reducer;
+
+const isError = (action: AnyAction) => {
+  return action.type.endsWith('rejected');
+};
