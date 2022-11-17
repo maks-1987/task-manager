@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchAddNewUserColumns,
+  fetchChangeUserColumn,
   fetchGetAllUserColumns,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IComleteBoard } from './../../types/types';
+import { IComleteColumn } from './../../types/types';
 interface IColumnsSlice {
-  column: IComleteBoard;
-  userCompleteColumns: IComleteBoard[];
+  column: IComleteColumn;
+  userCompleteColumns: IComleteColumn[];
   isLoading: boolean;
   errorMessage: string;
 }
@@ -54,6 +55,12 @@ export const columnsSlice = createSlice({
           (column) => column.id !== action.payload.columnId
         );
         state.errorMessage = '';
+      })
+      .addCase(fetchChangeUserColumn.fulfilled, (state, action) => {
+        const filteredColumns = state.userCompleteColumns.filter(
+          (column) => column.id !== action.payload.id
+        );
+        state.userCompleteColumns = [...filteredColumns, action.payload];
       });
   },
 });
