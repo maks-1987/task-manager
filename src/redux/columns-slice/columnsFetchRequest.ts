@@ -7,7 +7,6 @@ export const fetchGetAllUserColumns = createAsyncThunk<
   IFetchQuery,
   { rejectValue: string }
 >('fetch/fetchGetAllUserColumns', async (dataForFetch, { rejectWithValue }) => {
-
   const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'GET',
     headers: {
@@ -79,7 +78,10 @@ export const fetchChangeUserColumn = createAsyncThunk<IComleteColumn, IFetchQuer
           'Content-type': 'application/json',
           Authorization: `Bearer ${dataForFetch.token}`,
         },
-        body: JSON.stringify(dataForFetch.boardData),
+        body: JSON.stringify({
+          title: dataForFetch.columnData?.title,
+          order: dataForFetch.columnData?.order,
+        }),
       }
     );
 
