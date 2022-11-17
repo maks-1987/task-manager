@@ -13,6 +13,9 @@ export const localeEN = {
     ADD_NEW_BOARD_BUTTON_LABEL: 'Add new board',
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards!',
   },
+  errors: {
+    FETCH_ERRORS_MESSAGE: 'Something went wrong! Try reloading the page',
+  },
   tooTipContent: {
     ADD_BOARD_TOOLTIP_MESSAGE: 'Both input fields must be filled',
     ADD_COLUMN_TOOLTIP_MESSAGE: 'Input field must be filled. Min 2 charcters',
