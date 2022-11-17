@@ -1,5 +1,21 @@
 @import '~@csstools/normalize.css';
 
+:root {
+  --color1: #fefefe;
+  --color2: #cecece;
+  --color3: #464646;
+  --color4: #7FA998;
+  --color5: #EBEFD0;
+
+  --color-link-hover: #8f8f8f;
+  --color-gh2: #2270ec;
+  --color-gh1: #e2de0a;
+
+  --border1: 1px solid #e1e1e1;
+  --border2: 1px solid #fefefe;
+  --border3: 1px solid #EBEFD0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
