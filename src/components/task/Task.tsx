@@ -1,7 +1,10 @@
 import React from 'react';
 import './task.css';
+import { ITask } from '../../types/types';
 
-export const Task = () => {
+type Props = unknown;
+
+export const Task = (props: Props) => {
   return (
     <div className="task">
       <p>Task</p>

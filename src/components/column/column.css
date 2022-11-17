@@ -2,6 +2,8 @@
     width: 300px;
     flex: 0 0 300px;
     overflow-y: auto;
+    border: var(--border1);
+    background-color: white;
 }
 
 .column-item__control {
