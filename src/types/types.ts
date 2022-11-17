@@ -18,7 +18,10 @@ export interface IUserBoard {
 
 export interface IFetchQuery {
   boardData?: IUserBoard;
+  columnData?: IComleteColumn;
   boardId?: string;
+  columnId?: string;
+  taskId?: string;
   token: string;
 }
 
@@ -35,7 +38,10 @@ export interface IColumn {
   order: number;
   tasks: ITask;
 }
-
+export interface IFiles {
+  filename: string;
+  fileSize: number;
+}
 export interface ITask {
   id: string;
   title: string;
@@ -44,12 +50,7 @@ export interface ITask {
   userId: string;
   boardId: string;
   columnId: string;
-  files: IFiles;
-}
-
-export interface IFiles {
-  filename: string;
-  fileSize: number;
+  files?: IFiles;
 }
 
 export type UserId = {
@@ -60,3 +61,9 @@ export type BoardId = {
   [key: number]: string;
 };
 
+export interface IComleteColumn {
+  id: string;
+  title: string;
+  order: number;
+  tasks?: ITask[];
+}

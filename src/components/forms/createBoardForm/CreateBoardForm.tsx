@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import './createBoardForm.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
+import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
 
 export default function CreateBoardForm() {
   const dispatch = useAppDispatch();

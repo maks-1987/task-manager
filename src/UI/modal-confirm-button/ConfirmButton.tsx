@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchRemoveUserBoard } from '../../redux/boards-slice/boardsSlice';
+import { fetchRemoveUserBoard } from '../../redux/boards-slice/boardsFechRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { IFetchQuery } from '../../types/types';
@@ -9,7 +9,7 @@ export default function ConfirmButton() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const removedBoardId = useAppSelector((state) => state.boardsSlice.removedBoardId);
-  const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
+
   const removeBoard = () => {
     const dataForFetch: IFetchQuery = {
       boardId: removedBoardId,
