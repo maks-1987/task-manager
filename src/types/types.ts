@@ -18,6 +18,7 @@ export interface IUserBoard {
 
 export interface IFetchQuery {
   boardData?: IUserBoard;
+  columnData?: IComleteColumn;
   boardId?: string;
   columnId?: string;
   taskId?: string;
@@ -60,7 +61,7 @@ export type BoardId = {
   [key: number]: string;
 };
 
-export interface IComleteBoard {
+export interface IComleteColumn {
   id: string;
   title: string;
   order: number;
