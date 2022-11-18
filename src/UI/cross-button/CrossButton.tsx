@@ -2,7 +2,7 @@ import React from 'react';
 import './crossButton.css';
 
 interface IProp {
-  id: string;
+  id?: string;
   goToModalWindow: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export default function CrossButton(props: IProp) {
