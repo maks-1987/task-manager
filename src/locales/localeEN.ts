@@ -12,6 +12,7 @@ export const localeEN = {
   boardsContet: {
     ADD_NEW_BOARD_BUTTON_LABEL: 'Add new board',
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards!',
+    MIN_LENGTH_WARN_MESSAGE: 'Should be min 5 character',
   },
   errors: {
     FETCH_ERRORS_MESSAGE: 'Something went wrong! Try reloading the page',
