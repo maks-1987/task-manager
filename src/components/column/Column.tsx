@@ -16,18 +16,21 @@ export const Column = (props: IProp) => {
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const token = useAppSelector((state) => state.userSlice.token);
+
   const handleTitle = (event: React.FormEvent<HTMLInputElement>) => {
     setColumnTitle(event.currentTarget.value);
   };
 
-  const changeColumnTitleHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+  const changeColumnTitleHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
       columnData: { id, title: e.currentTarget.value, order },
       boardId: currentBoardId,
       columnId: id,
       token,
     };
-    dispatch(fetchChangeUserColumn(dataForFetch));
+    e.currentTarget.value.length === 0
+      ? null
+      : setTimeout(() => dispatch(fetchChangeUserColumn(dataForFetch)), 1000);
   };
 
   return (
@@ -38,8 +41,9 @@ export const Column = (props: IProp) => {
             className="column-item__title"
             type="text"
             value={columnTitle}
+            placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
             onChange={handleTitle}
-            onBlur={(e: React.FocusEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
+            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
           />
           <ButtonNewTask />
           <ButtonDeleteColumn id={id} />
