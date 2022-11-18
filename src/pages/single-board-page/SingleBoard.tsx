@@ -1,14 +1,18 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
-import { fetchGetAllUserColumns } from '../../redux/columns-slice/columnsFetchRequest';
+import {
+  fetchChangeOrderColumn,
+  fetchGetAllUserColumns,
+} from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IComleteColumn, IFetchQuery } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { columnsSlice } from '../../redux/columns-slice/columnsSlice';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -27,9 +31,12 @@ export default function SingleBoard() {
     dispatch(fetchGetAllUserColumns(dataForFetch));
   }, [currentBoardId, dispatch, token]);
 
+  // useEffect(() => {
+  //   setColumnState(userCompleteColumns);
+  // }, [userCompleteColumns]);
+
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
-    console.log(result);
     if (!destination) return;
 
     if (destination.droppableId === source.droppableId && destination.index === source.index)
@@ -42,10 +49,19 @@ export default function SingleBoard() {
 
       newColumnOrder.splice(destination.index, 0, draggableElem);
       setColumnState(newColumnOrder);
-      console.log(newColumnOrder);
-      // TODO: change order in new columns
-      // TODO: dispatch to the server new columns
-      // dispatch(columnsSlice.actions.fetch)
+
+      // TODO: change order in new columns, dispatch to the server new columns
+      newColumnOrder.map((column, index) => {
+        const dataForFetch: IFetchQuery = {
+          boardId: currentBoardId,
+          token,
+          newOrder: index + 1,
+          columnData: column,
+        };
+        dispatch(fetchChangeOrderColumn(dataForFetch));
+        // console.log(dataForFetch.newOrder);
+        // console.log(newColumnOrder, userCompleteColumns);
+      });
     }
   };
 
@@ -74,10 +90,10 @@ export default function SingleBoard() {
                       <Column key={column.id} column={column} index={index} />
                     ))}
                 {provided.placeholder}
+                <ButtonNewColumn />
               </section>
             )}
           </Droppable>
-          <ButtonNewColumn />
         </article>
       </DragDropContext>
     </main>

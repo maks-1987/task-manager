@@ -1,17 +1,20 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchAddNewUserColumns,
+  fetchChangeOrderColumn,
   fetchChangeUserColumn,
   fetchGetAllUserColumns,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
 import { IComleteColumn } from './../../types/types';
+
 interface IColumnsSlice {
   column: IComleteColumn;
   userCompleteColumns: IComleteColumn[];
   isLoading: boolean;
   errorMessage: string;
 }
+
 const initialState: IColumnsSlice = {
   column: {
     id: '',
@@ -59,6 +62,19 @@ export const columnsSlice = createSlice({
           (column) => column.id !== action.payload.id
         );
         state.userCompleteColumns = [...filteredColumns, action.payload];
+      })
+      .addCase(fetchChangeOrderColumn.fulfilled, (state, action) => {
+        const filteredColumns = state.userCompleteColumns.filter(
+          (column) => column.id !== action.payload.id
+        );
+        state.userCompleteColumns = [...filteredColumns, action.payload];
+        // state.userCompleteColumns = state.userCompleteColumns.map((col) => {
+        //   return {
+        //     ...col,
+        //     order: action.payload.order,
+        //   };
+        // });
+        console.log(action.payload);
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;

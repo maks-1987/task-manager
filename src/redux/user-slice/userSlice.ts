@@ -111,7 +111,7 @@ export const userSlice = createSlice({
       })
       .addCase(fetchLogin.pending, (state) => {
         state.user.name = '';
-        state.user.id = '';
+        // state.user.id = '';
         state.error = '';
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {

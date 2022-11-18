@@ -23,7 +23,7 @@ export const Column = (props: IProp) => {
   const handleTitle = (event: React.FormEvent<HTMLInputElement>) => {
     setColumnTitle(event.currentTarget.value);
   };
-
+  // const {} = useAppSelector(state => state.columnsSlice)
   const changeColumnTitleHandler = (e: React.FocusEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
       columnData: { id, title: e.currentTarget.value, order },
@@ -41,14 +41,12 @@ export const Column = (props: IProp) => {
           <div
             className="column-item"
             id={id}
-            style={{ order: `${order}` }}
+            // style={{ order: `${order}` }}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <p>
-              order: {order}, {id}
-            </p>
+            <p>{id}</p>
             <div className="column-item__control">
               <input
                 className="column-item__title"

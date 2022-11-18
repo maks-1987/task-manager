@@ -1,4 +1,4 @@
-import { IFetchQuery, IComleteColumn } from './../../types/types';
+import { IComleteColumn, IFetchQuery } from './../../types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
 
@@ -92,3 +92,31 @@ export const fetchChangeUserColumn = createAsyncThunk<IComleteColumn, IFetchQuer
     return newColumn;
   }
 );
+
+export const fetchChangeOrderColumn = createAsyncThunk<
+  IComleteColumn,
+  IFetchQuery,
+  { rejectValue: string }
+>('columns/fetchChangeOrderColumn', async (dataForFetch, { rejectWithValue }) => {
+  const response = await fetch(
+    `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnData?.id}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+      body: JSON.stringify({
+        title: dataForFetch.columnData?.title,
+        order: dataForFetch.newOrder,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const userData = await response.json();
+    return rejectWithValue(userData.message);
+  }
+
+  return (await response.json()) as IComleteColumn;
+});
