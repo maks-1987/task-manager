@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Task } from '../task/Task';
 import './column.css';
 import { ButtonDeleteColumn } from '../../UI/column-buttons/ButtonDeleteColumn';
@@ -7,6 +7,7 @@ import { IComleteColumn, IFetchQuery } from '../../types/types';
 import { localeEN } from '../../locales/localeEN';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchChangeUserColumn } from '../../redux/columns-slice/columnsFetchRequest';
+import { fetchGetAllUserTasks } from '../../redux/columns-slice/tasksFetchRequest';
 interface IProp {
   column: IComleteColumn;
 }
@@ -32,7 +33,14 @@ export const Column = (props: IProp) => {
       ? null
       : setTimeout(() => dispatch(fetchChangeUserColumn(dataForFetch)), 1000);
   };
-
+  useMemo(() => {
+    const dataForFetch: IFetchQuery = {
+      boardId: currentBoardId,
+      columnId: id,
+      token,
+    };
+    dispatch(fetchGetAllUserTasks(dataForFetch));
+  }, [currentBoardId, dispatch, id, token]);
   return (
     <>
       <div className="column-item" id={id} style={{ order: `${order}` }}>
