@@ -60,7 +60,7 @@ export default function BoardPreviewItem(props: IProp) {
 
   return (
     <article
-      id={userBoard.id}
+      id={userBoard.id!}
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         isValid ? navigate(`/boards/${user}/${userBoard.id}`) : null;
         dispatch(setCurrentBoardId(e.currentTarget.id));
@@ -111,7 +111,7 @@ export default function BoardPreviewItem(props: IProp) {
         </form>
       </div>
       <div id={userBoard.id} className="boarder-previwe-item__todo-btn-block">
-        <CrossButton id={userBoard.id} goToModalWindow={goToModalWindow} />
+        <CrossButton id={userBoard.id!} goToModalWindow={goToModalWindow} />
       </div>
     </article>
   );
