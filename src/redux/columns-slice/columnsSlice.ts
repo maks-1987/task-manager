@@ -6,6 +6,7 @@ import {
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
 import { IComleteColumn } from './../../types/types';
+import { fetchGetAllUserTasks } from './tasksFetchRequest';
 interface IColumnsSlice {
   column: IComleteColumn;
   userCompleteColumns: IComleteColumn[];
@@ -59,6 +60,20 @@ export const columnsSlice = createSlice({
           (column) => column.id !== action.payload.id
         );
         state.userCompleteColumns = [...filteredColumns, action.payload];
+      })
+      .addCase(fetchGetAllUserTasks.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
+      .addCase(fetchGetAllUserTasks.fulfilled, (state, action) => {
+        state.userCompleteColumns = state.userCompleteColumns.map((column) => {
+          return {
+            ...column,
+            tasks: [...action.payload],
+          };
+        });
+        state.isLoading = false;
+        state.errorMessage = '';
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;
