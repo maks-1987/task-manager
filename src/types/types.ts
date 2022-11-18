@@ -11,8 +11,9 @@ export interface IUserForm {
 }
 
 export interface IUserBoard {
-  id: string;
-  title: string;
+  id?: string;
+  userId?: string;
+  title?: string;
   description?: string;
 }
 
