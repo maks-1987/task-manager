@@ -19,6 +19,7 @@ export const localeEN = {
   tooTipContent: {
     ADD_BOARD_TOOLTIP_MESSAGE: 'Both input fields must be filled',
     ADD_COLUMN_TOOLTIP_MESSAGE: 'Input field must be filled. Min 2 charcters',
+    CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE: 'Сannot be empty',
   },
   columnContet: {
     HAVE_NOT_COLUMN_MESSAGE: 'You have not any columns!',
