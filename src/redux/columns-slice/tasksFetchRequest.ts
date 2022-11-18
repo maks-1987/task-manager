@@ -1,0 +1,27 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Endpoints } from '../../endpoints/endpoints';
+import { ITask, IFetchQuery } from '../../types/types';
+
+export const fetchGetAllUserTasks = createAsyncThunk<ITask[], IFetchQuery, { rejectValue: string }>(
+  'fetch/fetchGetAllUserTasks',
+  async (dataForFetch, { rejectWithValue }) => {
+    const response: Response = await fetch(
+      `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnId}/tasks`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${dataForFetch.token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+    }
+
+    const userTasks: ITask[] = await response.json();
+    console.log(userTasks);
+    return userTasks;
+  }
+);
