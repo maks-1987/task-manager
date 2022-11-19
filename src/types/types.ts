@@ -68,3 +68,9 @@ export interface IComleteColumn {
   order: number;
   tasks?: ITask[];
 }
+
+type JwtDecode = {
+  iat: number;
+  login: string;
+  userId: string;
+};
