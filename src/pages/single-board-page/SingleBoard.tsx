@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import Loader from '../../components/loader/Loader';
@@ -31,9 +31,9 @@ export default function SingleBoard() {
     dispatch(fetchGetAllUserColumns(dataForFetch));
   }, [currentBoardId, dispatch, token]);
 
-  // useEffect(() => {
-  //   setColumnState(userCompleteColumns);
-  // }, [userCompleteColumns]);
+  useEffect(() => {
+    setColumnState(userCompleteColumns);
+  }, [userCompleteColumns]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
@@ -46,12 +46,16 @@ export default function SingleBoard() {
       const newColumnOrder = Array.from(columnState);
       newColumnOrder.splice(source.index, 1);
       const [draggableElem] = columnState.filter((column) => column.id === draggableId);
-
       newColumnOrder.splice(destination.index, 0, draggableElem);
-      setColumnState(newColumnOrder);
-
-      // TODO: change order in new columns, dispatch to the server new columns
-      newColumnOrder.map((column, index) => {
+      const newArrCol = newColumnOrder.map((col, index) => {
+        return {
+          ...col,
+          order: index + 1,
+        };
+      });
+      // console.log('newArrCol = ', newArrCol);
+      setColumnState(newArrCol);
+      newArrCol.map((column, index) => {
         const dataForFetch: IFetchQuery = {
           boardId: currentBoardId,
           token,
@@ -59,8 +63,7 @@ export default function SingleBoard() {
           columnData: column,
         };
         dispatch(fetchChangeOrderColumn(dataForFetch));
-        // console.log(dataForFetch.newOrder);
-        // console.log(newColumnOrder, userCompleteColumns);
+        dispatch(columnsSlice.actions.setColumnsAfterDrag(newArrCol));
       });
     }
   };

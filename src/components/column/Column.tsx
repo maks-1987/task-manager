@@ -23,7 +23,7 @@ export const Column = (props: IProp) => {
   const handleTitle = (event: React.FormEvent<HTMLInputElement>) => {
     setColumnTitle(event.currentTarget.value);
   };
-  // const {} = useAppSelector(state => state.columnsSlice)
+
   const changeColumnTitleHandler = (e: React.FocusEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
       columnData: { id, title: e.currentTarget.value, order },
@@ -34,11 +34,21 @@ export const Column = (props: IProp) => {
     dispatch(fetchChangeUserColumn(dataForFetch));
   };
 
+  const columnItem = {
+    width: '300px',
+    flex: '0 0 300px',
+    overflow: 'auto',
+    border: 'var(--border1)',
+    backgroundColor: 'white',
+    order: `${order}`,
+  };
   return (
     <>
       <Draggable draggableId={id} index={props.index}>
         {(provided) => (
           <div
+            // style={`${columnItem}, ${{ order: `${order}` }}`}
+            // style={columnItem}
             className="column-item"
             id={id}
             // style={{ order: `${order}` }}

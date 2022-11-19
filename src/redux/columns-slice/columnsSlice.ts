@@ -29,7 +29,11 @@ const initialState: IColumnsSlice = {
 export const columnsSlice = createSlice({
   name: 'columns',
   initialState,
-  reducers: {},
+  reducers: {
+    setColumnsAfterDrag(state, action: PayloadAction<IComleteColumn[]>) {
+      state.userCompleteColumns = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGetAllUserColumns.pending, (state) => {
@@ -63,18 +67,13 @@ export const columnsSlice = createSlice({
         );
         state.userCompleteColumns = [...filteredColumns, action.payload];
       })
-      .addCase(fetchChangeOrderColumn.fulfilled, (state, action) => {
-        const filteredColumns = state.userCompleteColumns.filter(
-          (column) => column.id !== action.payload.id
-        );
-        state.userCompleteColumns = [...filteredColumns, action.payload];
-        // state.userCompleteColumns = state.userCompleteColumns.map((col) => {
-        //   return {
-        //     ...col,
-        //     order: action.payload.order,
-        //   };
-        // });
-        console.log(action.payload);
+      .addCase(fetchChangeOrderColumn.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
+      .addCase(fetchChangeOrderColumn.fulfilled, (state) => {
+        state.isLoading = false;
+        state.errorMessage = '';
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;
