@@ -12,14 +12,18 @@ export interface IUserForm {
 
 export interface IUserBoard {
   id?: string;
+  title?: string;
+  description?: string;
+}
+export interface IUserTask {
   userId?: string;
   title?: string;
   description?: string;
 }
-
 export interface IFetchQuery {
   boardData?: IUserBoard;
   columnData?: IComleteColumn;
+  taskData?: IUserTask;
   boardId?: string;
   columnId?: string;
   taskId?: string;
