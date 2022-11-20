@@ -1,7 +1,13 @@
 import React from 'react';
 import { fetchRemoveUserBoard } from '../../redux/boards-slice/boardsFechRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setIsRemoveBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import {
+  setIsCreateBoard,
+  setIsCreateColumn,
+  setIsCreateTask,
+  setIsRemoveBoard,
+  setModalOpen,
+} from '../../redux/modal-slice/modalSlice';
 import { IFetchQuery } from '../../types/types';
 import './confirmButton.css';
 
@@ -18,6 +24,10 @@ export default function ConfirmButton() {
     dispatch(fetchRemoveUserBoard(dataForFetch));
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
+    dispatch(setIsRemoveBoard(false));
+    dispatch(setIsCreateColumn(false));
+    dispatch(setIsCreateTask(false));
+    dispatch(setIsCreateBoard(false));
   };
 
   return (
