@@ -53,7 +53,7 @@ export const Column = (props: IProp) => {
             onChange={handleTitle}
             onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
           />
-          <ButtonNewTask />
+          <ButtonNewTask id={id} />
           <ButtonDeleteColumn id={id} />
         </div>
         <section className="task-list">
@@ -67,7 +67,7 @@ export const Column = (props: IProp) => {
         </section>
 
         <p className="column-item__add-task">
-          <ButtonNewTask />
+          <ButtonNewTask id={id} />
           Add new task
         </p>
       </div>
