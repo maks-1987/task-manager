@@ -11,7 +11,7 @@ export const ProjectBoard = () => {
       </Link>
       <h2 className="project-board__title">Board title</h2>
       <article className="project-board__columns">
-        <Column />
+        {/* <Column /> */}
       </article>
     </main>
   );

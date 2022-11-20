@@ -1,15 +1,20 @@
 @import '~@csstools/normalize.css';
 
 :root {
-  --color1: #fefefe;
-  --color2: #cecece;
-  --color3: #464646;
-  --color4: #7FA998;
-  --color5: #EBEFD0;
+  --color1: #0f0f0f;
+  --color2: #fefefe;
+  --color3: #EBEFD0;
 
-  --color-link-hover: #8f8f8f;
-  --color-gh2: #2270ec;
-  --color-gh1: #e2de0a;
+  --link-color1: #2270ec;
+  --link-color2: #2270ec;
+  --link-color3: #2270ec;
+
+  --background-color1: #fefefe;
+  --background-color2: #0f0f0f;
+  --background-color3: #7FA998;
+  --background-color4: #f8f8f8;
+  --background-color5: #2c2c2c;
+  --background-color6: #89b8a5;
 
   --border1: 1px solid #e1e1e1;
   --border2: 1px solid #fefefe;
