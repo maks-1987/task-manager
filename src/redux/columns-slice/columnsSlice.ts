@@ -12,6 +12,7 @@ interface IColumnsSlice {
   userCompleteColumns: IComleteColumn[];
   isLoading: boolean;
   errorMessage: string;
+  currentColumnId: string;
 }
 const initialState: IColumnsSlice = {
   column: {
@@ -23,11 +24,16 @@ const initialState: IColumnsSlice = {
   userCompleteColumns: [],
   isLoading: true,
   errorMessage: '',
+  currentColumnId: '',
 };
 export const columnsSlice = createSlice({
   name: 'columns',
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentColumnId(state, action: PayloadAction<string>) {
+      state.currentColumnId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGetAllUserColumns.pending, (state) => {
@@ -81,6 +87,7 @@ export const columnsSlice = createSlice({
       });
   },
 });
+export const { setCurrentColumnId } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
 const isError = (action: AnyAction) => {
