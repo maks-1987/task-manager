@@ -21,7 +21,6 @@ export const fetchGetAllUserTasks = createAsyncThunk<ITask[], IFetchQuery, { rej
     }
 
     const userTasks: ITask[] = await response.json();
-    console.log(userTasks);
     return userTasks;
   }
 );
