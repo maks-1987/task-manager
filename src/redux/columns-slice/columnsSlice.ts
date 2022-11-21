@@ -78,7 +78,7 @@ export const columnsSlice = createSlice({
         state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
           return {
             ...column,
-            title: action.payload.title,
+            title: column.id === action.payload.id ? action.payload.title : column.title,
           };
         });
       })

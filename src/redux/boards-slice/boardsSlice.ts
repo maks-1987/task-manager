@@ -59,8 +59,9 @@ export const boardsSlice = createSlice({
         state.userBoards = state.userBoards.map((board) => {
           return {
             ...board,
-            title: action.payload.title,
-            description: action.payload.description,
+            title: board.id === action.payload.id ? action.payload.title : board.title,
+            description:
+              board.id === action.payload.id ? action.payload.description : board.description,
           };
         });
       })
