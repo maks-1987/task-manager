@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { localeEN } from '../../../locales/localeEN';
 import { fetchChangeUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
 import { setCurrentBoardId, setRemovedBoardId } from '../../../redux/boards-slice/boardsSlice';
+import { fetchGetUserBoardByID } from '../../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
@@ -57,14 +58,20 @@ export default function BoardPreviewItem(props: IProp) {
     dispatch(setRemovedBoardId(e.currentTarget.id));
     e.stopPropagation();
   };
+  const goToCurrentUserBoardByID = (e: React.MouseEvent<HTMLElement>) => {
+    const dataForFetch: IFetchQuery = {
+      boardId: userBoard.id!,
+      token,
+    };
+    isValid ? navigate(`/boards/${user}/${e.currentTarget.id}`) : null;
+    dispatch(setCurrentBoardId(e.currentTarget.id));
+    dispatch(fetchGetUserBoardByID(dataForFetch));
+  };
 
   return (
     <article
       id={userBoard.id!}
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        isValid ? navigate(`/boards/${user}/${userBoard.id}`) : null;
-        dispatch(setCurrentBoardId(e.currentTarget.id));
-      }}
+      onClick={(e: React.MouseEvent<HTMLElement>) => goToCurrentUserBoardByID(e)}
       className="boarder-preview-item"
     >
       <div className="boarder-previwe-item__container" id={userBoard.id}>
