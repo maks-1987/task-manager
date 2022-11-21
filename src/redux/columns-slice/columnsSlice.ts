@@ -3,25 +3,25 @@ import {
   fetchAddNewUserColumns,
   fetchChangeUserColumn,
   fetchGetAllUserColumns,
+  fetchGetUserBoardByID,
+  fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IComleteColumn } from './../../types/types';
-import { fetchGetAllUserTasks } from './tasksFetchRequest';
+import { IBoard } from './../../types/types';
+import { fetchAddNewUserTasks } from './tasksFetchRequest';
 interface IColumnsSlice {
-  column: IComleteColumn;
-  userCompleteColumns: IComleteColumn[];
+  userCurrentBoard: IBoard;
   isLoading: boolean;
   errorMessage: string;
   currentColumnId: string;
 }
 const initialState: IColumnsSlice = {
-  column: {
+  userCurrentBoard: {
     id: '',
     title: '',
-    order: 1,
-    tasks: [],
+    description: '',
+    columns: [],
   },
-  userCompleteColumns: [],
   isLoading: true,
   errorMessage: '',
   currentColumnId: '',
@@ -36,51 +36,60 @@ export const columnsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchGetUserBoardByID.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
+      .addCase(fetchGetUserBoardByID.fulfilled, (state, action) => {
+        state.userCurrentBoard = action.payload;
+        state.isLoading = false;
+        state.errorMessage = '';
+      })
       .addCase(fetchGetAllUserColumns.pending, (state) => {
         state.isLoading = true;
         state.errorMessage = '';
       })
       .addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userCompleteColumns = action.payload;
+        state.userCurrentBoard.columns = action.payload;
         state.errorMessage = '';
       })
-      .addCase(fetchAddNewUserColumns.pending, (state) => {
-        state.isLoading = true;
+      .addCase(fetchGetUserColumnByID.fulfilled, (state, action) => {
+        const filteredColumns = state.userCurrentBoard.columns.filter(
+          (column) => column.id !== action.payload.id
+        );
+        state.userCurrentBoard.columns = [...filteredColumns, action.payload];
+        state.isLoading = false;
         state.errorMessage = '';
       })
       .addCase(fetchAddNewUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userCompleteColumns.push(action.payload);
+        state.userCurrentBoard.columns.push(action.payload);
         state.errorMessage = '';
       })
       .addCase(fetchRemoveUserColumn.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userCompleteColumns = state.userCompleteColumns.filter(
+        state.userCurrentBoard.columns = state.userCurrentBoard.columns.filter(
           (column) => column.id !== action.payload.columnId
         );
         state.errorMessage = '';
       })
       .addCase(fetchChangeUserColumn.fulfilled, (state, action) => {
-        const filteredColumns = state.userCompleteColumns.filter(
-          (column) => column.id !== action.payload.id
-        );
-        state.userCompleteColumns = [...filteredColumns, action.payload];
-      })
-      .addCase(fetchGetAllUserTasks.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = '';
-      })
-      .addCase(fetchGetAllUserTasks.fulfilled, (state, action) => {
-        state.userCompleteColumns = state.userCompleteColumns.map((column) => {
+        state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
           return {
             ...column,
-            tasks: [...action.payload],
+            title: action.payload.title,
           };
+        });
+      })
+      .addCase(fetchAddNewUserTasks.fulfilled, (state, action) => {
+        state.userCurrentBoard.columns.forEach((column) => {
+          column.id === action.payload.columnId && column.tasks?.push(action.payload);
         });
         state.isLoading = false;
         state.errorMessage = '';
       })
+
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;
         state.isLoading = false;
