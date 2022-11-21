@@ -16,6 +16,7 @@ export interface IUserBoard {
   _id?: string;
   title: string;
   description?: string;
+  order?: number;
 }
 
 export interface IFetchQuery {
@@ -26,6 +27,7 @@ export interface IFetchQuery {
   taskId?: string;
   token: string;
   newOrder?: number;
+  order?: number;
 }
 
 export interface IBoard {
@@ -42,10 +44,12 @@ export interface IColumn {
   order: number;
   tasks: ITask;
 }
+
 export interface IFiles {
   filename: string;
   fileSize: number;
 }
+
 export interface ITask {
   id: string;
   title: string;
@@ -66,7 +70,7 @@ export type BoardId = {
 };
 
 export interface IComleteColumn {
-  id: string;
+  id?: string;
   _id?: string;
   title: string;
   order: number;

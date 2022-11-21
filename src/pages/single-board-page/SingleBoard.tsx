@@ -90,7 +90,7 @@ export default function SingleBoard() {
                 {!columnState.length
                   ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
                   : columnState.map((column, index) => (
-                      <Column key={column.id} column={column} index={index} />
+                      <Column key={column._id} column={column} index={index} />
                     ))}
                 {provided.placeholder}
                 <ButtonNewColumn />

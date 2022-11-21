@@ -15,7 +15,7 @@ interface IProp {
 }
 
 export const Column = (props: IProp) => {
-  const { id, title, order, tasks } = props.column;
+  const { _id, title, order, tasks } = props.column;
   const [columnTitle, setColumnTitle] = useState(title);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
@@ -26,9 +26,9 @@ export const Column = (props: IProp) => {
 
   const changeColumnTitleHandler = (e: React.FocusEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
-      columnData: { id, title: e.currentTarget.value, order },
+      columnData: { _id, title: e.currentTarget.value, order },
       boardId: currentBoardId,
-      columnId: id,
+      columnId: _id,
       token,
     };
     dispatch(fetchChangeUserColumn(dataForFetch));
@@ -44,19 +44,19 @@ export const Column = (props: IProp) => {
   };
   return (
     <>
-      <Draggable draggableId={id} index={props.index}>
+      <Draggable draggableId={_id!} index={props.index}>
         {(provided) => (
           <div
             // style={`${columnItem}, ${{ order: `${order}` }}`}
             // style={columnItem}
             className="column-item"
-            id={id}
+            id={_id}
             // style={{ order: `${order}` }}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <p>{id}</p>
+            <p>{_id}</p>
             <div className="column-item__control">
               <input
                 className="column-item__title"
@@ -66,7 +66,7 @@ export const Column = (props: IProp) => {
                 onBlur={(e: React.FocusEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
               />
               <ButtonNewTask />
-              <ButtonDeleteColumn id={id} />
+              <ButtonDeleteColumn id={_id!} />
             </div>
             {/*<Droppable droppableId="all-tasks" type="task">*/}
             {/*  {(provided) => (*/}

@@ -23,6 +23,7 @@ export default function ColumnsAndTaskForm() {
       boardData: { ...formData },
       boardId: currentBoardId,
       token,
+      order: 1,
     };
     dispatch(fetchAddNewUserColumns(dataForFetch));
     dispatch(setModalOpen(false));

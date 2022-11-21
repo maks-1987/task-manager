@@ -34,7 +34,10 @@ export const fetchAddNewUserColumns = createAsyncThunk<
       'Content-type': 'application/json',
       Authorization: `Bearer ${dataForFetch.token}`,
     },
-    body: JSON.stringify(dataForFetch.boardData),
+    body: JSON.stringify({
+      title: dataForFetch.boardData?.title,
+      order: dataForFetch.order,
+    }),
   });
 
   if (!response.ok) {

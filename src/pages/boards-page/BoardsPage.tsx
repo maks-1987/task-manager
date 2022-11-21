@@ -30,7 +30,7 @@ export default function BoardsPage() {
           {!userBoards.length
             ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
             : userBoards.map((board, index) => (
-                <BoardPreviewItem key={board.id} userBoard={board} index={index} />
+                <BoardPreviewItem key={board._id} userBoard={board} index={index} />
               ))}
         </section>
       </div>
