@@ -17,6 +17,8 @@ export interface IUserBoard {
   title: string;
   description?: string;
   order?: number;
+  owner?: string;
+  users?: string[];
 }
 
 export interface IFetchQuery {
@@ -28,6 +30,7 @@ export interface IFetchQuery {
   token: string;
   newOrder?: number;
   order?: number;
+  assignOwner?: string;
 }
 
 export interface IBoard {
@@ -77,8 +80,9 @@ export interface IComleteColumn {
   tasks?: ITask[];
 }
 
-type JwtDecode = {
+export type JwtDecode = {
+  exp: number;
   iat: number;
+  id: string;
   login: string;
-  userId: string;
 };

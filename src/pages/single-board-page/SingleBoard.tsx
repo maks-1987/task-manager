@@ -22,7 +22,7 @@ export default function SingleBoard() {
   const userCompleteColumns = useAppSelector((state) => state.columnsSlice.userCompleteColumns);
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
   const [columnState, setColumnState] = useState<IComleteColumn[]>(userCompleteColumns);
-
+  const { user } = useAppSelector((state) => state.userSlice);
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
       boardId: currentBoardId,
@@ -70,7 +70,7 @@ export default function SingleBoard() {
 
   return (
     <main className="project-board">
-      <Link className="project-board__link" to="/">
+      <Link className="project-board__link" to={`/boards/${user.login}`}>
         <span>↩</span>To boards page
       </Link>
       <h2 className="project-board__title">Board title</h2>

@@ -1,4 +1,4 @@
-import { IUserBoard } from './../../types/types';
+import { IUserBoard } from '../../types/types';
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchGetUserBoards,
@@ -53,7 +53,7 @@ export const boardsSlice = createSlice({
         state.userBoards.push(action.payload);
       })
       .addCase(fetchRemoveUserBoard.fulfilled, (state, action) => {
-        state.userBoards = state.userBoards.filter((board) => board.id !== action.payload.boardId);
+        state.userBoards = state.userBoards.filter((board) => board._id !== action.payload.boardId);
       })
       .addCase(fetchChangeUserBoard.fulfilled, (state, action) => {
         const filteredBoards = state.userBoards.filter((board) => board.id !== action.payload.id);

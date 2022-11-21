@@ -33,7 +33,11 @@ export const fetchAddNewUserBoard = createAsyncThunk<
       'Content-type': 'application/json',
       Authorization: `Bearer ${dataForFetch.token}`,
     },
-    body: JSON.stringify(dataForFetch.boardData),
+    body: JSON.stringify({
+      title: dataForFetch.boardData?.title,
+      owner: dataForFetch.assignOwner,
+      users: [],
+    }),
   });
 
   if (!response.ok) {
@@ -60,6 +64,7 @@ export const fetchRemoveUserBoard = createAsyncThunk<
   if (!response.ok) {
     return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
   }
+  // const data: IFetchQuery = await response.json();
   return dataForFetch;
 });
 

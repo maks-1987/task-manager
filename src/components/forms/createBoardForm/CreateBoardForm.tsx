@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import './createBoardForm.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { IFetchQuery, IUserBoard } from '../../../types/types';
+import { IFetchQuery, IUserBoard, JwtDecode } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
+import jwt_decode from 'jwt-decode';
 
 export default function CreateBoardForm() {
   const dispatch = useAppDispatch();
@@ -16,12 +17,14 @@ export default function CreateBoardForm() {
     reset,
     formState: { isValid, errors, isSubmitSuccessful },
   } = useForm<IUserBoard>({ mode: 'onBlur' });
-
+  const userToken: JwtDecode = jwt_decode(token);
   const boardCreateHandler: SubmitHandler<IUserBoard> = (formData: IUserBoard) => {
     const dataForFetch: IFetchQuery = {
       boardData: { ...formData },
       token,
+      assignOwner: userToken.id,
     };
+
     dispatch(fetchAddNewUserBoard(dataForFetch));
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
