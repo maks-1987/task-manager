@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import Loader from '../../components/loader/Loader';
@@ -47,13 +47,13 @@ export default function SingleBoard() {
       newColumnOrder.splice(source.index, 1);
       const [draggableElem] = columnState.filter((column) => column._id === draggableId);
       newColumnOrder.splice(destination.index, 0, draggableElem);
-      const newArrCol = newColumnOrder.map((col, index) => {
+      const newArrCol: IComleteColumn[] = newColumnOrder.map((col, index) => {
         return {
           ...col,
           order: index + 1,
         };
       });
-      // console.log('newArrCol = ', newArrCol);
+
       setColumnState(newArrCol);
       newArrCol.map((column, index) => {
         const dataForFetch: IFetchQuery = {

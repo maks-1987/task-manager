@@ -44,6 +44,7 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.userCompleteColumns = action.payload;
         state.errorMessage = '';
+        action.payload.sort((a, b) => (a.order < b.order ? -1 : 1));
       })
       .addCase(fetchAddNewUserColumns.pending, (state) => {
         state.isLoading = true;
