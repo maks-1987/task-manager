@@ -1,11 +1,15 @@
 import React from 'react';
+import { ITask } from '../../types/types';
 import './task.css';
-
-export const Task = () => {
+interface IProp {
+  task: ITask;
+}
+export const Task = (props: IProp) => {
+  const { id, order, title, description } = props.task;
   return (
-    <div className="task">
-      <p>Task</p>
-      <p>Description</p>
+    <div className="task" id={id} style={{ order: `${order}` }}>
+      <p>{`${title}`}</p>
+      <p>{`${description}`}</p>
     </div>
   );
 };
