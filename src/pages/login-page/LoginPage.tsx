@@ -15,7 +15,7 @@ export const LoginPage = () => {
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
-  const { error, user } = useAppSelector((state) => state.userSlice);
+  const { error } = useAppSelector((state) => state.userSlice);
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = async (data) => {
     const response = await fetch(Endpoints.SIGN_IN, {
@@ -33,11 +33,11 @@ export const LoginPage = () => {
     if (!response.ok) {
       dispatch(userSlice.actions.setError(loginData.message));
     } else {
-      dispatch(userSlice.actions.setUserLogin(user.login));
+      dispatch(userSlice.actions.setUserLogin(data.login));
       dispatch(userSlice.actions.setPassword(''));
       dispatch(userSlice.actions.setUserToken(loginData.token));
 
-      navigation(`/boards/${user.login}`);
+      navigation(`/boards/${data.login}`);
     }
   };
 
