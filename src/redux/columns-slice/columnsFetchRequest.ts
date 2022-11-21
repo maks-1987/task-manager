@@ -102,7 +102,7 @@ export const fetchChangeOrderColumn = createAsyncThunk<
   { rejectValue: string }
 >('columns/fetchChangeOrderColumn', async (dataForFetch, { rejectWithValue }) => {
   const response = await fetch(
-    `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnData?.id}`,
+    `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnData?._id}`,
     {
       method: 'PUT',
       headers: {

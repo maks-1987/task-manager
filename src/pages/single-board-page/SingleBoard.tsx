@@ -45,7 +45,7 @@ export default function SingleBoard() {
     if (type === 'column') {
       const newColumnOrder = Array.from(columnState);
       newColumnOrder.splice(source.index, 1);
-      const [draggableElem] = columnState.filter((column) => column.id === draggableId);
+      const [draggableElem] = columnState.filter((column) => column._id === draggableId);
       newColumnOrder.splice(destination.index, 0, draggableElem);
       const newArrCol = newColumnOrder.map((col, index) => {
         return {
