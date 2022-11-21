@@ -13,6 +13,7 @@ interface IProp {
   index: number;
   userBoard: IUserBoard;
 }
+
 export default function BoardPreviewItem(props: IProp) {
   const { userBoard, index } = props;
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ export default function BoardPreviewItem(props: IProp) {
   const changeBoardData: SubmitHandler<IUserBoard> = (newData: IUserBoard) => {
     const newDataForFetch: IFetchQuery = {
       boardData: { ...newData },
-      boardId: userBoard.id,
+      boardId: userBoard._id,
       token,
     };
     dispatch(fetchChangeUserBoard(newDataForFetch));
@@ -46,19 +47,19 @@ export default function BoardPreviewItem(props: IProp) {
 
   return (
     <article
-      id={userBoard.id}
+      id={userBoard._id}
       onClick={(e: React.MouseEvent<HTMLElement>) => {
-        navigate(`/boards/${user}/${userBoard.id}`);
+        navigate(`/boards/${user}/${userBoard._id}`);
         dispatch(setCurrentBoardId(e.currentTarget.id));
       }}
       className="boarder-preview-item"
     >
-      <div className="boarder-previwe-item__container" id={userBoard.id}>
+      <div className="boarder-previwe-item__container" id={userBoard._id}>
         <h4 className="boarder-previwe-item__item-number">#{index + 1}. </h4>
         <form
           onBlur={handleSubmit(changeBoardData)}
           className="boarder-previwe-item__about-item"
-          id={userBoard.id}
+          id={userBoard._id}
         >
           <input
             type="text"
@@ -86,8 +87,8 @@ export default function BoardPreviewItem(props: IProp) {
           />
         </form>
       </div>
-      <div id={userBoard.id} className="boarder-previwe-item__todo-btn-block">
-        <CrossButton id={userBoard.id} goToModalWindow={goToModalWindow} />
+      <div id={userBoard._id} className="boarder-previwe-item__todo-btn-block">
+        <CrossButton id={userBoard._id!} goToModalWindow={goToModalWindow} />
       </div>
     </article>
   );

@@ -31,16 +31,16 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
       body: JSON.stringify(user),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const userData = await response.json();
-      return rejectWithValue(userData.message);
+      return rejectWithValue(data.message);
     }
 
-    const userData: IUser = await response.json();
     if (user.password != null) {
       dispatch(userSlice.actions.setPassword(user.password));
     }
-    return userData;
+    return data;
   }
 );
 
@@ -55,15 +55,15 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
       body: JSON.stringify(user),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const userData = await response.json();
-      return rejectWithValue(userData.message);
+      return rejectWithValue(data.message);
     }
 
-    const userData = await response.json();
     dispatch(userSlice.actions.setUserLogin(user.login));
     dispatch(userSlice.actions.setPassword(''));
-    return userData.token;
+    return data.token;
   }
 );
 

@@ -1,5 +1,6 @@
 export interface IUser {
   id: string;
+  _id?: string;
   name: string;
   login: string;
 }
@@ -12,6 +13,7 @@ export interface IUserForm {
 
 export interface IUserBoard {
   id: string;
+  _id?: string;
   title: string;
   description?: string;
 }
@@ -28,6 +30,7 @@ export interface IFetchQuery {
 
 export interface IBoard {
   id: string;
+  _id?: string;
   title: string;
   description: string;
   columns?: IColumn;
@@ -64,6 +67,7 @@ export type BoardId = {
 
 export interface IComleteColumn {
   id: string;
+  _id?: string;
   title: string;
   order: number;
   tasks?: ITask[];
