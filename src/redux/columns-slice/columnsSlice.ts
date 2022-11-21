@@ -57,13 +57,13 @@ export const columnsSlice = createSlice({
       .addCase(fetchRemoveUserColumn.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCompleteColumns = state.userCompleteColumns.filter(
-          (column) => column.id !== action.payload.columnId
+          (column) => column._id !== action.payload.columnId
         );
         state.errorMessage = '';
       })
       .addCase(fetchChangeUserColumn.fulfilled, (state, action) => {
         const filteredColumns = state.userCompleteColumns.filter(
-          (column) => column.id !== action.payload.id
+          (column) => column._id !== action.payload.id
         );
         state.userCompleteColumns = [...filteredColumns, action.payload];
       })
