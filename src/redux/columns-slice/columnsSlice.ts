@@ -8,13 +8,14 @@ import {
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
 import { IBoard } from './../../types/types';
-import { fetchAddNewUserTasks } from './tasksFetchRequest';
+import { fetchAddNewUserTasks, fetchRemoveUserTask } from './tasksFetchRequest';
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
   isLoading: boolean;
   errorMessage: string;
   currentColumnId: string;
   removedColumnId: string;
+  removedTaskId: string;
 }
 const initialState: IColumnsSlice = {
   userCurrentBoard: {
@@ -27,6 +28,7 @@ const initialState: IColumnsSlice = {
   errorMessage: '',
   currentColumnId: '',
   removedColumnId: '',
+  removedTaskId: '',
 };
 export const columnsSlice = createSlice({
   name: 'columns',
@@ -37,6 +39,9 @@ export const columnsSlice = createSlice({
     },
     setRemovedColumnId(state, action: PayloadAction<string>) {
       state.removedColumnId = action.payload;
+    },
+    setRemovedTaskId(state, action: PayloadAction<string>) {
+      state.removedTaskId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -94,6 +99,20 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
+      .addCase(fetchRemoveUserTask.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
+          return {
+            ...column,
+            tasks:
+              column.id === action.payload.columnId
+                ? [...column.tasks?.filter((task) => task.id !== action.payload.taskId)]
+                : column.tasks,
+          };
+        });
+        state.isLoading = false;
+        state.errorMessage = '';
+      })
 
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;
@@ -101,7 +120,7 @@ export const columnsSlice = createSlice({
       });
   },
 });
-export const { setCurrentColumnId, setRemovedColumnId } = columnsSlice.actions;
+export const { setCurrentColumnId, setRemovedColumnId, setRemovedTaskId } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
 const isError = (action: AnyAction) => {
