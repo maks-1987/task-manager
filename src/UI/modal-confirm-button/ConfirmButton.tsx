@@ -1,6 +1,7 @@
 import React from 'react';
 import { fetchRemoveUserBoard } from '../../redux/boards-slice/boardsFechRequest';
 import { fetchRemoveUserColumn } from '../../redux/columns-slice/columnsFetchRequest';
+import { fetchRemoveUserTask } from '../../redux/columns-slice/tasksFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   setIsCreateBoard,
@@ -18,6 +19,8 @@ export default function ConfirmButton() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const removedBoardId = useAppSelector((state) => state.boardsSlice.removedBoardId);
+  const removedColumnId = useAppSelector((state) => state.columnsSlice.removedColumnId);
+  const removedTaskId = useAppSelector((state) => state.columnsSlice.removedTaskId);
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const currentColumnId = useAppSelector((state) => state.columnsSlice.currentColumnId);
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
@@ -30,14 +33,22 @@ export default function ConfirmButton() {
           boardId: removedBoardId,
           token,
         }
+      : isRemoveColumn
+      ? {
+          boardId: currentBoardId,
+          columnId: removedColumnId,
+          token,
+        }
       : {
           boardId: currentBoardId,
           columnId: currentColumnId,
+          taskId: removedTaskId,
           token,
         };
 
     isRemoveBoard && dispatch(fetchRemoveUserBoard(dataForFetch));
     isRemoveColumn && dispatch(fetchRemoveUserColumn(dataForFetch));
+    isRemoveTask && dispatch(fetchRemoveUserTask(dataForFetch));
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
     dispatch(setIsRemoveColumn(false));
