@@ -1,3 +1,5 @@
+// language indexes: EN=0, UA=1, BY=2, RU=3;
+
 export const languages = {
   signIn: ['Sign in ', 'Увійти ', 'Увайсці ', 'Войти '],
   register: ['Register ', 'Реєстрація ', 'Рэгiстрацыя ', 'Регистрация '],
