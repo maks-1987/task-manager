@@ -15,6 +15,7 @@ export const GlobalModal = (props: Props) => {
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
+  const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
 
   const currentModalTitle = isCreateBoard
     ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE
@@ -26,7 +27,9 @@ export const GlobalModal = (props: Props) => {
     ? localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
     : isRemoveColumn
     ? localeEN.modalContetntMessage.REMOVE_COLUMN_CONFIRM_MESSAGE
-    : localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE;
+    : isRemoveTask
+    ? localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE
+    : localeEN.modalContetntMessage.EDIT_TASK_MESSAGE;
 
   return (
     <div className={isModalOpen ? 'modal active' : 'modal'}>
@@ -39,6 +42,7 @@ export const GlobalModal = (props: Props) => {
         {isCreateBoard && props.component}
         {isCreateColumn && props.component}
         {isCreateTask && props.component}
+        {isEditTask && props.component}
         {isRemoveBoard && <ConfirmButton />}
         {isRemoveColumn && <ConfirmButton />}
         {isRemoveTask && <ConfirmButton />}

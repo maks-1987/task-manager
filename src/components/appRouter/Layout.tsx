@@ -13,10 +13,11 @@ export default function Layout() {
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
+  const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
 
   const currentPropComponent = isRemoveBoard ? (
     localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
-  ) : isCreateColumn || isCreateTask ? (
+  ) : isCreateColumn || isCreateTask || isEditTask ? (
     <ColumnsAndTaskForm />
   ) : (
     <CreateBoardForm />
