@@ -1,6 +1,7 @@
 import React from 'react';
 import { ITask } from '../../types/types';
 import { ButtonDeleteTask } from '../../UI/task-buttons/ButtonDeleteTask';
+import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
 
 import './task.css';
 interface IProp {
@@ -12,6 +13,7 @@ export const Task = (props: IProp) => {
     <div className="task" id={id} style={{ order: `${order}` }}>
       <p>{`${title}`}</p>
       <p>{`${description}`}</p>
+      <ButtonEditTask id={id} />
       <ButtonDeleteTask id={id} />
     </div>
   );
