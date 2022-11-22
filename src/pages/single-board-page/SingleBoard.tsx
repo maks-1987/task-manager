@@ -14,7 +14,7 @@ export default function SingleBoard() {
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const token = useAppSelector((state) => state.userSlice.token);
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
-  const userCompleteColumns = useAppSelector((state) => state.columnsSlice.userCompleteColumns);
+  const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
 
   useMemo(() => {
@@ -29,16 +29,16 @@ export default function SingleBoard() {
       <Link className="project-board__link" to="/">
         <span>↩</span>To welcome page
       </Link>
-      <h2 className="project-board__title">Board title</h2>
+      {isLoading && <Loader />}
+      <h2 className="project-board__title">{userCurrentBoard.title}</h2>
       <article className="project-board__columns">
         <section className="project-board__columns-list">
-          {isLoading && <Loader />}
           {Boolean(fetchColumnErrorMessage) && (
             <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
           )}
-          {!userCompleteColumns.length
+          {!userCurrentBoard.columns?.length
             ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
-            : userCompleteColumns.map((column) => <Column key={column.id} column={column} />)}
+            : userCurrentBoard.columns.map((column) => <Column key={column.id} column={column} />)}
         </section>
         <ButtonNewColumn />
       </article>

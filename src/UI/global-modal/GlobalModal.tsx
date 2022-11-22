@@ -10,6 +10,8 @@ type Props = { component: ReactElement | string };
 export const GlobalModal = (props: Props) => {
   const { isModalOpen } = useAppSelector((state) => state.modalSlice);
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
+  const isRemoveColumn = useAppSelector((state) => state.modalSlice.isRemoveColumn);
+  const isRemoveTask = useAppSelector((state) => state.modalSlice.isRemoveTask);
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
@@ -20,7 +22,12 @@ export const GlobalModal = (props: Props) => {
     ? localeEN.modalContetntMessage.CREATE_NEW_COLUMN_MESSAGE
     : isCreateTask
     ? localeEN.modalContetntMessage.CREATE_NEW_TASK_MESSAGE
-    : localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE;
+    : isRemoveBoard
+    ? localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
+    : isRemoveColumn
+    ? localeEN.modalContetntMessage.REMOVE_COLUMN_CONFIRM_MESSAGE
+    : localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE;
+
   return (
     <div className={isModalOpen ? 'modal active' : 'modal'}>
       <div
@@ -29,8 +36,12 @@ export const GlobalModal = (props: Props) => {
       >
         <CloseModalButton />
         <h3 className="modal-contene-message">{currentModalTitle}</h3>
-        {!isRemoveBoard && props.component}
+        {isCreateBoard && props.component}
+        {isCreateColumn && props.component}
+        {isCreateTask && props.component}
         {isRemoveBoard && <ConfirmButton />}
+        {isRemoveColumn && <ConfirmButton />}
+        {isRemoveTask && <ConfirmButton />}
       </div>
     </div>
   );
