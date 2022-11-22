@@ -1,0 +1,22 @@
+
+.button-edit-task {
+    width: 20px;
+    height: 20px;
+    background-color: initial;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    margin: 0 2.5px 0 2.5px;
+}
+
+.button-edit-task svg {
+    height: 100%;
+    width: 100%;
+}
+
+.button-edit-task svg path {
+    fill: rgba(55, 196, 55, 0.507);
+    height: 95%;
+    width: 95%;
+}
+
