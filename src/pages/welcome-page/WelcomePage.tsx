@@ -5,7 +5,6 @@ import { languages } from '../../locales/languages';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import './welcomePage.css';
-// import UnstyledSelectIntroduction from '../../UI/selectors/customselector';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlise);
@@ -16,7 +15,6 @@ function WelcomePage() {
         <div className="selectors-container">
           <LanguageSelector />
           <ThemeSelector />
-          {/* <UnstyledSelectIntroduction /> */}
         </div>
         <div className={'welcome-page-title ' + state.themeIndex}>
           <h2>{languages.welcome[state.languageIndex]}</h2>

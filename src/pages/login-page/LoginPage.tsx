@@ -1,18 +1,20 @@
-import * as React from 'react';
-import { localeEN } from '../../locales/localeEN';
-import '../register-page/registerPage.css';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
-import { useEffect } from 'react';
 import { IUserForm } from '../../types/types';
+import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
+import { languages } from '../../locales/languages';
+import LanguageSelector from '../../UI/selectors/LanguageSelector';
+import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import '../register-page/registerPage.css';
 
 export const LoginPage = () => {
   const navigation = useNavigate();
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
+  const state = useAppSelector((store) => store.settingsSlise);
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.userSlice);
 
@@ -36,51 +38,73 @@ export const LoginPage = () => {
   }, [dispatch]);
 
   return (
-    <form className="sign-in-form" onSubmit={handleSubmit(onSubmitForm)}>
-      <p className="sign-in-form__title">{localeEN.FORM_TITLE_LOGIN}</p>
-      <div className="sign-in-form__item login">
-        <label htmlFor="login">Login</label>
-        <input
-          type="text"
-          id="login"
-          {...register('login', {
-            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
-            maxLength: 20,
-            minLength: 3,
-          })}
-        />
-        <p className="form-messages">
-          {errors.login?.type === 'required' && <span>{errors.login.message}</span>}
-          {errors.login?.type === 'minLength' && <span>*{localeEN.FORM_MESSAGE_MIN_LENGTH}</span>}
-          {errors.login?.type === 'maxLength' && <span>*{localeEN.FORM_MESSAGE_MAX_LENGTH}</span>}
+    <div className={'register-container ' + state.themeIndex}>
+      <div className="selectors-container">
+        <LanguageSelector />
+        <ThemeSelector />
+      </div>
+
+      <div>
+        <h3 className={'register-note ' + state.themeIndex}>
+          {languages.notHaveReg[state.languageIndex]}
+          <Link to="/register" className={'register-note-link ' + state.themeIndex}>
+            {languages.register[state.languageIndex]}
+            <span className={'register-note-link-arrow ' + state.themeIndex}>❯</span>
+          </Link>
+        </h3>
+      </div>
+
+      <form className="sign-in-form" onSubmit={handleSubmit(onSubmitForm)}>
+        <p className={'sign-up-form__title ' + state.themeIndex}>
+          {languages.authorization[state.languageIndex]}
         </p>
-      </div>
-      <div className="sign-in-form__item password">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          {...register('password', {
-            required: `*${localeEN.FORM_MESSAGE_REQUIRED}`,
-            minLength: 3,
-          })}
-        />
-        <p className="form-messages">
-          {errors.password?.type === 'required' && <span>{errors.password?.message}</span>}
-          {errors.password?.type === 'minLength' && (
-            <span>*{localeEN.FORM_MESSAGE_MIN_LENGTH}</span>
-          )}
-        </p>
-      </div>
-      <div className="sign-in-form__item buttons">
-        <Link to="/register" className="">
-          {localeEN.FORM_LINK_REGISTRATION}
-        </Link>
-        <button type="submit" className="">
-          {localeEN.FORM_BUTTON_LOGIN}
-        </button>
-      </div>
-      <p className="form-failed">{error}</p>
-    </form>
+        <div className={'sign-up-form__item login ' + state.themeIndex}>
+          <label htmlFor="login">{languages.login[state.languageIndex]}</label>
+          <input
+            className={'sign-in-form__input ' + state.themeIndex}
+            type="text"
+            id="login"
+            {...register('login', {
+              required: `${languages.requiredFieldNote[state.languageIndex]}`,
+              maxLength: 20,
+              minLength: 3,
+            })}
+          />
+          <p className="form-messages">
+            {errors.login?.type === 'required' && <span>{errors.login.message}</span>}
+            {errors.login?.type === 'minLength' && (
+              <span>{languages.formWarnMin[state.languageIndex]}</span>
+            )}
+            {errors.login?.type === 'maxLength' && (
+              <span>{languages.formWarnMax[state.languageIndex]}</span>
+            )}
+          </p>
+        </div>
+        <div className={'sign-up-form__item password ' + state.themeIndex}>
+          <label htmlFor="password">{languages.password[state.languageIndex]}</label>
+          <input
+            className={'sign-in-form__input ' + state.themeIndex}
+            type="password"
+            id="password"
+            {...register('password', {
+              required: `${languages.requiredFieldNote[state.languageIndex]}`,
+              minLength: 3,
+            })}
+          />
+          <p className="form-messages">
+            {errors.password?.type === 'required' && <span>{errors.password?.message}</span>}
+            {errors.password?.type === 'minLength' && (
+              <span>{languages.formWarnMin[state.languageIndex]}</span>
+            )}
+          </p>
+        </div>
+        <div className="sign-in-form__item buttons">
+          <button type="submit" className={'submit__button ' + state.themeIndex}>
+            {languages.submit[state.languageIndex]}
+          </button>
+        </div>
+        <p className="form-failed">{error}</p>
+      </form>
+    </div>
   );
 };

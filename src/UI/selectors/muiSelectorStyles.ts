@@ -5,14 +5,14 @@ export const sxSelect = {
   '.MuiOutlinedInput-input': {
     display: 'flex',
     justifyContent: 'center',
-    padding: 3.5,
+    padding: 3.75,
   },
   '.MuiSelect-icon': {
     right: 0,
   },
 
   width: 60,
-  height: 30,
+  height: 23,
   fontWeight: 500,
   borderRadius: 1,
 };
