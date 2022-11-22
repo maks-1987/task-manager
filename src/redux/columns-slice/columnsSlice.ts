@@ -16,6 +16,7 @@ interface IColumnsSlice {
   currentColumnId: string;
   removedColumnId: string;
   removedTaskId: string;
+  editedTaskId: string;
 }
 const initialState: IColumnsSlice = {
   userCurrentBoard: {
@@ -29,6 +30,7 @@ const initialState: IColumnsSlice = {
   currentColumnId: '',
   removedColumnId: '',
   removedTaskId: '',
+  editedTaskId: '',
 };
 export const columnsSlice = createSlice({
   name: 'columns',
@@ -42,6 +44,9 @@ export const columnsSlice = createSlice({
     },
     setRemovedTaskId(state, action: PayloadAction<string>) {
       state.removedTaskId = action.payload;
+    },
+    setEditedTaskId(state, action: PayloadAction<string>) {
+      state.editedTaskId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -120,7 +125,8 @@ export const columnsSlice = createSlice({
       });
   },
 });
-export const { setCurrentColumnId, setRemovedColumnId, setRemovedTaskId } = columnsSlice.actions;
+export const { setCurrentColumnId, setRemovedColumnId, setRemovedTaskId, setEditedTaskId } =
+  columnsSlice.actions;
 export default columnsSlice.reducer;
 
 const isError = (action: AnyAction) => {
