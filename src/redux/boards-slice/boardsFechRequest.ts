@@ -64,7 +64,7 @@ export const fetchRemoveUserBoard = createAsyncThunk<
   if (!response.ok) {
     return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
   }
-  // const data: IFetchQuery = await response.json();
+
   return dataForFetch;
 });
 
