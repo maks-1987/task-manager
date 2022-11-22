@@ -12,18 +12,25 @@ export interface IUserForm {
 }
 
 export interface IUserBoard {
-  id: string;
+  id?: string;
   _id?: string;
-  title: string;
+  title?: string;
   description?: string;
   order?: number;
   owner?: string;
   users?: string[];
 }
 
+export interface IUserTask {
+  userId?: string;
+  title?: string;
+  description?: string;
+}
+
 export interface IFetchQuery {
   boardData?: IUserBoard;
   columnData?: IComleteColumn;
+  taskData?: IUserTask;
   boardId?: string;
   columnId?: string;
   taskId?: string;
@@ -35,17 +42,17 @@ export interface IFetchQuery {
 
 export interface IBoard {
   id: string;
-  _id?: string;
   title: string;
   description: string;
-  columns?: IColumn;
+  columns: IColumn[];
 }
 
 export interface IColumn {
-  id: string;
+  id?: string;
+  _id?: string;
   title: string;
   order: number;
-  tasks: ITask;
+  tasks?: ITask[];
 }
 
 export interface IFiles {
@@ -61,7 +68,7 @@ export interface ITask {
   userId: string;
   boardId: string;
   columnId: string;
-  files?: IFiles;
+  files?: IFiles[];
 }
 
 export type UserId = {
