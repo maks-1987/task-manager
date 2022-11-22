@@ -7,7 +7,7 @@ import {
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard } from './../../types/types';
+import { IBoard, ITask } from './../../types/types';
 import { fetchAddNewUserTasks, fetchRemoveUserTask } from './tasksFetchRequest';
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
@@ -17,6 +17,7 @@ interface IColumnsSlice {
   removedColumnId: string;
   removedTaskId: string;
   editedTaskId: string;
+  editedTaskData: ITask;
 }
 const initialState: IColumnsSlice = {
   userCurrentBoard: {
@@ -31,6 +32,16 @@ const initialState: IColumnsSlice = {
   removedColumnId: '',
   removedTaskId: '',
   editedTaskId: '',
+  editedTaskData: {
+    id: '',
+    title: '',
+    order: 1,
+    description: '',
+    userId: '',
+    boardId: '',
+    columnId: '',
+    files: [],
+  },
 };
 export const columnsSlice = createSlice({
   name: 'columns',
@@ -47,6 +58,8 @@ export const columnsSlice = createSlice({
     },
     setEditedTaskId(state, action: PayloadAction<string>) {
       state.editedTaskId = action.payload;
+      const allTasks = state.userCurrentBoard.columns.map((column) => column.tasks).flat();
+      state.editedTaskData = allTasks.find((task) => task.id === action.payload)!;
     },
   },
   extraReducers: (builder) => {
