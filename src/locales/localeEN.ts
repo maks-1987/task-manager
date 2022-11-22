@@ -33,5 +33,6 @@ export const localeEN = {
     CREATE_NEW_BOARD_MESSAGE: 'Create a new task board.',
     CREATE_NEW_COLUMN_MESSAGE: 'Create a new column for your board.',
     CREATE_NEW_TASK_MESSAGE: 'Create a new task.',
+    EDIT_TASK_MESSAGE: 'Edit task',
   },
 };
