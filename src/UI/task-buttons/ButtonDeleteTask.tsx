@@ -1,19 +1,21 @@
 import React from 'react';
-import { setRemovedColumnId } from '../../redux/columns-slice/columnsSlice';
+import { setRemovedTaskId } from '../../redux/columns-slice/columnsSlice';
+
 import { useAppDispatch } from '../../redux/hooks';
-import { setIsRemoveColumn, setModalOpen } from '../../redux/modal-slice/modalSlice';
-import { deleteColumnSVG } from './svgButtons';
+import { setIsRemoveTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { deleteColumnSVG } from '../column-buttons/svgButtons';
+
 interface IProp {
   id: string;
 }
-export const ButtonDeleteColumn = (props: IProp) => {
+export const ButtonDeleteTask = (props: IProp) => {
   const { id } = props;
   const dispatch = useAppDispatch();
 
   const goToModalWindow = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(setIsRemoveColumn(true));
+    dispatch(setIsRemoveTask(true));
     dispatch(setModalOpen(true));
-    dispatch(setRemovedColumnId(e.currentTarget.id));
+    dispatch(setRemovedTaskId(e.currentTarget.id));
   };
   return (
     <>
