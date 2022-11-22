@@ -14,6 +14,7 @@ interface IColumnsSlice {
   isLoading: boolean;
   errorMessage: string;
   currentColumnId: string;
+  removedColumnId: string;
 }
 const initialState: IColumnsSlice = {
   userCurrentBoard: {
@@ -25,6 +26,7 @@ const initialState: IColumnsSlice = {
   isLoading: true,
   errorMessage: '',
   currentColumnId: '',
+  removedColumnId: '',
 };
 export const columnsSlice = createSlice({
   name: 'columns',
@@ -32,6 +34,9 @@ export const columnsSlice = createSlice({
   reducers: {
     setCurrentColumnId(state, action: PayloadAction<string>) {
       state.currentColumnId = action.payload;
+    },
+    setRemovedColumnId(state, action: PayloadAction<string>) {
+      state.removedColumnId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -96,7 +101,7 @@ export const columnsSlice = createSlice({
       });
   },
 });
-export const { setCurrentColumnId } = columnsSlice.actions;
+export const { setCurrentColumnId, setRemovedColumnId } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
 const isError = (action: AnyAction) => {
