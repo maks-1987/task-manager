@@ -2,7 +2,10 @@ import jwtDecode from 'jwt-decode';
 import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { fetchAddNewUserColumns } from '../../../redux/columns-slice/columnsFetchRequest';
-import { fetchAddNewUserTasks } from '../../../redux/columns-slice/tasksFetchRequest';
+import {
+  fetchAddNewUserTasks,
+  fetchChangeUserTask,
+} from '../../../redux/columns-slice/tasksFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
   setIsCreateBoard,
@@ -55,7 +58,7 @@ export default function ColumnsAndTaskForm() {
           token,
         }
       : {
-          taskData: { ...formData, userId: currentUser.userId },
+          taskData: { ...formData, userId: currentUser.userId, order: editedTaskData.order },
           boardId: currentBoardId,
           columnId: currentColumnId,
           taskId: editedTaskId,
@@ -63,7 +66,7 @@ export default function ColumnsAndTaskForm() {
         };
     isCreateColumn && dispatch(fetchAddNewUserColumns(dataForFetch));
     isCreateTask && dispatch(fetchAddNewUserTasks(dataForFetch));
-    isEditTask && console.log(dataForFetch);
+    isEditTask && dispatch(fetchChangeUserTask(dataForFetch));
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
     dispatch(setIsCreateColumn(false));
