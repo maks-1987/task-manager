@@ -8,7 +8,11 @@ import {
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
 import { IBoard, ITask } from './../../types/types';
-import { fetchAddNewUserTasks, fetchRemoveUserTask } from './tasksFetchRequest';
+import {
+  fetchAddNewUserTasks,
+  fetchChangeUserTask,
+  fetchRemoveUserTask,
+} from './tasksFetchRequest';
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
   isLoading: boolean;
@@ -59,7 +63,7 @@ export const columnsSlice = createSlice({
     setEditedTaskId(state, action: PayloadAction<string>) {
       state.editedTaskId = action.payload;
       const allTasks = state.userCurrentBoard.columns.map((column) => column.tasks).flat();
-      state.editedTaskData = allTasks.find((task) => task.id === action.payload)!;
+      state.editedTaskData = allTasks.find((task) => task.id === state.editedTaskId)!;
     },
   },
   extraReducers: (builder) => {
@@ -131,7 +135,32 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
-
+      .addCase(fetchChangeUserTask.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
+          return {
+            ...column,
+            tasks:
+              column.id === action.payload.columnId
+                ? [
+                    ...column.tasks?.map((task) => {
+                      return {
+                        ...task,
+                        title: task.id === action.payload.id ? action.payload.title : task.title,
+                        description:
+                          task.id === action.payload.id
+                            ? action.payload.description
+                            : task.description,
+                        order: task.id === action.payload.id ? action.payload.order : task.order,
+                      };
+                    }),
+                  ]
+                : column.tasks,
+          };
+        });
+        state.isLoading = false;
+        state.errorMessage = '';
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;
         state.isLoading = false;
