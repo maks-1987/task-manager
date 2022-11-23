@@ -8,7 +8,7 @@ import {
   fetchGetAllUserColumns,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { IComleteColumn, IFetchQuery } from '../../types/types';
+import { IColumn, IComleteColumn, IFetchQuery } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
@@ -19,9 +19,9 @@ export default function SingleBoard() {
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const token = useAppSelector((state) => state.userSlice.token);
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
-  const userCompleteColumns = useAppSelector((state) => state.columnsSlice.userCompleteColumns);
+  const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
-  const [columnState, setColumnState] = useState<IComleteColumn[]>(userCompleteColumns);
+  const [columnState, setColumnState] = useState<IColumn[]>(userCurrentBoard.columns);
   const { user } = useAppSelector((state) => state.userSlice);
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
@@ -32,8 +32,8 @@ export default function SingleBoard() {
   }, [currentBoardId, dispatch, token]);
 
   useEffect(() => {
-    setColumnState(userCompleteColumns);
-  }, [userCompleteColumns]);
+    setColumnState(userCurrentBoard.columns);
+  }, [userCurrentBoard.columns]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
@@ -47,7 +47,7 @@ export default function SingleBoard() {
       newColumnOrder.splice(source.index, 1);
       const [draggableElem] = columnState.filter((column) => column._id === draggableId);
       newColumnOrder.splice(destination.index, 0, draggableElem);
-      const newArrCol: IComleteColumn[] = newColumnOrder.map((col, index) => {
+      const newArrCol: IColumn[] = newColumnOrder.map((col, index) => {
         return {
           ...col,
           order: index + 1,
@@ -73,7 +73,8 @@ export default function SingleBoard() {
       <Link className="project-board__link" to={`/boards/${user.login}`}>
         <span>↩</span>To boards page
       </Link>
-      <h2 className="project-board__title">Board title</h2>
+      {isLoading && <Loader />}
+      <h2 className="project-board__title">{userCurrentBoard.title}</h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <article className="project-board__columns">
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
@@ -87,7 +88,7 @@ export default function SingleBoard() {
                 {Boolean(fetchColumnErrorMessage) && (
                   <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
                 )}
-                {!columnState.length
+                {!userCurrentBoard.columns?.length
                   ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
                   : columnState.map((column, index) => (
                       <Column key={column._id} column={column} index={index} />

@@ -9,6 +9,11 @@
   border-radius: 5px;
   background-color: rgba(39, 34, 34, 0.377);
 }
+.boarder-previwe-item__warning-message {
+  color: #ff7878;
+  font-size: 0.75em;
+  font-weight: 600;
+}
 .boarder-preview-item {
   position: relative;
   width: 90%;

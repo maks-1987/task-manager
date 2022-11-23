@@ -1,31 +1,28 @@
 import React from 'react';
-import { fetchRemoveUserColumn } from '../../redux/columns-slice/columnsFetchRequest';
+import { setRemovedColumnId } from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { IFetchQuery } from '../../types/types';
+import { setIsRemoveColumn, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { deleteColumnSVG } from './svgButtons';
+
 interface IProp {
   id: string;
 }
+
 export const ButtonDeleteColumn = (props: IProp) => {
   const { id } = props;
   const dispatch = useAppDispatch();
-  const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
-  const token = useAppSelector((state) => state.userSlice.token);
 
-  const removeColumnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const dataForFetch: IFetchQuery = {
-      boardId: currentBoardId,
-      columnId: e.currentTarget.id,
-      token,
-    };
-    dispatch(fetchRemoveUserColumn(dataForFetch));
+  const goToModalWindow = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setIsRemoveColumn(true));
+    dispatch(setModalOpen(true));
+    dispatch(setRemovedColumnId(e.currentTarget.id));
   };
   return (
     <>
       <button
         id={id}
         className="button-delete-column"
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) => removeColumnHandler(e)}
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => goToModalWindow(e)}
       >
         {deleteColumnSVG()}
       </button>

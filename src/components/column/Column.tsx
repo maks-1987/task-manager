@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { Task } from '../task/Task';
 import './column.css';
 import { ButtonDeleteColumn } from '../../UI/column-buttons/ButtonDeleteColumn';
@@ -6,7 +6,11 @@ import { ButtonNewTask } from '../../UI/column-buttons/ButtonNewTask';
 import { IComleteColumn, IFetchQuery } from '../../types/types';
 import { localeEN } from '../../locales/localeEN';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchChangeUserColumn } from '../../redux/columns-slice/columnsFetchRequest';
+import {
+  fetchChangeUserColumn,
+  fetchGetUserColumnByID,
+} from '../../redux/columns-slice/columnsFetchRequest';
+import Loader from '../loader/Loader';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 interface IProp {
@@ -16,42 +20,39 @@ interface IProp {
 
 export const Column = (props: IProp) => {
   const { _id, title, order, tasks } = props.column;
-  const [columnTitle, setColumnTitle] = useState(title);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const token = useAppSelector((state) => state.userSlice.token);
-  const handleTitle = (event: React.FormEvent<HTMLInputElement>) => {
-    setColumnTitle(event.currentTarget.value);
-  };
 
-  const changeColumnTitleHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+  const changeColumnTitleHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
       columnData: { _id, title: e.currentTarget.value, order },
       boardId: currentBoardId,
       columnId: _id,
       token,
     };
-    dispatch(fetchChangeUserColumn(dataForFetch));
+    e.currentTarget.value.length === 0
+      ? null
+      : setTimeout(() => dispatch(fetchChangeUserColumn(dataForFetch)), 1000);
   };
+  useMemo(() => {
+    const dataForFetch: IFetchQuery = {
+      boardId: currentBoardId,
+      columnId: _id,
+      token,
+    };
+    dispatch(fetchGetUserColumnByID(dataForFetch));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, _id]);
 
-  const columnItem = {
-    width: '300px',
-    flex: '0 0 300px',
-    overflow: 'auto',
-    border: 'var(--border1)',
-    backgroundColor: 'white',
-    order: `${order}`,
-  };
   return (
     <>
       <Draggable draggableId={_id!} index={props.index}>
         {(provided) => (
           <div
-            // style={`${columnItem}, ${{ order: `${order}` }}`}
-            // style={columnItem}
             className="column-item"
             id={_id}
-            // style={{ order: `${order}` }}
+            style={{ order: `${order}` }}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -61,30 +62,23 @@ export const Column = (props: IProp) => {
               <input
                 className="column-item__title"
                 type="text"
-                value={columnTitle}
-                onChange={handleTitle}
-                onBlur={(e: React.FocusEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
+                defaultValue={title}
+                onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
               />
-              <ButtonNewTask />
+              <ButtonNewTask id={_id!} />
               <ButtonDeleteColumn id={_id!} />
             </div>
-            {/*<Droppable droppableId="all-tasks" type="task">*/}
-            {/*  {(provided) => (*/}
             <section className="task-list">
               {tasks?.length === 0 ? (
                 <span className="column-item__message">
                   {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
                 </span>
               ) : (
-                tasks?.map((task) => <Task key={task.id} />)
+                tasks?.map((task) => <Task key={task.id} task={task} />)
               )}
-              {/*{provided.placeholder}*/}
             </section>
-            {/*)}*/}
-            {/*</Droppable>*/}
-
             <p className="column-item__add-task">
-              <ButtonNewTask />
+              <ButtonNewTask id={_id!} />
               Add new task
             </p>
           </div>

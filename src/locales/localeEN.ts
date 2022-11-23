@@ -28,6 +28,8 @@ export const localeEN = {
   },
   modalContetntMessage: {
     REMOVE_BOARD_CONFIRM_MESSAGE: `If you want to delete the board, confirm the action.`,
+    REMOVE_COLUMN_CONFIRM_MESSAGE: `If you want to delete the column, confirm the action.`,
+    REMOVE_TASK_CONFIRM_MESSAGE: `If you want to delete the task, confirm the action.`,
     CREATE_NEW_BOARD_MESSAGE: 'Create a new task board.',
     CREATE_NEW_COLUMN_MESSAGE: 'Create a new column for your board.',
     CREATE_NEW_TASK_MESSAGE: 'Create a new task.',

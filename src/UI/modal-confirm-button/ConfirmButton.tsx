@@ -1,11 +1,15 @@
 import React from 'react';
 import { fetchRemoveUserBoard } from '../../redux/boards-slice/boardsFechRequest';
+import { fetchRemoveUserColumn } from '../../redux/columns-slice/columnsFetchRequest';
+import { fetchRemoveUserTask } from '../../redux/columns-slice/tasksFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
   setIsRemoveBoard,
+  setIsRemoveColumn,
+  setIsRemoveTask,
   setModalOpen,
 } from '../../redux/modal-slice/modalSlice';
 import { IFetchQuery } from '../../types/types';
@@ -15,16 +19,40 @@ export default function ConfirmButton() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const removedBoardId = useAppSelector((state) => state.boardsSlice.removedBoardId);
+  const removedColumnId = useAppSelector((state) => state.columnsSlice.removedColumnId);
+  const removedTaskId = useAppSelector((state) => state.columnsSlice.removedTaskId);
+  const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
+  const currentColumnId = useAppSelector((state) => state.columnsSlice.currentColumnId);
+  const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
+  const isRemoveColumn = useAppSelector((state) => state.modalSlice.isRemoveColumn);
+  const isRemoveTask = useAppSelector((state) => state.modalSlice.isRemoveTask);
 
-  const removeBoard = () => {
-    const dataForFetch: IFetchQuery = {
-      boardId: removedBoardId,
-      token,
-    };
-    dispatch(fetchRemoveUserBoard(dataForFetch));
+  const removeHandler = () => {
+    const dataForFetch: IFetchQuery = isRemoveBoard
+      ? {
+          boardId: removedBoardId,
+          token,
+        }
+      : isRemoveColumn
+      ? {
+          boardId: currentBoardId,
+          columnId: removedColumnId,
+          token,
+        }
+      : {
+          boardId: currentBoardId,
+          columnId: currentColumnId,
+          taskId: removedTaskId,
+          token,
+        };
+
+    isRemoveBoard && dispatch(fetchRemoveUserBoard(dataForFetch));
+    isRemoveColumn && dispatch(fetchRemoveUserColumn(dataForFetch));
+    isRemoveTask && dispatch(fetchRemoveUserTask(dataForFetch));
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
-    dispatch(setIsRemoveBoard(false));
+    dispatch(setIsRemoveColumn(false));
+    dispatch(setIsRemoveTask(false));
     dispatch(setIsCreateColumn(false));
     dispatch(setIsCreateTask(false));
     dispatch(setIsCreateBoard(false));
@@ -32,7 +60,7 @@ export default function ConfirmButton() {
 
   return (
     <>
-      <button className="confirm-button" onClick={removeBoard}>
+      <button className="confirm-button" onClick={removeHandler}>
         <svg
           className="add-board-button__yes"
           fill="#000000"
