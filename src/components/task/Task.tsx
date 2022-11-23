@@ -11,10 +11,14 @@ export const Task = (props: IProp) => {
   const { id, order, title, description } = props.task;
   return (
     <div className="task" id={id} style={{ order: `${order}` }}>
-      <p>{`${title}`}</p>
-      <p>{`${description}`}</p>
-      <ButtonEditTask id={id} />
-      <ButtonDeleteTask id={id} />
+      <div className="task_contetnt">
+        <p>{`${title}`}</p>
+        <p>{`${description}`}</p>
+      </div>
+      <div className="task_buton-block">
+        <ButtonEditTask id={id} />
+        <ButtonDeleteTask id={id} />
+      </div>
     </div>
   );
 };
