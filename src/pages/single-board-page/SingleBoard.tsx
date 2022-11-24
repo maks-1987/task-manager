@@ -16,7 +16,7 @@ export default function SingleBoard() {
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
-
+  const { user } = useAppSelector((state) => state.userSlice);
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
       boardId: currentBoardId,
@@ -26,8 +26,8 @@ export default function SingleBoard() {
   }, [currentBoardId, dispatch, token]);
   return (
     <main className="project-board">
-      <Link className="project-board__link" to="/">
-        <span>↩</span>To welcome page
+      <Link className="project-board__link" to={`/boards/${user.login}`}>
+        <span>↩</span>To boards page
       </Link>
       {isLoading && <Loader />}
       <h2 className="project-board__title">{userCurrentBoard.title}</h2>
