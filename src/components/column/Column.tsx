@@ -11,9 +11,13 @@ import {
   fetchGetUserColumnByID,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import Loader from '../loader/Loader';
+import { Draggable } from 'react-beautiful-dnd';
+
 interface IProp {
   column: IComleteColumn;
+  index: number;
 }
+
 export const Column = (props: IProp) => {
   const { id, title, order, tasks } = props.column;
   const dispatch = useAppDispatch();
@@ -43,34 +47,45 @@ export const Column = (props: IProp) => {
   }, [dispatch, id]);
   return (
     <>
-      <div className="column-item" id={id} style={{ order: `${order}` }}>
-        <div className="column-item__control">
-          <input
-            className="column-item__title"
-            type="text"
-            defaultValue={title}
-            placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
-            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
-          />
-          <ButtonNewTask id={id} />
-          <ButtonDeleteColumn id={id} />
-        </div>
-        <section className="task-list">
-          {isLoading && <Loader />}
-          {tasks?.length === 0 ? (
-            <span className="column-item__message">
-              {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
-            </span>
-          ) : (
-            tasks?.map((task) => <Task key={task.id} task={task} columnId={id} />)
-          )}
-        </section>
+      <Draggable draggableId={id!} index={props.index}>
+        {(provided) => (
+          <div
+            className="column-item"
+            id={id}
+            style={{ order: `${order}` }}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <hr {...provided.dragHandleProps} />
+            <div className="column-item__control">
+              <input
+                className="column-item__title"
+                type="text"
+                defaultValue={title}
+                placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
+                onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
+              />
+              <ButtonNewTask id={id} />
+              <ButtonDeleteColumn id={id} />
+            </div>
+            <section className="task-list">
+              {isLoading && <Loader />}
+              {tasks?.length === 0 ? (
+                <span className="column-item__message">
+                  {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
+                </span>
+              ) : (
+                tasks?.map((task) => <Task key={task.id} task={task} columnId={id} />)
+              )}
+            </section>
 
-        <p className="column-item__add-task">
-          <ButtonNewTask id={id} />
-          Add new task
-        </p>
-      </div>
+            <p className="column-item__add-task">
+              <ButtonNewTask id={id} />
+              Add new task
+            </p>
+          </div>
+        )}
+      </Draggable>
     </>
   );
 };
