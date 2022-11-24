@@ -62,7 +62,7 @@ export const Column = (props: IProp) => {
               {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
             </span>
           ) : (
-            tasks?.map((task) => <Task key={task.id} task={task} />)
+            tasks?.map((task) => <Task key={task.id} task={task} columnId={id} />)
           )}
         </section>
 
