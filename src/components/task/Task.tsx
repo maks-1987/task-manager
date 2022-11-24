@@ -6,6 +6,7 @@ import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
 import './task.css';
 interface IProp {
   task: ITask;
+  columnId: string;
 }
 export const Task = (props: IProp) => {
   const { id, order, title, description } = props.task;
@@ -16,8 +17,8 @@ export const Task = (props: IProp) => {
         <p>{`${description}`}</p>
       </div>
       <div className="task_buton-block">
-        <ButtonEditTask id={id} />
-        <ButtonDeleteTask id={id} />
+        <ButtonEditTask id={id} columnId={props.columnId} />
+        <ButtonDeleteTask id={id} columnId={props.columnId} />
       </div>
     </div>
   );
