@@ -6,7 +6,9 @@
     border: var(--border1);
     border-radius: 6px;
     padding: 4px;
+    background-color: white;
 }
+
 .task_contetnt {
   display: flex;
   flex-direction: column;
@@ -14,6 +16,7 @@
   height: 100%;
   margin-right: 5px;
 }
+
 .task_buton-block {
   display: flex;
   justify-content: space-around;

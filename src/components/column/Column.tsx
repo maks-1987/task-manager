@@ -11,7 +11,7 @@ import {
   fetchGetUserColumnByID,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import Loader from '../loader/Loader';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 interface IProp {
   column: IComleteColumn;
@@ -47,7 +47,7 @@ export const Column = (props: IProp) => {
   }, [dispatch, id]);
   return (
     <>
-      <Draggable draggableId={id!} index={props.index}>
+      <Draggable draggableId={id} index={props.index}>
         {(provided) => (
           <div
             className="column-item"
@@ -68,17 +68,25 @@ export const Column = (props: IProp) => {
               <ButtonNewTask id={id} />
               <ButtonDeleteColumn id={id} />
             </div>
-            <section className="task-list">
-              {isLoading && <Loader />}
-              {tasks?.length === 0 ? (
-                <span className="column-item__message">
-                  {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
-                </span>
-              ) : (
-                tasks?.map((task) => <Task key={task.id} task={task} columnId={id} />)
+            <Droppable droppableId={`tasks-${id}`} type="task">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <section className="task-list">
+                    {isLoading && <Loader />}
+                    {tasks?.length === 0 ? (
+                      <span className="column-item__message">
+                        {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
+                      </span>
+                    ) : (
+                      tasks?.map((task, index) => (
+                        <Task key={task.id} task={task} columnId={id} index={index} />
+                      ))
+                    )}
+                  </section>
+                  {provided.placeholder}
+                </div>
               )}
-            </section>
-
+            </Droppable>
             <p className="column-item__add-task">
               <ButtonNewTask id={id} />
               Add new task

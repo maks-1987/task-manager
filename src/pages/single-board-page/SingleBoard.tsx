@@ -67,6 +67,10 @@ export default function SingleBoard() {
       });
       dispatch(setColumnsAfterDrag(newArrCol));
     }
+
+    if (type === 'task') {
+      console.log('move task', result);
+    }
   };
 
   return (
