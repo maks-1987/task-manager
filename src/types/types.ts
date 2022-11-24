@@ -16,9 +16,10 @@ export interface IUserBoard {
   description?: string;
 }
 export interface IUserTask {
-  userId?: string;
+  userId: string;
   title?: string;
   description?: string;
+  order?: number;
 }
 export interface IFetchQuery {
   boardData?: IUserBoard;
