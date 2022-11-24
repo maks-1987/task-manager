@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { localeEN } from '../../locales/localeEN';
 import '../register-page/registerPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
-import { useEffect } from 'react';
 import { IUserForm } from '../../types/types';
+import { Endpoints } from '../../endpoints/endpoints';
 
 export const LoginPage = () => {
   const navigation = useNavigate();
@@ -17,9 +17,26 @@ export const LoginPage = () => {
   const { error } = useAppSelector((state) => state.userSlice);
 
   const { errors } = formState;
-  const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
-    dispatch(fetchLogin(data));
-    if (!error.length) {
+  const onSubmitForm: SubmitHandler<IUserForm> = async (data) => {
+    const response = await fetch(Endpoints.SIGN_IN, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        login: data.login,
+        password: data.password,
+      }),
+    });
+    const loginData = await response.json();
+
+    if (!response.ok) {
+      dispatch(userSlice.actions.setError(loginData.message));
+    } else {
+      dispatch(userSlice.actions.setUserLogin(data.login));
+      dispatch(userSlice.actions.setPassword(''));
+      dispatch(userSlice.actions.setUserToken(loginData.token));
+
       navigation(`/boards/${data.login}`);
     }
   };

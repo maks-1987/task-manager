@@ -83,7 +83,6 @@ export const fetchAddNewUserColumns = createAsyncThunk<
     return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
   }
 
-  // const newUserBoards: IComleteColumn = await response.json();
   const newUserBoards: IColumn = await response.json();
   return newUserBoards;
 });
@@ -135,3 +134,31 @@ export const fetchChangeUserColumn = createAsyncThunk<IColumn, IFetchQuery>(
     return newColumn;
   }
 );
+
+export const fetchChangeOrderColumn = createAsyncThunk<
+  IColumn,
+  IFetchQuery,
+  { rejectValue: string }
+>('columns/fetchChangeOrderColumn', async (dataForFetch, { rejectWithValue }) => {
+  const response = await fetch(
+    `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnData?.id}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+      body: JSON.stringify({
+        title: dataForFetch.columnData?.title,
+        order: dataForFetch.newOrder,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const userData = await response.json();
+    return rejectWithValue(userData.message);
+  }
+
+  return (await response.json()) as IColumn;
+});

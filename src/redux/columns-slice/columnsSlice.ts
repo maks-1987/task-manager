@@ -1,18 +1,20 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchAddNewUserColumns,
+  fetchChangeOrderColumn,
   fetchChangeUserColumn,
   fetchGetAllUserColumns,
   fetchGetUserBoardByID,
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard, ITask } from './../../types/types';
+import { IBoard, IColumn, ITask } from './../../types/types';
 import {
   fetchAddNewUserTasks,
   fetchChangeUserTask,
   fetchRemoveUserTask,
 } from './tasksFetchRequest';
+
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
   isLoading: boolean;
@@ -23,6 +25,7 @@ interface IColumnsSlice {
   editedTaskId: string;
   editedTaskData: ITask;
 }
+
 const initialState: IColumnsSlice = {
   userCurrentBoard: {
     id: '',
@@ -65,6 +68,9 @@ export const columnsSlice = createSlice({
       const allTasks = state.userCurrentBoard.columns.map((column) => column.tasks).flat();
       state.editedTaskData = allTasks.find((task) => task.id === state.editedTaskId)!;
     },
+    setColumnsAfterDrag(state, action: PayloadAction<IColumn[]>) {
+      state.userCurrentBoard.columns = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -85,6 +91,7 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.userCurrentBoard.columns = action.payload;
         state.errorMessage = '';
+        action.payload.sort((a, b) => (a.order < b.order ? -1 : 1));
       })
       .addCase(fetchGetUserColumnByID.fulfilled, (state, action) => {
         const filteredColumns = state.userCurrentBoard.columns.filter(
@@ -161,14 +168,27 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
+      .addCase(fetchChangeOrderColumn.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
+      .addCase(fetchChangeOrderColumn.fulfilled, (state) => {
+        state.isLoading = false;
+        state.errorMessage = '';
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.errorMessage = action.payload;
         state.isLoading = false;
       });
   },
 });
-export const { setCurrentColumnId, setRemovedColumnId, setRemovedTaskId, setEditedTaskId } =
-  columnsSlice.actions;
+export const {
+  setCurrentColumnId,
+  setRemovedColumnId,
+  setRemovedTaskId,
+  setEditedTaskId,
+  setColumnsAfterDrag,
+} = columnsSlice.actions;
 export default columnsSlice.reducer;
 
 const isError = (action: AnyAction) => {
