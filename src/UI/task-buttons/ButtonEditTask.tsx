@@ -1,32 +1,33 @@
 import React from 'react';
-import { setCurrentColumnId, setRemovedTaskId } from '../../redux/columns-slice/columnsSlice';
-
+import { setCurrentColumnId, setEditedTaskId } from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch } from '../../redux/hooks';
-import { setIsRemoveTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
-import { deleteColumnSVG } from '../column-buttons/svgButtons';
+import { setIsEditTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { editTaskSVG } from './svgButtons';
+import './task-buttons.css';
 
 interface IProp {
   id: string;
   columnId: string;
 }
-export const ButtonDeleteTask = (props: IProp) => {
+export const ButtonEditTask = (props: IProp) => {
   const { id, columnId } = props;
+
   const dispatch = useAppDispatch();
 
   const goToModalWindow = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(setIsRemoveTask(true));
+    dispatch(setIsEditTask(true));
     dispatch(setModalOpen(true));
-    dispatch(setRemovedTaskId(e.currentTarget.id));
+    dispatch(setEditedTaskId(e.currentTarget.id));
     dispatch(setCurrentColumnId(columnId));
   };
   return (
     <>
       <button
         id={id}
-        className="button-delete-column"
+        className="button-edit-task"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => goToModalWindow(e)}
       >
-        {deleteColumnSVG()}
+        {editTaskSVG()}
       </button>
     </>
   );

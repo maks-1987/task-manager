@@ -1,6 +1,23 @@
 .task {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-bottom: 14px;
     border: var(--border1);
     border-radius: 6px;
     padding: 4px;
+}
+.task_contetnt {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+  margin-right: 5px;
+}
+.task_buton-block {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 20%;
+  height: 100%;
 }
