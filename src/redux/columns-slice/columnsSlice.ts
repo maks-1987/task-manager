@@ -89,15 +89,16 @@ export const columnsSlice = createSlice({
       })
       .addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userCurrentBoard.columns = action.payload;
         state.errorMessage = '';
         action.payload.sort((a, b) => (a.order < b.order ? -1 : 1));
+        state.userCurrentBoard.columns = action.payload;
       })
       .addCase(fetchGetUserColumnByID.fulfilled, (state, action) => {
         const filteredColumns = state.userCurrentBoard.columns.filter(
           (column) => column.id !== action.payload.id
         );
         state.userCurrentBoard.columns = [...filteredColumns, action.payload];
+        state.userCurrentBoard.columns.sort((a, b) => (a.order < b.order ? -1 : 1));
         state.isLoading = false;
         state.errorMessage = '';
       })
