@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
-import { fetchGetAllUserColumns } from '../../redux/columns-slice/columnsFetchRequest';
+import {
+  fetchChangeOrderColumn,
+  fetchGetAllUserColumns,
+} from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IColumn, IFetchQuery } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { setColumnsAfterDrag } from '../../redux/columns-slice/columnsSlice';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -33,7 +37,36 @@ export default function SingleBoard() {
   }, [userCurrentBoard.columns]);
 
   const onDragEnd = (result: DropResult) => {
-    console.log(result);
+    const { destination, source, draggableId, type } = result;
+    if (!destination) return;
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index)
+      return;
+
+    if (type === 'column') {
+      const newColumnOrder = Array.from(columnState);
+      newColumnOrder.splice(source.index, 1);
+      const [draggableElem] = columnState.filter((column) => column.id === draggableId);
+      newColumnOrder.splice(destination.index, 0, draggableElem);
+      const newArrCol = newColumnOrder.map((col, index) => {
+        return {
+          ...col,
+          order: index + 1,
+        };
+      });
+
+      setColumnState(newArrCol);
+      newArrCol.map((column, index) => {
+        const dataForFetch: IFetchQuery = {
+          boardId: currentBoardId,
+          token,
+          newOrder: index + 1,
+          columnData: column,
+        };
+        dispatch(fetchChangeOrderColumn(dataForFetch));
+      });
+      dispatch(setColumnsAfterDrag(newArrCol));
+    }
   };
 
   return (

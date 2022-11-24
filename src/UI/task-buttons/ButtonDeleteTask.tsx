@@ -3,7 +3,7 @@ import { setCurrentColumnId, setRemovedTaskId } from '../../redux/columns-slice/
 
 import { useAppDispatch } from '../../redux/hooks';
 import { setIsRemoveTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
-import { deleteColumnSVG, deleteTaskSVG } from '../column-buttons/svgButtons';
+import { deleteTaskSVG } from '../column-buttons/svgButtons';
 
 interface IProp {
   id: string;

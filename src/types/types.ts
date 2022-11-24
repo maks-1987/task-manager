@@ -29,6 +29,7 @@ export interface IFetchQuery {
   columnId?: string;
   taskId?: string;
   token: string;
+  newOrder?: number;
 }
 
 export interface IBoard {
