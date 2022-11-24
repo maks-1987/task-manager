@@ -1,4 +1,6 @@
 .column-item {
+    display: flex;
+    flex-direction: column;
     width: 300px;
     flex: 0 0 300px;
     overflow-y: auto;

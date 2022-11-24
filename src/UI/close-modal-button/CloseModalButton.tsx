@@ -6,6 +6,7 @@ import {
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
+  setIsEditTask,
   setIsRemoveBoard,
   setIsRemoveColumn,
   setIsRemoveTask,
@@ -21,6 +22,7 @@ export default function CloseModalButton() {
     dispatch(setIsCreateTask(false));
     dispatch(modalSlice.actions.setModalOpen(false));
     dispatch(setIsCreateBoard(false));
+    dispatch(setIsEditTask(false));
   };
   return (
     <>

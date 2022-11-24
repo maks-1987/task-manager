@@ -70,3 +70,30 @@ export const fetchRemoveUserTask = createAsyncThunk<
   }
   return dataForFetch;
 });
+
+export const fetchChangeUserTask = createAsyncThunk<ITask, IFetchQuery>(
+  'fetch/fetchChangeUserTask',
+  async (dataForFetch, { rejectWithValue }) => {
+    const response: Response = await fetch(
+      `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnId}/tasks/${dataForFetch.taskId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${dataForFetch.token}`,
+        },
+        body: JSON.stringify({
+          ...dataForFetch.taskData,
+          boardId: dataForFetch.boardId,
+          columnId: dataForFetch.columnId,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+    }
+    const editedTask: ITask = await response.json();
+    return editedTask;
+  }
+);
