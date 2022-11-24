@@ -8,11 +8,11 @@ import {
   fetchGetAllUserColumns,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { IColumn, IFetchQuery } from '../../types/types';
+import { IColumn, IFetchQuery, ITask } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { setColumnsAfterDrag } from '../../redux/columns-slice/columnsSlice';
+import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -69,7 +69,33 @@ export default function SingleBoard() {
     }
 
     if (type === 'task') {
-      console.log('move task', result);
+      const startColumn = userCurrentBoard.columns.find(
+        (column) => column.id === source.droppableId
+      );
+      const finishColumn = userCurrentBoard.columns.find(
+        (column) => column.id === destination.droppableId
+      );
+
+      if (startColumn === finishColumn && startColumn !== undefined) {
+        const newTaskArray = Array.from(startColumn.tasks);
+        console.log(newTaskArray);
+        newTaskArray.splice(source.index, 1);
+        const [draggableTask] = startColumn?.tasks.filter((task) => task.id === draggableId);
+        // console.log(draggableTask);
+        newTaskArray.splice(destination.index, 0, draggableTask);
+        // console.log(newTaskArray);
+        const orderedTaskArray = newTaskArray.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+        console.log(orderedTaskArray, destination.droppableId);
+        const changeTask: ChangeTask = {
+          taskArray: orderedTaskArray,
+          destinationId: destination.droppableId,
+        };
+        dispatch(setTasksAfterDrag(changeTask));
+      }
+      // const taskArray = Array.from(userCurrentBoard.columns);
     }
   };
 
@@ -107,3 +133,8 @@ export default function SingleBoard() {
     </main>
   );
 }
+
+export type ChangeTask = {
+  taskArray: ITask[];
+  destinationId: string;
+};

@@ -14,6 +14,7 @@ import {
   fetchChangeUserTask,
   fetchRemoveUserTask,
 } from './tasksFetchRequest';
+import { ChangeTask } from '../../pages/single-board-page/SingleBoard';
 
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
@@ -70,6 +71,13 @@ export const columnsSlice = createSlice({
     },
     setColumnsAfterDrag(state, action: PayloadAction<IColumn[]>) {
       state.userCurrentBoard.columns = action.payload;
+    },
+    setTasksAfterDrag(state, action: PayloadAction<ChangeTask>) {
+      state.userCurrentBoard.columns.map((column) => {
+        column.id === action.payload.destinationId
+          ? (column.tasks = action.payload.taskArray)
+          : column.tasks;
+      });
     },
   },
   extraReducers: (builder) => {
@@ -189,6 +197,7 @@ export const {
   setRemovedTaskId,
   setEditedTaskId,
   setColumnsAfterDrag,
+  setTasksAfterDrag,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
