@@ -16,19 +16,31 @@ function WelcomePage() {
           <LanguageSelector />
           <ThemeSelector />
         </div>
-        <div className={'welcome-page-title ' + state.themeIndex}>
-          <h2>{languages.welcome[state.languageIndex]}</h2>
-        </div>
-        <div className="auth-links">
-          <Link to="/login" className={'auth-link ' + state.themeIndex}>
+        <div className="auth-links-duplicate">
+          <Link to="/login" className={'auth-link-duplicate ' + state.themeIndex}>
             {languages.signIn[state.languageIndex]}
-            <span className={'auth-link-arrow ' + state.themeIndex}>❯</span>
           </Link>
-          <Link to="/register" className={'auth-link ' + state.themeIndex}>
+          <Link to="/register" className={'auth-link-duplicate ' + state.themeIndex}>
             {languages.register[state.languageIndex]}
-            <span className={'auth-link-arrow ' + state.themeIndex}>❯</span>
           </Link>
         </div>
+        <div>
+          <h2 className={'welcome-page-title ' + state.themeIndex}>
+            {languages.welcome[state.languageIndex]}
+          </h2>
+
+          <div className="auth-links">
+            <Link to="/login" className={'auth-link ' + state.themeIndex}>
+              {languages.signIn[state.languageIndex]}
+              <span className={'auth-link-arrow ' + state.themeIndex}>❯</span>
+            </Link>
+            <Link to="/register" className={'auth-link ' + state.themeIndex}>
+              {languages.register[state.languageIndex]}
+              <span className={'auth-link-arrow ' + state.themeIndex}>❯</span>
+            </Link>
+          </div>
+        </div>
+
         <div className={'welcome-page-content ' + state.themeIndex}>
           <h4 className={'content-title ' + state.themeIndex}>
             {languages.about[state.languageIndex]}

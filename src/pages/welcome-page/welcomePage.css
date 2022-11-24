@@ -1,11 +1,11 @@
 .welcome-page-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   height: 100vh;
-  padding: 20px;
+  padding: 70px 20px 45px;
   background-color: var(--background-color1);
 }
 
@@ -17,7 +17,8 @@
   background-color: var(--background-color3);
 }
 
-.selectors-container {
+.selectors-container,
+.auth-links-duplicate {
   position: fixed;
   top: 10px;
   right: 15px;
@@ -25,9 +26,15 @@
   gap: 5px;
 }
 
+.auth-links-duplicate {
+  top: 40px;
+  width: 125px;
+  justify-content: space-evenly;
+}
+
 .welcome-page-title,
 .content-title {
-  font-size: 28px;
+  font-size: 40px;
   color: var(--color1);
 }
 
@@ -51,9 +58,8 @@
 }
 
 .auth-link,
-.auth-link-arrow {
-  min-width: 100px;
-  height: 23px;
+.auth-link-arrow,
+.auth-link-duplicate {
   font-size: 26px;
   font-weight: 900;
   color: var(--link-color1);
@@ -63,6 +69,12 @@
 
 .auth-link-arrow {
   font-size: 20px;
+  font-weight: 600;
+}
+
+.auth-link-duplicate {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .auth-link.dark,
@@ -75,7 +87,8 @@
   color: var(--link-color3);
 }
 
-.auth-link:hover {
+.auth-link:hover,
+.auth-link-duplicate:hover {
   text-decoration: underline;
 }
 
