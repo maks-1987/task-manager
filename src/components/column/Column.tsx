@@ -58,13 +58,20 @@ export const Column = (props: IProp) => {
           >
             <hr {...provided.dragHandleProps} />
             <div className="column-item__control">
-              <input
-                className="column-item__title"
-                type="text"
-                defaultValue={title}
-                placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
-                onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
-              />
+              {title === 'done' ? (
+                <h3 className="column-item__title">{title}</h3>
+              ) : (
+                <input
+                  className="column-item__title"
+                  type="text"
+                  defaultValue={title}
+                  placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
+                  onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) =>
+                    changeColumnTitleHandler(e)
+                  }
+                />
+              )}
+
               <ButtonNewTask column={props.column} />
               <ButtonDeleteColumn column={props.column} />
             </div>
@@ -72,7 +79,9 @@ export const Column = (props: IProp) => {
               {isLoading && <Loader />}
               {tasks?.length === 0 ? (
                 <span className="column-item__message">
-                  {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
+                  {title === 'done'
+                    ? localeEN.columnContet.HAVE_NOT_TASK_DONE_MESSAGE
+                    : localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
                 </span>
               ) : (
                 tasks?.map((task) => <Task key={task.id} task={task} column={props.column} />)
