@@ -1,24 +1,15 @@
 import React, { useEffect } from 'react';
-<<<<<<< HEAD
 import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IUserForm } from '../../types/types';
-import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
+import { Endpoints } from '../../endpoints/endpoints';
 import { languages } from '../../locales/languages';
+import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import '../register-page/registerPage.css';
-=======
-import { localeEN } from '../../locales/localeEN';
-import '../register-page/registerPage.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
-import { IUserForm } from '../../types/types';
-import { Endpoints } from '../../endpoints/endpoints';
->>>>>>> develop
 
 export const LoginPage = () => {
   const navigation = useNavigate();
@@ -67,6 +58,9 @@ export const LoginPage = () => {
 
   return (
     <div className={'register-container ' + state.themeIndex}>
+      <div className="welcome-page-link-container">
+        <GoWelcomePageLink />
+      </div>
       <div className="selectors-container">
         <LanguageSelector />
         <ThemeSelector />

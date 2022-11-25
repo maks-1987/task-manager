@@ -1,11 +1,10 @@
 .register-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 70px;
   min-height: 100vh;
-  padding: 20px 20px 40px;
+  padding: 70px 20px 40px;
   background-color: var(--background-color1);
 }
 
@@ -15,6 +14,12 @@
 
 .register-container.color {
   background-color: var(--background-color3);
+}
+
+.welcome-page-link-container {
+  position: fixed;
+  top: 10px;
+  left: 20px;
 }
 
 .register-note {
@@ -39,6 +44,16 @@
   font-weight: 600;
   color: var(--link-color1);
   text-decoration: none;
+}
+
+.register-note-link.dark,
+.register-note-link-arrow.dark {
+  color: var(--link-color2);
+}
+
+.register-note-link.color,
+.register-note-link-arrow.color {
+  color: var(--link-color3);
 }
 
 .register-note-link-arrow {

@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserForm } from '../../types/types';
 import { fetchLogin, fetchRegistration, userSlice } from '../../redux/user-slice/userSlice';
 import { languages } from '../../locales/languages';
+import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import './registerPage.css';
@@ -41,6 +42,9 @@ export const RegisterPage = () => {
   return (
     <>
       <div className={'register-container ' + state.themeIndex}>
+        <div className="welcome-page-link-container">
+          <GoWelcomePageLink />
+        </div>
         <div className="selectors-container">
           <LanguageSelector />
           <ThemeSelector />
