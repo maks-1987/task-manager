@@ -45,6 +45,21 @@ function WelcomePage() {
           <h4 className={'content-title ' + state.themeIndex}>
             {languages.about[state.languageIndex]}
           </h4>
+          <div className={'content-item ' + state.themeIndex}>
+            <img className="content-item-img" src="" alt="" />
+            <h5 className={'content-item-title ' + state.themeIndex}></h5>
+            <p className={'content-item-description ' + state.themeIndex}></p>
+          </div>
+          <div className={'content-item ' + state.themeIndex}>
+            <img className="content-item-img" src="" alt="" />
+            <h5 className={'content-item-title ' + state.themeIndex}></h5>
+            <p className={'content-item-description ' + state.themeIndex}></p>
+          </div>
+          <div className={'content-item ' + state.themeIndex}>
+            <img className="content-item-img" src="" alt="" />
+            <h5 className={'content-item-title ' + state.themeIndex}></h5>
+            <p className={'content-item-description ' + state.themeIndex}></p>
+          </div>
         </div>
       </div>
     </>
