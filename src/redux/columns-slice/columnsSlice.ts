@@ -98,7 +98,7 @@ export const columnsSlice = createSlice({
       .addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
         state.errorMessage = '';
-        action.payload.sort((a, b) => (a.order < b.order ? -1 : 1));
+        // action.payload.sort((a, b) => (a.order < b.order ? -1 : 1));
         state.userCurrentBoard.columns = action.payload;
       })
       .addCase(fetchGetUserColumnByID.fulfilled, (state, action) => {
@@ -178,7 +178,7 @@ export const columnsSlice = createSlice({
         state.errorMessage = '';
       })
       .addCase(fetchChangeOrderColumn.pending, (state) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.errorMessage = '';
       })
       .addCase(fetchChangeOrderColumn.fulfilled, (state) => {

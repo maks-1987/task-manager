@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import Loader from '../../components/loader/Loader';
@@ -8,11 +8,13 @@ import {
   fetchGetAllUserColumns,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { IColumn, IFetchQuery, ITask } from '../../types/types';
+import { IColumn, IFetchQuery, ITask, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
+import { fetchChangeOrderTask } from '../../redux/columns-slice/tasksFetchRequest';
+import jwtDecode from 'jwt-decode';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -23,6 +25,8 @@ export default function SingleBoard() {
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
   const [columnState, setColumnState] = useState<IColumn[]>(userCurrentBoard.columns);
   const { user } = useAppSelector((state) => state.userSlice);
+  const jwt_decode: JwtDecode = jwtDecode(token);
+  const userId = jwt_decode.userId;
 
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
@@ -78,7 +82,7 @@ export default function SingleBoard() {
 
       if (startColumn === finishColumn && startColumn !== undefined) {
         const newTaskArray = Array.from(startColumn.tasks);
-        console.log(newTaskArray);
+        // console.log(newTaskArray);
         newTaskArray.splice(source.index, 1);
         const [draggableTask] = startColumn?.tasks.filter((task) => task.id === draggableId);
         // console.log(draggableTask);
@@ -88,14 +92,25 @@ export default function SingleBoard() {
           ...task,
           order: index + 1,
         }));
-        console.log(orderedTaskArray, destination.droppableId);
+        // console.log(orderedTaskArray, destination.droppableId);
         const changeTask: ChangeTask = {
           taskArray: orderedTaskArray,
           destinationId: destination.droppableId,
         };
+        // dispatch(setTasksAfterDrag(changeTask));
+        orderedTaskArray.map((task) => {
+          const dataForFetch: IFetchQuery = {
+            boardId: userCurrentBoard.id,
+            columnId: destination.droppableId,
+            taskId: task.id,
+            token: token,
+            taskData: task,
+            userId: userId,
+          };
+          dispatch(fetchChangeOrderTask(dataForFetch));
+        });
         dispatch(setTasksAfterDrag(changeTask));
       }
-      // const taskArray = Array.from(userCurrentBoard.columns);
     }
   };
 
