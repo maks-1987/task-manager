@@ -25,6 +25,7 @@ export const localeEN = {
   columnContet: {
     HAVE_NOT_COLUMN_MESSAGE: 'You have not any columns!',
     HAVE_NOT_TASK_MESSAGE: 'Nothing to do!',
+    HAVE_NOT_TASK_DONE_MESSAGE: 'No task completed!',
   },
   modalContetntMessage: {
     REMOVE_BOARD_CONFIRM_MESSAGE: `If you want to delete the board, confirm the action.`,
