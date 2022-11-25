@@ -3,22 +3,23 @@ import { setCurrentColumnId, setRemovedTaskId } from '../../redux/columns-slice/
 
 import { useAppDispatch } from '../../redux/hooks';
 import { setIsRemoveTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { IComleteColumn } from '../../types/types';
 import { deleteTaskSVG } from '../column-buttons/svgButtons';
 
 interface IProp {
   id: string;
-  columnId: string;
+  column: IComleteColumn;
 }
 
 export const ButtonDeleteTask = (props: IProp) => {
-  const { id, columnId } = props;
+  const { id } = props;
   const dispatch = useAppDispatch();
 
   const goToModalWindow = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setIsRemoveTask(true));
     dispatch(setModalOpen(true));
     dispatch(setRemovedTaskId(e.currentTarget.id));
-    dispatch(setCurrentColumnId(columnId));
+    dispatch(setCurrentColumnId(props.column.id));
   };
   return (
     <>
