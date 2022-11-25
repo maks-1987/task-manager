@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITask } from '../../types/types';
+import { IComleteColumn, ITask } from '../../types/types';
 import { ButtonDeleteTask } from '../../UI/task-buttons/ButtonDeleteTask';
 import { ButtonDoneTask } from '../../UI/task-buttons/ButtonDoneTask';
 import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
@@ -7,7 +7,7 @@ import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
 import './task.css';
 interface IProp {
   task: ITask;
-  columnId: string;
+  column: IComleteColumn;
 }
 export const Task = (props: IProp) => {
   const { id, order, title, description } = props.task;
@@ -20,9 +20,9 @@ export const Task = (props: IProp) => {
         </div>
       </div>
       <div className="task_button-block">
-        <ButtonDoneTask id={id} columnId={props.columnId} />
-        <ButtonEditTask id={id} columnId={props.columnId} />
-        <ButtonDeleteTask id={id} columnId={props.columnId} />
+        <ButtonDoneTask id={id} task={props.task} column={props.column} />
+        <ButtonEditTask id={id} column={props.column} />
+        <ButtonDeleteTask id={id} column={props.column} />
       </div>
     </div>
   );

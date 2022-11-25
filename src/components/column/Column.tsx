@@ -65,8 +65,8 @@ export const Column = (props: IProp) => {
                 placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
                 onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => changeColumnTitleHandler(e)}
               />
-              <ButtonNewTask id={id} />
-              <ButtonDeleteColumn id={id} />
+              <ButtonNewTask column={props.column} />
+              <ButtonDeleteColumn column={props.column} />
             </div>
             <section className="task-list">
               {isLoading && <Loader />}
@@ -75,13 +75,17 @@ export const Column = (props: IProp) => {
                   {localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
                 </span>
               ) : (
-                tasks?.map((task) => <Task key={task.id} task={task} columnId={id} />)
+                tasks?.map((task) => <Task key={task.id} task={task} column={props.column} />)
               )}
             </section>
 
-            <p className="column-item__add-task">
-              <ButtonNewTask id={id} />
-              Add new task
+            <p
+              className={`${
+                title === 'done' ? 'column-item__add-task_disabled' : 'column-item__add-task'
+              }`}
+            >
+              <ButtonNewTask column={props.column} />
+              Add task
             </p>
           </div>
         )}
