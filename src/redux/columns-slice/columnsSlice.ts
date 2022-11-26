@@ -8,14 +8,13 @@ import {
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard, IColumn, ITask } from './../../types/types';
+import { IBoard, IColumn, ITask, ChangeTask } from './../../types/types';
 import {
   fetchAddNewUserTasks,
   fetchChangeOrderTask,
   fetchChangeUserTask,
   fetchRemoveUserTask,
 } from './tasksFetchRequest';
-import { ChangeTask } from '../../pages/single-board-page/SingleBoard';
 
 interface IColumnsSlice {
   userCurrentBoard: IBoard;

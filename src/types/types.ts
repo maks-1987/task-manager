@@ -85,3 +85,8 @@ export type JwtDecode = {
   login: string;
   userId: string;
 };
+
+export type ChangeTask = {
+  taskArray: ITask[];
+  destinationId: string;
+};
