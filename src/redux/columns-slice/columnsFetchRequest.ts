@@ -83,8 +83,8 @@ export const fetchAddNewUserColumns = createAsyncThunk<
     return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
   }
 
-  const newUserBoards: IColumn = await response.json();
-  return newUserBoards;
+  const newUserColumn: IColumn = await response.json();
+  return newUserColumn;
 });
 
 export const fetchRemoveUserColumn = createAsyncThunk<

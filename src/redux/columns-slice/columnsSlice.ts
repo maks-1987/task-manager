@@ -97,7 +97,10 @@ export const columnsSlice = createSlice({
         const filteredColumns = state.userCurrentBoard.columns.filter(
           (column) => column.id !== action.payload.id
         );
-        state.userCurrentBoard.columns = [...filteredColumns, action.payload];
+        state.userCurrentBoard = {
+          ...state.userCurrentBoard,
+          columns: [...filteredColumns, action.payload],
+        };
         state.isLoading = false;
         state.errorMessage = '';
       })
