@@ -2,15 +2,16 @@ import React from 'react';
 import { setCurrentColumnId, setEditedTaskId } from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch } from '../../redux/hooks';
 import { setIsEditTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { IComleteColumn } from '../../types/types';
 import { editTaskSVG } from './svgButtons';
 import './task-buttons.css';
 
 interface IProp {
   id: string;
-  columnId: string;
+  column: IComleteColumn;
 }
 export const ButtonEditTask = (props: IProp) => {
-  const { id, columnId } = props;
+  const { id } = props;
 
   const dispatch = useAppDispatch();
 
@@ -18,11 +19,12 @@ export const ButtonEditTask = (props: IProp) => {
     dispatch(setIsEditTask(true));
     dispatch(setModalOpen(true));
     dispatch(setEditedTaskId(e.currentTarget.id));
-    dispatch(setCurrentColumnId(columnId));
+    dispatch(setCurrentColumnId(props.column.id));
   };
   return (
     <>
       <button
+        disabled={props.column.title === 'done'}
         id={id}
         className="button-edit-task"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => goToModalWindow(e)}
