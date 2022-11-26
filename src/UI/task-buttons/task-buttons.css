@@ -1,22 +1,42 @@
 
-.button-edit-task {
-    width: 20px;
-    height: 20px;
+.button-edit-task,
+.button-done-task {
+    width: 25px;
+    height: 25px;
     background-color: initial;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    margin: 0 2.5px 0 2.5px;
+    margin: 0 3px 0 3px;
 }
-
-.button-edit-task svg {
+.button-edit-task:disabled,
+.button-done-task:disabled {
+    cursor: default;
+}
+.button-edit-task .svg-icon {
+    overflow: hddien;
+    height: 85%;
+    width: 85%;
+}
+.button-done-task .svg-icon {
+    vertical-align: middle;
+    overflow: hddien;
     height: 100%;
     width: 100%;
 }
 
-.button-edit-task svg path {
-    fill: rgba(55, 196, 55, 0.507);
-    height: 95%;
-    width: 95%;
+.button-edit-task .svg-icon path {
+    fill: mediumblue;
+    height: 90%;
+    width: 90%;
+}
+.button-done-task .svg-icon path {
+    fill: rgba(29, 206, 29, 0.507);
+    height: 100%;
+    width: 100%;
+}
+.button-edit-task:disabled .svg-icon path,
+.button-done-task:disabled .svg-icon path {
+    fill: rgba(39, 34, 34, 0.473);
 }
 

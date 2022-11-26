@@ -1,22 +1,12 @@
-::-webkit-scrollbar {
-width: 10px;
-    background-color: rgba(39, 34, 34, 0.308);
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb {
-    width:3px;
-    max-height: 50px;
-    border-radius: 5px;
-    background-color: rgba(39, 34, 34, 0.377);
-  }
+
 .project-board__title,
 .project-board__link {
     padding-left: 10px;
     padding-right: 10px;
+
 }
 
 .project-board {
-
 
 }
 
@@ -38,6 +28,7 @@ width: 10px;
 }
 .project-board__columns-list {
     display: flex;
+    height: 100%;
     padding: 10px 15px;
     column-gap: 20px;
     overflow-x: auto;

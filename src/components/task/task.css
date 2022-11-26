@@ -12,15 +12,45 @@
 .task_contetnt {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 14px;
+  border: var(--border1);
+  border-radius: 6px;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.task__contetnt-block {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 90%;
   margin-right: 5px;
 }
 
 .task_buton-block {
+.task__title {
+  display: block;
+  max-width: 100%;
+  line-height: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: underline;
+}
+.task__description {
+  width: 100%;
+  height: 150px;
+  max-height: 300px;
+  padding: 4px;
+}
+
+.task_button-block {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  width: 20%;
-  height: 100%;
+  width: 70%;
+  height: 25px;
 }

@@ -11,7 +11,7 @@ export const ButtonNewColumn = () => {
   };
   return (
     <button className="column-item__add-column" onClick={addColumnButtonHandler}>
-      Add new column
+      Add column
     </button>
   );
 };
