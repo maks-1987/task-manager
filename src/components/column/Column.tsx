@@ -11,7 +11,7 @@ import {
   fetchGetUserColumnByID,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import Loader from '../loader/Loader';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 interface IProp {
   column: IComleteColumn;
@@ -47,7 +47,7 @@ export const Column = (props: IProp) => {
   }, [dispatch, id]);
   return (
     <>
-      <Draggable draggableId={id!} index={props.index}>
+      <Draggable draggableId={id} index={props.index}>
         {(provided) => (
           <div
             className="column-item"
@@ -75,19 +75,27 @@ export const Column = (props: IProp) => {
               <ButtonNewTask column={props.column} />
               <ButtonDeleteColumn column={props.column} />
             </div>
-            <section className="task-list">
-              {isLoading && <Loader />}
-              {tasks?.length === 0 ? (
-                <span className="column-item__message">
-                  {title === 'done'
-                    ? localeEN.columnContet.HAVE_NOT_TASK_DONE_MESSAGE
-                    : localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
-                </span>
-              ) : (
-                tasks?.map((task) => <Task key={task.id} task={task} column={props.column} />)
+            <Droppable droppableId={id} type="task">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <section className="task-list">
+                    {isLoading && <Loader />}
+                    {tasks?.length === 0 ? (
+                      <span className="column-item__message">
+                        {title === 'done'
+                          ? localeEN.columnContet.HAVE_NOT_TASK_DONE_MESSAGE
+                          : localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
+                      </span>
+                    ) : (
+                      tasks?.map((task, index) => (
+                        <Task key={task.id} task={task} columnId={id} index={index} column={props.column} />
+                      ))
+                    )}
+                  </section>
+                  {provided.placeholder}
+                </div>
               )}
-            </section>
-
+            </Droppable>
             <p
               className={`${
                 title === 'done' ? 'column-item__add-task_disabled' : 'column-item__add-task'

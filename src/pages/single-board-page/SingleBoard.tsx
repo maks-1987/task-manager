@@ -8,11 +8,17 @@ import {
   fetchGetAllUserColumns,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { IColumn, IFetchQuery } from '../../types/types';
+import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { setColumnsAfterDrag } from '../../redux/columns-slice/columnsSlice';
+import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
+import {
+  fetchAddNewUserTasks,
+  fetchChangeOrderTask,
+  fetchRemoveUserTask,
+} from '../../redux/columns-slice/tasksFetchRequest';
+import jwtDecode from 'jwt-decode';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -23,6 +29,8 @@ export default function SingleBoard() {
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
   const [columnState, setColumnState] = useState<IColumn[]>(userCurrentBoard.columns);
   const { user } = useAppSelector((state) => state.userSlice);
+  const jwt_decode: JwtDecode = jwtDecode(token);
+  const userId = jwt_decode.userId;
 
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
@@ -66,6 +74,112 @@ export default function SingleBoard() {
         dispatch(fetchChangeOrderColumn(dataForFetch));
       });
       dispatch(setColumnsAfterDrag(newArrCol));
+    }
+
+    if (type === 'task') {
+      const startColumn = userCurrentBoard.columns.find(
+        (column) => column.id === source.droppableId
+      );
+      const finishColumn = userCurrentBoard.columns.find(
+        (column) => column.id === destination.droppableId
+      );
+
+      if (startColumn === finishColumn && startColumn !== undefined) {
+        const newTaskArray = Array.from(startColumn.tasks);
+
+        newTaskArray.splice(source.index, 1);
+        const [draggableTask] = startColumn?.tasks.filter((task) => task.id === draggableId);
+        newTaskArray.splice(destination.index, 0, draggableTask);
+        const orderedTaskArray = newTaskArray.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+
+        const changeTask: ChangeTask = {
+          taskArray: orderedTaskArray,
+          destinationId: destination.droppableId,
+        };
+
+        orderedTaskArray.map((task) => {
+          const dataForFetch: IFetchQuery = {
+            boardId: userCurrentBoard.id,
+            columnId: destination.droppableId,
+            taskId: task.id,
+            token: token,
+            taskData: task,
+            userId: userId,
+          };
+          dispatch(fetchChangeOrderTask(dataForFetch));
+        });
+        dispatch(setTasksAfterDrag(changeTask));
+        return;
+      }
+
+      if (startColumn !== finishColumn && startColumn !== undefined && finishColumn !== undefined) {
+        const [draggableTask] = startColumn?.tasks.filter((task) => task.id === draggableId);
+
+        const removeTask: IFetchQuery = {
+          boardId: userCurrentBoard.id,
+          columnId: source.droppableId,
+          token,
+          taskId: draggableId,
+        };
+
+        const addTask: IFetchQuery = {
+          boardId: userCurrentBoard.id,
+          columnId: destination.droppableId,
+          token,
+          taskData: {
+            title: draggableTask.title,
+            description: draggableTask.description,
+            userId,
+          },
+        };
+
+        dispatch(fetchRemoveUserTask(removeTask));
+        dispatch(fetchAddNewUserTasks(addTask));
+
+        const startTaskArray = Array.from(startColumn.tasks);
+        startTaskArray.splice(source.index, 1);
+        const orderedStartTaskArray = startTaskArray.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+
+        orderedStartTaskArray.map((task) => {
+          const dataForFetch: IFetchQuery = {
+            boardId: userCurrentBoard.id,
+            columnId: source.droppableId,
+            taskId: task.id,
+            token: token,
+            taskData: task,
+            userId: userId,
+          };
+          dispatch(fetchChangeOrderTask(dataForFetch));
+        });
+
+        const finishTaskArray = Array.from(finishColumn.tasks);
+        finishTaskArray.splice(destination.index, 0, draggableTask);
+        const orderedFinishTaskArray = finishTaskArray.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+
+        orderedFinishTaskArray.map((task) => {
+          if (task.id === draggableId) return;
+
+          const dataForFetch: IFetchQuery = {
+            boardId: userCurrentBoard.id,
+            columnId: destination.droppableId,
+            taskId: task.id,
+            token: token,
+            taskData: task,
+            userId: userId,
+          };
+
+          dispatch(fetchChangeOrderTask(dataForFetch));
+        });
+      }
     }
   };
 

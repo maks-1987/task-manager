@@ -11,17 +11,16 @@
   }
 
 .column-item {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  flex: 0 0 300px;
-  overflow-y: auto;
-  border: var(--border1);
-  border-radius: 6px;
-  background-color: white;
-  padding: 8px;
-  max-height: 84vh;
-  overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    flex: 0 0 300px;
+    /*overflow-y: auto;*/
+    border: var(--border1);
+    border-radius: 6px;
+    background-color: white;
+    padding: 8px;
+    max-height: 84vh;
 }
 
 .column-item hr {
@@ -50,7 +49,6 @@
   color: inherit;
   background: inherit;
 }
-
 
 .column-item__add-task {
   display: flex;

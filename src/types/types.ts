@@ -15,12 +15,14 @@ export interface IUserBoard {
   title?: string;
   description?: string;
 }
+
 export interface IUserTask {
   userId: string;
   title?: string;
   description?: string;
   order?: number;
 }
+
 export interface IFetchQuery {
   boardData?: IUserBoard;
   columnData?: IComleteColumn;
@@ -30,6 +32,7 @@ export interface IFetchQuery {
   taskId?: string;
   token: string;
   newOrder?: number;
+  userId?: string;
 }
 
 export interface IBoard {
@@ -45,18 +48,20 @@ export interface IColumn {
   order: number;
   tasks: ITask[];
 }
+
 export interface IFiles {
   filename: string;
   fileSize: number;
 }
+
 export interface ITask {
   id: string;
   title: string;
   order: number;
   description: string;
   userId: string;
-  boardId: string;
-  columnId: string;
+  boardId?: string;
+  columnId?: string;
   files?: IFiles[];
 }
 
@@ -79,4 +84,9 @@ export type JwtDecode = {
   iat: number;
   login: string;
   userId: string;
+};
+
+export type ChangeTask = {
+  taskArray: ITask[];
+  destinationId: string;
 };
