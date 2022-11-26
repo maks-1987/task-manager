@@ -26,7 +26,8 @@ export const Task = (props: IProp) => {
           ref={provided.innerRef}
         >
           <div className="task_contetnt">
-            <p>{order}</p>
+            <p>order {order}</p>
+            <p>id: {id}</p>
             <p>{`${title}`}</p>
             <p>{`${description}`}</p>
           </div>

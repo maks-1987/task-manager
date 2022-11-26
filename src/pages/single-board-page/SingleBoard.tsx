@@ -13,7 +13,11 @@ import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
-import { fetchChangeOrderTask } from '../../redux/columns-slice/tasksFetchRequest';
+import {
+  fetchAddNewUserTasks,
+  fetchChangeOrderTask,
+  fetchRemoveUserTask,
+} from '../../redux/columns-slice/tasksFetchRequest';
 import jwtDecode from 'jwt-decode';
 
 export default function SingleBoard() {
@@ -92,12 +96,12 @@ export default function SingleBoard() {
           ...task,
           order: index + 1,
         }));
-        // console.log(orderedTaskArray, destination.droppableId);
+
         const changeTask: ChangeTask = {
           taskArray: orderedTaskArray,
           destinationId: destination.droppableId,
         };
-        // dispatch(setTasksAfterDrag(changeTask));
+
         orderedTaskArray.map((task) => {
           const dataForFetch: IFetchQuery = {
             boardId: userCurrentBoard.id,
@@ -110,6 +114,89 @@ export default function SingleBoard() {
           dispatch(fetchChangeOrderTask(dataForFetch));
         });
         dispatch(setTasksAfterDrag(changeTask));
+        return;
+      }
+
+      if (startColumn !== finishColumn && startColumn !== undefined && finishColumn !== undefined) {
+        console.log('result', result);
+        const [draggableTask] = startColumn?.tasks.filter((task) => task.id === draggableId);
+        console.log(userId);
+        const addTaskData: IFetchQuery = {
+          boardId: userCurrentBoard.id,
+          columnId: destination.droppableId,
+          token,
+          taskData: {
+            title: draggableTask.title,
+            description: draggableTask.description,
+            userId,
+          },
+        };
+
+        const removeTaskData: IFetchQuery = {
+          boardId: userCurrentBoard.id,
+          columnId: source.droppableId,
+          token,
+          taskId: draggableId,
+        };
+
+        dispatch(fetchRemoveUserTask(removeTaskData));
+        dispatch(fetchAddNewUserTasks(addTaskData));
+        // const startTaskArray = Array.from(startColumn.tasks);
+        // startTaskArray.splice(source.index, 1);
+        // const orderedStartTaskArray = startTaskArray.map((task, index) => ({
+        //   ...task,
+        //   order: index + 1,
+        // }));
+        // const changeStartTask: ChangeTask = {
+        //   taskArray: orderedStartTaskArray,
+        //   destinationId: source.droppableId,
+        // };
+        // if (orderedStartTaskArray.length) {
+        // console.log('array not empty');
+        // orderedStartTaskArray.map((task) => {
+        //   const dataForFetch: IFetchQuery = {
+        //     boardId: userCurrentBoard.id,
+        //     columnId: source.droppableId,
+        //     taskId: task.id,
+        //     token: token,
+        //     taskData: task,
+        //     userId: userId,
+        //   };
+        // dispatch(fetchChangeOrderTask(dataForFetch));
+        // dispatch(fetchAddNewUserTasks(dataForFetch));
+        // });
+        // }
+        // dispatch(setTasksAfterDrag(changeStartTask));
+        // console.log('orderedStartTaskArray', orderedStartTaskArray);
+
+        // const finishTaskArray = Array.from(finishColumn.tasks);
+        // finishTaskArray.splice(destination.index, 0, draggableTask);
+        // const orderedFinishTaskArray = finishTaskArray.map((task, index) => ({
+        //   ...task,
+        //   order: index + 1,
+        // }));
+        // const changeFinishTask: ChangeTask = {
+        //   taskArray: orderedFinishTaskArray,
+        //   destinationId: destination.droppableId,
+        // };
+        // orderedFinishTaskArray.map((task) => {
+        //   const dataForFetch: IFetchQuery = {
+        //     boardId: userCurrentBoard.id,
+        //     columnId: destination.droppableId,
+        //     taskId: task.id,
+        //     token: token,
+        //     taskData: task,
+        //     userId: userId,
+        //   };
+        // console.log(task);
+        // dispatch(fetchChangeOrderTask(dataForFetch));
+        // dispatch(fetchAddNewUserTasks(dataForFetch));
+        // });
+        // dispatch(setTasksAfterDrag(changeFinishTask));
+        // console.log('orderedFinishTaskArray', orderedFinishTaskArray);
+
+        // dispatch(setTasksAfterDrag(changeTask));
+        return;
       }
     }
   };
