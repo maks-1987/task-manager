@@ -20,7 +20,8 @@
     border-radius: 6px;
     background-color: white;
     padding: 8px;
-    max-height: 84vh;
+    height: 80vh;
+    max-height: 82vh;
 }
 
 .column-item hr {
@@ -59,5 +60,4 @@
 }
 .column-item__add-task_disabled {
   color: transparent;
-
 }

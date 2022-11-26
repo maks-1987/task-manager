@@ -88,7 +88,7 @@ export const Column = (props: IProp) => {
                       </span>
                     ) : (
                       tasks?.map((task, index) => (
-                        <Task key={task.id} task={task} columnId={id} index={index} column={props.column} />
+                        <Task key={task.id} task={task} index={index} column={props.column} />
                       ))
                     )}
                   </section>
