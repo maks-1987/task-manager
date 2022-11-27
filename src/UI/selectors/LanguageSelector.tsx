@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { sxSelect, inputProps, sxMenuItem, selectItemsColors } from './muiSelectorStyles';
 import { setLanguage } from '../../redux/settings-slice/settingsSlise';
 import './selectors.css';
+import { localeEN } from '../../locales/localeEN';
 
 function LanguageSelector(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
@@ -20,6 +21,7 @@ function LanguageSelector(): JSX.Element {
       sx={sxSelect}
       IconComponent={() => null}
       inputProps={inputProps(selectItemsColor)}
+      title={localeEN.tooltips.CHOICE_LANG[state.languageIndex]}
     >
       <MenuItem className={'option ' + state.themeIndex} value={0} sx={sxMenuItem}>
         EN

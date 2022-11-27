@@ -36,6 +36,12 @@
   text-decoration: none;
   border-radius: 3px;
   background-color: var(--background-color4);
+  border-color: transparent;
+  line-height: initial;
+}
+
+button.nav__link {
+  line-height: inherit;
 }
 
 .nav__link.dark {
