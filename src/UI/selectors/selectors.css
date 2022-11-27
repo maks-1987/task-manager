@@ -1,35 +1,20 @@
-.select {
+.select,
+.option.light {
   color: var(--color1);
-  background-color: var(--background-color4);
 }
 
-.select.dark {
+.select.dark,
+.option.dark {
   color: var(--color2);
-  background-color: var(--background-color5);
 }
 
-.select.color {
+.select.color,
+.option.color {
   color: var(--color3);
-  background-color: var(--background-color6);
 }
 
 .select:hover {
   border: var(--border1);
-}
-
-.option.light {
-  color: var(--color1);
-  background-color: var(--background-color4);
-}
-
-.option.dark {
-  color: var(--color2);
-  background-color: var(--background-color5);
-}
-
-.option.color {
-  color: var(--color3);
-  background-color: var(--background-color6);
 }
 
 .option:hover {
@@ -42,4 +27,16 @@
 
 .option.color:hover {
   background-color: var(--background-color3);
+}
+
+.option-icon {
+  fill: var(--color4);
+}
+
+.option-icon.dark {
+  fill: var(--color2);
+}
+
+.option-icon.color {
+  fill: var(--color3);
 }
