@@ -25,10 +25,8 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <div className="container">
-        {isModalOpen && <GlobalModal component={currentPropComponent} />}
-        <Outlet />
-      </div>
+      {isModalOpen && <GlobalModal component={currentPropComponent} />}
+      <Outlet />
       <Footer />
     </>
   );

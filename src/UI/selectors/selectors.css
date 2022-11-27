@@ -1,41 +1,45 @@
 .select {
-  width: 60px;
-  height: 23px;
-  font-size: 14px;
-  color: var(--color3);
-  text-align: center;
-  text-decoration: none;
-  border: var(--border1);
-  border-radius: 5px;
-  background-color: transparent;
+  color: var(--color1);
+  background-color: var(--background-color4);
 }
 
 .select.dark {
-  color: var(--color1);
-  border: var(--border2);
+  color: var(--color2);
+  background-color: var(--background-color5);
 }
 
 .select.color {
-  color: var(--color5);
-  border: var(--border3);
+  color: var(--color3);
+  background-color: var(--background-color6);
 }
 
 .select:hover {
-  background-color: var(--color2);
-  cursor: pointer;
+  border: var(--border1);
 }
 
-.option {
-  background-color: var(--color1);
-  color: var(--color3);
+.option.light {
+  color: var(--color1);
+  background-color: var(--background-color4);
 }
 
 .option.dark {
-  background-color: var(--color3);
-  color: var(--color1);
+  color: var(--color2);
+  background-color: var(--background-color5);
 }
 
 .option.color {
-  background-color: var(--color4);
-  color: var(--color5);
+  color: var(--color3);
+  background-color: var(--background-color6);
+}
+
+.option:hover {
+  background-color: var(--background-color1);
+}
+
+.option.dark:hover {
+  background-color: var(--background-color2);
+}
+
+.option.color:hover {
+  background-color: var(--background-color3);
 }

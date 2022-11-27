@@ -8,22 +8,22 @@
   width: 100%;
   height: 40px;
   border-bottom: var(--border1);
-  background-color: var(--color1);
+  background-color: var(--background-color1);
 }
 
 .header.dark {
   border-bottom: var(--border2);
-  background-color: var(--color3);
+  background-color: var(--background-color2);
 }
 
 .header.color {
-  border-bottom: var(--border5);
-  background-color: var(--color4);
+  border-bottom: var(--border3);
+  background-color: var(--background-color3);
 }
 
 .nav {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   padding: 0 10px;
 }
 
@@ -31,24 +31,23 @@
   width: 150px;
   height: 23px;
   font-size: 16px;
-  color: var(--color3);
+  color: var(--color1);
   text-align: center;
   text-decoration: none;
-  border: var(--border1);
-  border-radius: 5px;
+  border-radius: 3px;
+  background-color: var(--background-color4);
 }
 
 .nav__link.dark {
-  color: var(--color1);
-  border: var(--border2);
+  color: var(--color2);
+  background-color: var(--background-color5);
 }
 
 .nav__link.color {
-  color: var(--color5);
-  border: var(--border3);
+  color: var(--color3);
+  background-color: var(--background-color6);
 }
 
 .nav__link:hover {
-  background-color: var(--color2);
-  cursor: pointer;
+  border: var(--border1);
 }
