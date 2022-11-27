@@ -36,6 +36,7 @@
   text-decoration: none;
   border-radius: 3px;
   background-color: var(--background-color4);
+  border-color: transparent;
 }
 
 .nav__link.dark {

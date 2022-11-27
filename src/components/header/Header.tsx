@@ -1,25 +1,35 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { languages } from '../../locales/languages';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import './Header.css';
+import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 
 function Header(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
-
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const paths: string[] = ['/', '/login', '/register'];
+
+  const addBoardButtonHandler = () => {
+    dispatch(setModalOpen(true));
+    dispatch(setIsCreateBoard(true));
+  };
 
   return paths.includes(location.pathname) ? (
     <></>
   ) : (
     <header className={'header ' + state.themeIndex}>
       <nav className="nav">
-        <Link className={'nav__link ' + state.themeIndex} to="boards">
+        <button
+          className={'nav__link ' + state.themeIndex}
+          onClick={addBoardButtonHandler}
+          title="new board"
+        >
           {languages.createBoard[state.languageIndex]}
-        </Link>
+        </button>
 
         <Link className={'nav__link ' + state.themeIndex} to="profile">
           {languages.editProfile[state.languageIndex]}
