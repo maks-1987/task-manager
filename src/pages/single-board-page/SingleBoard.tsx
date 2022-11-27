@@ -13,6 +13,7 @@ import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { setColumnsAfterDrag } from '../../redux/columns-slice/columnsSlice';
+import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -76,6 +77,7 @@ export default function SingleBoard() {
       </Link>
       {isLoading && <Loader />}
       <h2 className="project-board__title">{userCurrentBoard.title}</h2>
+      <TaskProgressBar />
       <DragDropContext onDragEnd={onDragEnd}>
         <article className="project-board__columns">
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
