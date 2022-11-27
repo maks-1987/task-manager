@@ -9,7 +9,6 @@ import { Draggable } from 'react-beautiful-dnd';
 
 interface IProp {
   task: ITask;
-  columnId: string;
   index: number;
   column: IComleteColumn;
 }
@@ -27,15 +26,15 @@ export const Task = (props: IProp) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="task_contetnt-block">
+          <div className="task__content-block">
             <h3 className="task__title">{`${title}`}</h3>
             <div className="task__description">
               <p className="task__description_content">{`${description}`}</p>
             </div>
           </div>
-          <div className="task_buton-block">
-            <ButtonEditTask id={id} task={props.task} column={props.columnId} />
-            <ButtonDeleteTask id={id} columnId={props.column} />
+          <div className="task_button-block">
+            <ButtonDoneTask id={id} task={props.task} column={props.column} />
+            <ButtonEditTask id={id} column={props.column} />
             <ButtonDeleteTask id={id} column={props.column} />
           </div>
         </div>
