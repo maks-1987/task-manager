@@ -6,6 +6,7 @@ import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import './Header.css';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { localeEN } from '../../locales/localeEN';
 
 function Header(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
@@ -26,7 +27,7 @@ function Header(): JSX.Element {
         <button
           className={'nav__link ' + state.themeIndex}
           onClick={addBoardButtonHandler}
-          title="new board"
+          title={localeEN.tooltips.CREATE_NEW_BOARD[state.languageIndex]}
         >
           {languages.createBoard[state.languageIndex]}
         </button>

@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { sxSelect, inputProps, sxMenuItem, selectItemsColors } from './muiSelectorStyles';
 import { setTheme } from '../../redux/settings-slice/settingsSlise';
 import './selectors.css';
+import { localeEN } from '../../locales/localeEN';
 
 function ThemeSelector(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
@@ -20,6 +21,7 @@ function ThemeSelector(): JSX.Element {
       IconComponent={() => null}
       sx={sxSelect}
       inputProps={inputProps(selectItemsColor)}
+      title={localeEN.tooltips.CHOICE_THEME[state.languageIndex]}
     >
       <MenuItem className={'option ' + state.themeIndex} value="light" sx={sxMenuItem}>
         Light
