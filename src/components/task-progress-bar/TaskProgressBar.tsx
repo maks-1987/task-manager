@@ -12,7 +12,7 @@ export default function TaskProgressBar() {
   const progressBar = useRef<HTMLDivElement>(null);
   const progressScale = useRef<HTMLDivElement>(null);
 
-  useMemo(() => {
+  useEffect(() => {
     const doneTasks = userCurrentBoard.columns
       .filter((column) => column.title === 'done')
       .map((column) => column.tasks)
@@ -31,12 +31,7 @@ export default function TaskProgressBar() {
     doneTasks === 0 && uncompleteTasks === 0 ? setVisible('hidden') : setVisible('visible');
     const progressBarWidth = parseInt(window.getComputedStyle(progressBar.current!).width);
     setStep(progressBarWidth / uncompleteTasks);
-    setScaleWidth(step * doneTasks);
   }, [doneTasks, step, uncompleteTasks]);
-
-  useEffect(() => {
-    setScaleWidth(step * doneTasks);
-  }, [doneTasks, step]);
 
   return (
     <div className="progress-block">
@@ -48,7 +43,7 @@ export default function TaskProgressBar() {
           ref={progressScale}
           className="progress-scale"
           style={{
-            width: `${scaleWidth}px`,
+            width: `${step * doneTasks}px`,
             visibility: visible,
           }}
         ></div>

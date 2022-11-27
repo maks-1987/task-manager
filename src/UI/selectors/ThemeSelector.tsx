@@ -1,28 +1,38 @@
 import React from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { sxSelect, inputProps, sxMenuItem, selectItemsColors } from './muiSelectorStyles';
 import { setTheme } from '../../redux/settings-slice/settingsSlise';
 import './selectors.css';
+import { localeEN } from '../../locales/localeEN';
 
 function ThemeSelector(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
   const dispatch = useAppDispatch();
 
+  const selectItemsColor = selectItemsColors[state.themeIndex as keyof typeof selectItemsColors];
+
   return (
-    <select
+    <Select
       className={'select ' + state.themeIndex}
       value={state.themeIndex}
       onChange={(event) => dispatch(setTheme(event.target.value))}
+      IconComponent={() => null}
+      sx={sxSelect}
+      inputProps={inputProps(selectItemsColor)}
+      title={localeEN.tooltips.CHOICE_THEME[state.languageIndex]}
     >
-      <option className={'option ' + state.themeIndex} value="light">
+      <MenuItem className={'option ' + state.themeIndex} value="light" sx={sxMenuItem}>
         Light
-      </option>
-      <option className={'option ' + state.themeIndex} value="dark">
+      </MenuItem>
+      <MenuItem className={'option ' + state.themeIndex} value="dark" sx={sxMenuItem}>
         Dark
-      </option>
-      <option className={'option ' + state.themeIndex} value="color">
+      </MenuItem>
+      <MenuItem className={'option ' + state.themeIndex} value="color" sx={sxMenuItem}>
         Color
-      </option>
-    </select>
+      </MenuItem>
+    </Select>
   );
 }
 

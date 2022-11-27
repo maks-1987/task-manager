@@ -14,13 +14,13 @@
     cursor: default;
 }
 .button-edit-task .svg-icon {
-    overflow: hddien;
+    overflow: hidden;
     height: 85%;
     width: 85%;
 }
 .button-done-task .svg-icon {
     vertical-align: middle;
-    overflow: hddien;
+    overflow: hidden;
     height: 100%;
     width: 100%;
 }

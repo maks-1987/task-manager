@@ -8,9 +8,10 @@ import {
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard, IColumn, ITask } from './../../types/types';
+import { IBoard, IColumn, ITask, ChangeTask } from './../../types/types';
 import {
   fetchAddNewUserTasks,
+  fetchChangeOrderTask,
   fetchChangeUserTask,
   fetchRemoveUserTask,
 } from './tasksFetchRequest';
@@ -79,6 +80,13 @@ export const columnsSlice = createSlice({
       state.removedColumnId = '';
       state.currentColumnId = '';
     },
+    setTasksAfterDrag(state, action: PayloadAction<ChangeTask>) {
+      state.userCurrentBoard.columns.map((column) => {
+        column.id === action.payload.destinationId
+          ? (column.tasks = action.payload.taskArray)
+          : column.tasks;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,9 +105,9 @@ export const columnsSlice = createSlice({
       })
       .addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userCurrentBoard.columns = action.payload;
         state.errorMessage = '';
         action.payload.sort((a, b) => (a.order < b.order ? -1 : 1));
+        state.userCurrentBoard.columns = action.payload;
       })
       .addCase(fetchGetUserColumnByID.fulfilled, (state, action) => {
         const filteredColumns = state.userCurrentBoard.columns.filter(
@@ -180,10 +188,14 @@ export const columnsSlice = createSlice({
         state.errorMessage = '';
       })
       .addCase(fetchChangeOrderColumn.pending, (state) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.errorMessage = '';
       })
       .addCase(fetchChangeOrderColumn.fulfilled, (state) => {
+        state.isLoading = false;
+        state.errorMessage = '';
+      })
+      .addCase(fetchChangeOrderTask.fulfilled, (state) => {
         state.isLoading = false;
         state.errorMessage = '';
       })
@@ -200,6 +212,7 @@ export const {
   setEditedTaskId,
   setColumnsAfterDrag,
   setResetCurrentBoardData,
+  setTasksAfterDrag,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
 

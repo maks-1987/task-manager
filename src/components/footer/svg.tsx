@@ -5,7 +5,7 @@ export function rssSvg(): JSX.Element {
     <>
       <style>
         {
-          '.st0{fill:#fefefe00}.st1{clip-path:url(#SVGID_2_)}.st2{clip-path:url(#SVGID_4_)}.st3{clip-path:url(#SVGID_6_)}.st4{clip-path:url(#SVGID_8_)}.st5{fill:#fefefe00;stroke:#C84B31;stroke-width:4;stroke-miterlimit:10}.st6{clip-path:url(#SVGID_8_)}.st6,.st7{fill:#fefefe00;stroke:#C84B31;stroke-width:4;stroke-miterlimit:10}.st8,.st9{clip-path:url(#SVGID_10_)}.st9{fill:#fefefe00;stroke:#C84B31;stroke-width:4;stroke-miterlimit:10}'
+          '.st0{fill:#fefefe00}.st1{clip-path:url(#SVGID_2_)}.st2{clip-path:url(#SVGID_4_)}.st3{clip-path:url(#SVGID_6_)}.st4{clip-path:url(#SVGID_8_)}.st5{fill:#fefefe00;stroke:#d6d5d5;stroke-width:4;stroke-miterlimit:10}.st6{clip-path:url(#SVGID_8_)}.st6,.st7{fill:#fefefe00;stroke:#d6d5d5;stroke-width:4;stroke-miterlimit:10}.st8,.st9{clip-path:url(#SVGID_10_)}.st9{fill:#fefefe00;stroke:#d6d5d5;stroke-width:4;stroke-miterlimit:10}'
         }
       </style>
       <title>{'rs_school_js'}</title>
