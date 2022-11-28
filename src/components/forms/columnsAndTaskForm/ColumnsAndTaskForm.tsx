@@ -17,6 +17,8 @@ import {
 } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard, JwtDecode } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
+import './columnsAndTasksForm.css';
+import { localeEN } from '../../../locales/localeEN';
 
 export default function ColumnsAndTaskForm() {
   const dispatch = useAppDispatch();
@@ -28,6 +30,7 @@ export default function ColumnsAndTaskForm() {
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const editedTaskData = useAppSelector((state) => state.columnsSlice.editedTaskData);
+  const state = useAppSelector((store) => store.settingsSlise);
 
   const {
     register,
@@ -82,26 +85,31 @@ export default function ColumnsAndTaskForm() {
       <form onSubmit={handleSubmit(columnOrTaskCreateHandler)} className="create-board-form">
         <input
           {...register('title', {
-            required: 'This field is requaered',
+            required: localeEN.columnAndTaskMessages.MESSAGE_REQUIRED[state.languageIndex],
             minLength: {
               value: 2,
-              message: 'Should be min 2 character',
+              message: localeEN.columnAndTaskMessages.MIN_LENGTH_WARN_TITLE[state.languageIndex],
             },
           })}
           type="text"
-          placeholder={errors.title?.message ? errors.title?.message : 'Title'}
+          placeholder={
+            errors.title?.message
+              ? errors.title?.message
+              : localeEN.placeholderText.TITLE_TASK_DESCRIPTION[state.languageIndex]
+          }
           className="create-board-form__title-input"
         />
         <textarea
           {...register('description', {
-            required: 'This field is requaered',
+            required: localeEN.columnAndTaskMessages.MESSAGE_REQUIRED[state.languageIndex],
             minLength: {
               value: 5,
-              message: 'Should be min 5 character',
+              message:
+                localeEN.columnAndTaskMessages.MIN_LENGTH_WARN_DESCRIPTION[state.languageIndex],
             },
             disabled: !isCreateTask && !isEditTask,
           })}
-          placeholder="ojfp'ja"
+          placeholder={localeEN.placeholderText.TASK_DESCRIPTION[state.languageIndex]}
           className="create-board-form__description-input"
         />
         <ButtonSuccess isValid={isValid} />

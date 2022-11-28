@@ -18,8 +18,18 @@ export const localeEN = {
     FETCH_ERRORS_MESSAGE: 'Something went wrong! Try reloading the page',
   },
   tooTipContent: {
-    ADD_BOARD_TOOLTIP_MESSAGE: 'Both input fields must be filled',
-    ADD_COLUMN_TOOLTIP_MESSAGE: 'Input field must be filled. Min 2 charcters',
+    ADD_BOARD_TOOLTIP_MESSAGE: [
+      'Both input fields must be filled',
+      'Обидва поля мають бути заповнені',
+      'Абодва палі павінны быць запоўненыя',
+      'Оба поля должны быть заполнены',
+    ],
+    ADD_COLUMN_TOOLTIP_MESSAGE: [
+      'Input field must be filled. Min 2 charcters',
+      'Input field must be filled. Min 2 charcters',
+      'Input field must be filled. Min 2 charcters',
+      'Input field must be filled. Min 2 charcters',
+    ],
     CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE: 'Сannot be empty',
   },
   columnContet: {
@@ -40,5 +50,30 @@ export const localeEN = {
     CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
     CHOICE_THEME: ['Select theme', 'Оберіть тему', 'Выбраць тэму', 'Выбрать тему'],
     CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выберыце мову', 'Выберите язык'],
+    CONFIRM_MESSAGE: ['Confirm', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
+  },
+  placeholderText: {
+    TASK_DESCRIPTION: ['Description', 'Опис', 'Апісанне', 'Описание'],
+    TITLE_TASK_DESCRIPTION: ['Title', 'Назва', 'Назва', 'Название'],
+  },
+  columnAndTaskMessages: {
+    MESSAGE_REQUIRED: [
+      'This is required field',
+      `Обов'язкове поле`,
+      'Абавязковае поле',
+      'Обязательное поле',
+    ],
+    MIN_LENGTH_WARN_TITLE: [
+      'Min 2 characters',
+      'Mінімум 2 символи',
+      'Mінімум 2 сімвалы',
+      'Mинимум 2 символа',
+    ],
+    MIN_LENGTH_WARN_DESCRIPTION: [
+      'Min 5 characters',
+      'Mінімум 5 символи',
+      'Mінімум 5 сімвалы',
+      'Mинимум 5 символа',
+    ],
   },
 };
