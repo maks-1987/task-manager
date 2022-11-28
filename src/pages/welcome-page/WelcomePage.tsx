@@ -49,7 +49,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src=""
+              src="../FotoPassport.png"
               alt="Max"
               sx={{ width: 100, height: 100 }}
             />
