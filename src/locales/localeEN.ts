@@ -36,4 +36,9 @@ export const localeEN = {
     CREATE_NEW_TASK_MESSAGE: 'Create a new task.',
     EDIT_TASK_MESSAGE: 'Edit task',
   },
+  tooltips: {
+    CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
+    CHOICE_THEME: ['Select theme', 'Оберіть тему', 'Выбраць тэму', 'Выбрать тему'],
+    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выберыце мову', 'Выберите язык'],
+  },
 };
