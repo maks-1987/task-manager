@@ -172,6 +172,18 @@
   background-color: var(--background-color6);
 }
 
+.submit__button:hover {
+  background-color: var(--background-color1);
+}
+
+.submit__button.dark:hover {
+  background-color: var(--background-color2);
+}
+
+.submit__button.color:hover {
+  background-color: var(--background-color3);
+}
+
 .sign-up-form__item.password,
 .sign-in-form__item.password {
   margin-bottom: 30px;

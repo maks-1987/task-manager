@@ -139,10 +139,10 @@ export const RegisterPage = () => {
           <article className="form-success">
             <p className="form-success__message">Now you can enter your personal account </p>
             <button className="form-success__button" onClick={handleLogin}>
-              Login
+              {languages.login[state.languageIndex]}
             </button>
             <Link className="form-success__link" to="/">
-              Back to Main page
+              {languages.returnWelcomePage[state.languageIndex]}
             </Link>
           </article>
         )}
