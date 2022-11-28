@@ -1,4 +1,5 @@
 import React from 'react';
+import { localeEN } from '../../locales/localeEN';
 import { setCurrentColumnId } from '../../redux/columns-slice/columnsSlice';
 import {
   fetchAddNewUserTasks,
@@ -17,12 +18,13 @@ interface IProp {
 export const ButtonDoneTask = (props: IProp) => {
   const { id } = props;
   const { title, description, userId } = props.task;
+  const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const userCurrentBoardColumns = useAppSelector(
     (state) => state.columnsSlice.userCurrentBoard.columns
   );
-  const dispatch = useAppDispatch();
+  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
 
   const doneTaskHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const dataForFetch: IFetchQuery = {
@@ -39,7 +41,7 @@ export const ButtonDoneTask = (props: IProp) => {
 
   const movedDoneTaskToDoneColumn = () => {
     const doneColumnId = userCurrentBoardColumns
-      .filter((column) => column.title === 'done')
+      .filter((column) => column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex])
       .at(-1)?.id;
 
     const dataForFetch: IFetchQuery = {
@@ -55,7 +57,7 @@ export const ButtonDoneTask = (props: IProp) => {
   return (
     <>
       <button
-        disabled={props.column.title === 'done'}
+        disabled={props.column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex]}
         id={id}
         className="button-done-task"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => doneTaskHandler(e)}

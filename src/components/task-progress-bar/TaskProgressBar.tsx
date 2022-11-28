@@ -1,31 +1,32 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { localeEN } from '../../locales/localeEN';
 import { useAppSelector } from '../../redux/hooks';
 import './taskProgressBar.css';
 
 export default function TaskProgressBar() {
   const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
+  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
   const [uncompleteTasks, setUncompleteTasks] = useState<number>(0);
   const [doneTasks, setDoneTasks] = useState<number>(0);
   const [visible, setVisible] = useState<DocumentVisibilityState | undefined>('hidden');
   const [step, setStep] = useState<number>(0);
-  const [scaleWidth, setScaleWidth] = useState<number>(0);
   const progressBar = useRef<HTMLDivElement>(null);
   const progressScale = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const doneTasks = userCurrentBoard.columns
-      .filter((column) => column.title === 'done')
+      .filter((column) => column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex])
       .map((column) => column.tasks)
       .flat().length;
 
     const tasksAll = userCurrentBoard.columns
-      .filter((column) => column.title !== 'done')
+      .filter((column) => column.title !== localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex])
       .map((column) => column.tasks)
       .flat().length;
 
     setUncompleteTasks(tasksAll + doneTasks);
     setDoneTasks(doneTasks);
-  }, [userCurrentBoard.columns]);
+  }, [languageIndex, userCurrentBoard.columns]);
 
   useEffect(() => {
     doneTasks === 0 && uncompleteTasks === 0 ? setVisible('hidden') : setVisible('visible');

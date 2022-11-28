@@ -27,6 +27,7 @@ export default function BoardPreviewItem(props: IProp) {
   const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
   const user = useAppSelector((state) => state.userSlice.user.login);
   const token = useAppSelector((state) => state.userSlice.token);
+  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
 
   const {
     register,
@@ -72,11 +73,13 @@ export default function BoardPreviewItem(props: IProp) {
     dispatch(setCurrentBoardId(e.currentTarget.id));
     dispatch(fetchGetUserBoardByID(dataForFetch));
 
-    userCurrentBoard.columns.some((column) => column.title === 'done')
+    userCurrentBoard.columns.some(
+      (column) => column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex]
+    )
       ? null
       : dispatch(
           fetchAddNewUserColumns({
-            boardData: { title: 'done' },
+            boardData: { title: localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex] },
             boardId: e.currentTarget.id,
             token,
           })
