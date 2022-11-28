@@ -25,10 +25,10 @@ export const localeEN = {
       'Оба поля должны быть заполнены',
     ],
     ADD_COLUMN_TOOLTIP_MESSAGE: [
-      'Input field must be filled. Min 2 charcters',
-      'Input field must be filled. Min 2 charcters',
-      'Input field must be filled. Min 2 charcters',
-      'Input field must be filled. Min 2 charcters',
+      'Field must be filled. Min 2 charcters',
+      'Поле має бути заповнене. Мінімум 2 символи',
+      'Поле павінна быць запоўненае. Мінімум 2 сімвалы',
+      'Поле должно быть заполнено. Минимум 2 символа',
     ],
     CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE: 'Сannot be empty',
   },
@@ -51,10 +51,17 @@ export const localeEN = {
     CHOICE_THEME: ['Select theme', 'Оберіть тему', 'Выбраць тэму', 'Выбрать тему'],
     CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выберыце мову', 'Выберите язык'],
     CONFIRM_MESSAGE: ['Confirm', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
+    MARK_AS_DONE: ['done', 'виконано', 'зроблена', 'выполнено'],
+    CHANGE_TASK: ['change', 'змінити', 'змяніць', 'изменить'],
+    DELETE_TASK: ['delete task', 'видалити справу', 'выдаліць задачу', 'удалить задачу'],
+    DELETE_COLUMN: ['delete column', 'видалити стовпець', 'выдаліць', 'удалить колонку'],
+    ADD_TASK: ['add task', 'додати справу', 'дадаць задачу', 'добавить задачу'],
   },
   placeholderText: {
     TASK_DESCRIPTION: ['Description', 'Опис', 'Апісанне', 'Описание'],
     TITLE_TASK_DESCRIPTION: ['Title', 'Назва', 'Назва', 'Название'],
+    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне доскі', 'Описание доски'],
+    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва доскі', 'Название доски'],
   },
   columnAndTaskMessages: {
     MESSAGE_REQUIRED: [
@@ -71,9 +78,10 @@ export const localeEN = {
     ],
     MIN_LENGTH_WARN_DESCRIPTION: [
       'Min 5 characters',
-      'Mінімум 5 символи',
-      'Mінімум 5 сімвалы',
-      'Mинимум 5 символа',
+      'Mінімум 5 символів',
+      'Mінімум 5 сімвалаў',
+      'Mинимум 5 символов',
     ],
   },
+  createBoardForm: {},
 };

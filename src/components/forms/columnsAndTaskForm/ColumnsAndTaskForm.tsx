@@ -92,11 +92,7 @@ export default function ColumnsAndTaskForm() {
             },
           })}
           type="text"
-          placeholder={
-            errors.title?.message
-              ? errors.title?.message
-              : localeEN.placeholderText.TITLE_TASK_DESCRIPTION[state.languageIndex]
-          }
+          placeholder={localeEN.placeholderText.TITLE_TASK_DESCRIPTION[state.languageIndex]}
           className="create-board-form__title-input"
         />
         <textarea

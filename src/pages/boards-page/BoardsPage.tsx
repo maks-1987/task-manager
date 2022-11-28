@@ -16,23 +16,27 @@ export default function BoardsPage() {
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
-
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   return (
     <section className="boards-page">
       <div className="boards-page__container">
         <h1 className="boards-page__title">Boards Page</h1>
         <AddBoardButton />
-        <section className="boards-page__container_boards-field">
-          {isLoading && <Loader />}
-          {Boolean(fetchBoardErrorMessage) && (
-            <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
-          )}
-          {!userBoards.length
-            ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
-            : userBoards.map((board, index) => (
-                <BoardPreviewItem key={board.id} userBoard={board} index={index} />
-              ))}
-        </section>
+        {isLoading && <Loader />}
+        {!isLoading && (
+          <section className="boards-page__container_boards-field">
+            {Boolean(fetchBoardErrorMessage) && (
+              <h2 className="fetch-erroe-message">
+                {localeEN.errors.FETCH_ERRORS_MESSAGE[languageIndex]}
+              </h2>
+            )}
+            {!userBoards.length
+              ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
+              : userBoards.map((board, index) => (
+                  <BoardPreviewItem key={board.id} userBoard={board} index={index} />
+                ))}
+          </section>
+        )}
       </div>
     </section>
   );

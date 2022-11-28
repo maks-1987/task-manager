@@ -6,10 +6,12 @@ import { IFetchQuery, IUserBoard } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
+import { localeEN } from '../../../locales/localeEN';
 
 export default function CreateBoardForm() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   const {
     register,
     handleSubmit,
@@ -41,7 +43,7 @@ export default function CreateBoardForm() {
             },
           })}
           type="text"
-          placeholder={errors.title?.message ? errors.title?.message : 'Board title'}
+          placeholder={localeEN.placeholderText.TITLE_BOARD_DESCRIPTION[languageIndex]}
           className="create-board-form__title-input"
         />
         <input
@@ -53,9 +55,7 @@ export default function CreateBoardForm() {
             },
           })}
           type="text"
-          placeholder={
-            errors.description?.message ? errors.description?.message : 'Board description'
-          }
+          placeholder={localeEN.placeholderText.BOARD_DESCRIPTION[languageIndex]}
           className="create-board-form__description-input"
         />
         <ButtonSuccess isValid={isValid} />
