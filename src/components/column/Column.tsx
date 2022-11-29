@@ -57,7 +57,6 @@ export const Column = (props: IProp) => {
             ref={provided.innerRef}
           >
             <hr {...provided.dragHandleProps} />
-            {/*<div className="drag-label" {...provided.dragHandleProps}></div>*/}
             <div className="column-item__control">
               {title === 'done' ? (
                 <h3 className="column-item__title">{title}</h3>
