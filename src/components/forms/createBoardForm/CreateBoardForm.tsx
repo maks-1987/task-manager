@@ -4,7 +4,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
-import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
+import {
+  setIsCreateBoard,
+  setIsRemoveBoard,
+  setModalOpen,
+} from '../../../redux/modal-slice/modalSlice';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
 import { localeEN } from '../../../locales/localeEN';
 
@@ -27,6 +31,7 @@ export default function CreateBoardForm() {
     dispatch(fetchAddNewUserBoard(dataForFetch));
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
+    dispatch(setIsCreateBoard(false));
   };
   useEffect(() => {
     isSubmitSuccessful && reset();

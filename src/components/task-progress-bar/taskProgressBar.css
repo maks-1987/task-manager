@@ -1,0 +1,23 @@
+.progress-block {
+  width: 100%;
+  height: 100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px auto;
+}
+.progress-bar {
+  box-sizing: border-box;
+  height: 5px;
+  width: 95%;
+  background-color:red;
+  border-radius:5px;
+  margin: auto;
+}
+.progress-scale {
+  height: 5px;
+  background-color: green;
+  border-radius: 5px;
+  visibility: hidden;
+}
+
