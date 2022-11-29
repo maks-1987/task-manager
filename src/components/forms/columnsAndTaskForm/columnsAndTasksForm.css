@@ -1,0 +1,7 @@
+.create-board-form__description-input {
+    resize: none;
+}
+
+textarea.create-board-form__description-input {
+    padding-top: 10px;
+}
