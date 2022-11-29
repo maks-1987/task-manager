@@ -3,6 +3,8 @@ import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPr
 import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
+import { setCurrentBoardId, setRemovedBoardId } from '../../redux/boards-slice/boardsSlice';
+import { setResetCurrentBoardData } from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
 import './boardsPage.css';
@@ -16,6 +18,12 @@ export default function BoardsPage() {
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
+  useEffect(() => {
+    dispatch(setResetCurrentBoardData());
+    dispatch(setCurrentBoardId(''));
+    dispatch(setRemovedBoardId(''));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="boards-page">

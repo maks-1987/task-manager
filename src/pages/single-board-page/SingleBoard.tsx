@@ -12,6 +12,7 @@ import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar';
 import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
 import {
   fetchAddNewUserTasks,
@@ -190,6 +191,7 @@ export default function SingleBoard() {
       </Link>
       {isLoading && <Loader />}
       <h2 className="project-board__title">{userCurrentBoard.title}</h2>
+      <TaskProgressBar />
       <DragDropContext onDragEnd={onDragEnd}>
         <article className="project-board__columns">
           <Droppable droppableId="all-columns" direction="horizontal" type="column">

@@ -72,6 +72,13 @@ export const columnsSlice = createSlice({
     setColumnsAfterDrag(state, action: PayloadAction<IColumn[]>) {
       state.userCurrentBoard.columns = action.payload;
     },
+    setResetCurrentBoardData(state) {
+      state.userCurrentBoard.id = '';
+      state.userCurrentBoard.columns = [];
+      state.removedTaskId = '';
+      state.editedTaskId = '';
+      state.removedColumnId = '';
+      state.currentColumnId = '';
     setTasksAfterDrag(state, action: PayloadAction<ChangeTask>) {
       state.userCurrentBoard.columns.map((column) => {
         column.id === action.payload.destinationId
@@ -203,6 +210,7 @@ export const {
   setRemovedTaskId,
   setEditedTaskId,
   setColumnsAfterDrag,
+  setResetCurrentBoardData,
   setTasksAfterDrag,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
