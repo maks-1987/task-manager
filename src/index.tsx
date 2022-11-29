@@ -10,8 +10,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-container.classList.add('container');
-
 root.render(
   // <React.StrictMode>
   <BrowserRouter>

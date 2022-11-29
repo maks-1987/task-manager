@@ -1,31 +1,44 @@
 import React from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { sxSelect, inputProps, sxMenuItem, selectItemsColors } from './muiSelectorStyles';
 import { setLanguage } from '../../redux/settings-slice/settingsSlise';
 import './selectors.css';
+import { localeEN } from '../../locales/localeEN';
 
 function LanguageSelector(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlise);
   const dispatch = useAppDispatch();
 
+  const selectItemsColor = selectItemsColors[state.themeIndex as keyof typeof selectItemsColors];
+
   return (
-    <select
+    <Select
       className={'select ' + state.themeIndex}
       value={state.languageIndex}
       onChange={(event) => dispatch(setLanguage(Number(event.target.value)))}
+      sx={sxSelect}
+      IconComponent={() => null}
+      inputProps={inputProps(selectItemsColor)}
+      title={localeEN.tooltips.CHOICE_LANG[state.languageIndex]}
     >
-      <option className={'option ' + state.themeIndex} value={0}>
+      <MenuItem className={'option ' + state.themeIndex} value={0} sx={sxMenuItem}>
         EN
-      </option>
-      <option className={'option ' + state.themeIndex} value={1}>
+      </MenuItem>
+
+      <MenuItem className={'option ' + state.themeIndex} value={1} sx={sxMenuItem}>
         UA
-      </option>
-      <option className={'option ' + state.themeIndex} value={2}>
+      </MenuItem>
+
+      <MenuItem className={'option ' + state.themeIndex} value={2} sx={sxMenuItem}>
         BY
-      </option>
-      <option className={'option ' + state.themeIndex} value={3}>
+      </MenuItem>
+
+      <MenuItem className={'option ' + state.themeIndex} value={3} sx={sxMenuItem}>
         RU
-      </option>
-    </select>
+      </MenuItem>
+    </Select>
   );
 }
 
