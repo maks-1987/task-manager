@@ -27,12 +27,15 @@
   padding: 0 10px;
 }
 
-.nav__link {
+.nav__link,
+.sign-out-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 150px;
   height: 23px;
   font-size: 16px;
   color: var(--color1);
-  text-align: center;
   text-decoration: none;
   border-radius: 3px;
   background-color: var(--background-color4);
@@ -54,6 +57,7 @@ button.nav__link {
   background-color: var(--background-color6);
 }
 
-.nav__link:hover {
+.nav__link:hover,
+.sign-out-btn:hover {
   border: var(--border1);
 }
