@@ -79,6 +79,7 @@ export const columnsSlice = createSlice({
       state.editedTaskId = '';
       state.removedColumnId = '';
       state.currentColumnId = '';
+    },
     setTasksAfterDrag(state, action: PayloadAction<ChangeTask>) {
       state.userCurrentBoard.columns.map((column) => {
         column.id === action.payload.destinationId
