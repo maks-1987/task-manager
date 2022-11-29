@@ -4,10 +4,12 @@ import { useAppDispatch } from '../../redux/hooks';
 import { setModalOpen, setIsCreateTask } from '../../redux/modal-slice/modalSlice';
 import { IComleteColumn } from '../../types/types';
 import './buttons.css';
-import { addTaskSVG } from './svgButtons';
+import { AddTaskSVG } from './svgButtons';
+
 interface IProp {
   column: IComleteColumn;
 }
+
 export const ButtonNewTask = (props: IProp) => {
   const { id, title } = props.column;
   const dispatch = useAppDispatch();
@@ -23,7 +25,7 @@ export const ButtonNewTask = (props: IProp) => {
       className="button-new-task"
       title="add new task"
     >
-      {addTaskSVG()}
+      <AddTaskSVG />
     </button>
   );
 };

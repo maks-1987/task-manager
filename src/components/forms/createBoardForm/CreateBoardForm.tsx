@@ -10,15 +10,17 @@ import {
   setModalOpen,
 } from '../../../redux/modal-slice/modalSlice';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
+import { localeEN } from '../../../locales/localeEN';
 
 export default function CreateBoardForm() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   const {
     register,
     handleSubmit,
     reset,
-    formState: { isValid, errors, isSubmitSuccessful },
+    formState: { isValid, isSubmitSuccessful },
   } = useForm<IUserBoard>({ mode: 'onBlur' });
 
   const boardCreateHandler: SubmitHandler<IUserBoard> = (formData: IUserBoard) => {
@@ -46,7 +48,7 @@ export default function CreateBoardForm() {
             },
           })}
           type="text"
-          placeholder={errors.title?.message ? errors.title?.message : 'Board title'}
+          placeholder={localeEN.placeholderText.TITLE_BOARD_DESCRIPTION[languageIndex]}
           className="create-board-form__title-input"
         />
         <input
@@ -58,9 +60,7 @@ export default function CreateBoardForm() {
             },
           })}
           type="text"
-          placeholder={
-            errors.description?.message ? errors.description?.message : 'Board description'
-          }
+          placeholder={localeEN.placeholderText.BOARD_DESCRIPTION[languageIndex]}
           className="create-board-form__description-input"
         />
         <ButtonSuccess isValid={isValid} />
