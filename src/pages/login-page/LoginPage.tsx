@@ -36,7 +36,11 @@ export const LoginPage = () => {
 
     if (!response.ok) {
       dispatch(userSlice.actions.setError(loginData.message));
-    } else {
+    }
+    if (response.status === 403) {
+      dispatch(userSlice.actions.setError(languages.userNotExist[state.languageIndex]));
+    }
+    if (response.ok) {
       dispatch(userSlice.actions.setUserLogin(data.login));
       dispatch(userSlice.actions.setPassword(''));
       dispatch(userSlice.actions.setUserToken(loginData.token));
@@ -58,12 +62,14 @@ export const LoginPage = () => {
 
   return (
     <div className={'register-container ' + state.themeIndex}>
-      <div className="welcome-page-link-container">
-        <GoWelcomePageLink />
-      </div>
-      <div className="selectors-container">
-        <LanguageSelector />
-        <ThemeSelector />
+      <div className="blur-background">
+        <div className="welcome-page-link-container">
+          <GoWelcomePageLink />
+        </div>
+        <div className="selectors-container">
+          <LanguageSelector />
+          <ThemeSelector />
+        </div>
       </div>
 
       <div>
@@ -76,11 +82,15 @@ export const LoginPage = () => {
         </h3>
       </div>
 
-      <form className="sign-in-form" onSubmit={handleSubmit(onSubmitForm)}>
-        <p className={'sign-up-form__title ' + state.themeIndex}>
+      <form
+        className="sign-in-form"
+        onSubmit={handleSubmit(onSubmitForm)}
+        onClick={() => dispatch(userSlice.actions.setError(''))}
+      >
+        <p className={'sign-in-form__title ' + state.themeIndex}>
           {languages.authorization[state.languageIndex]}
         </p>
-        <div className={'sign-up-form__item login ' + state.themeIndex}>
+        <div className={'sign-in-form__item login ' + state.themeIndex}>
           <label htmlFor="login">{languages.login[state.languageIndex]}</label>
           <input
             className={'sign-in-form__input ' + state.themeIndex}
@@ -102,7 +112,7 @@ export const LoginPage = () => {
             )}
           </p>
         </div>
-        <div className={'sign-up-form__item password ' + state.themeIndex}>
+        <div className={'sign-in-form__item password ' + state.themeIndex}>
           <label htmlFor="password">{languages.password[state.languageIndex]}</label>
           <input
             className={'sign-in-form__input ' + state.themeIndex}

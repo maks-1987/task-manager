@@ -18,6 +18,7 @@ export const RegisterPage = () => {
   const state = useAppSelector((store) => store.settingsSlise);
   const dispatch = useAppDispatch();
   const { error, user, password } = useAppSelector((state) => state.userSlice);
+  const { isLoading } = useAppSelector((state) => state.boardsSlice);
 
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
@@ -36,18 +37,20 @@ export const RegisterPage = () => {
 
   const handleLogin = () => {
     dispatch(fetchLogin({ login: user.login, password: password }));
-    navigation('/');
+    navigation(`/boards/${user.login}`);
   };
 
   return (
     <>
       <div className={'register-container ' + state.themeIndex}>
-        <div className="welcome-page-link-container">
-          <GoWelcomePageLink />
-        </div>
-        <div className="selectors-container">
-          <LanguageSelector />
-          <ThemeSelector />
+        <div className="blur-background">
+          <div className="welcome-page-link-container">
+            <GoWelcomePageLink />
+          </div>
+          <div className="selectors-container">
+            <LanguageSelector />
+            <ThemeSelector />
+          </div>
         </div>
 
         <div>
@@ -60,7 +63,11 @@ export const RegisterPage = () => {
           </h3>
         </div>
 
-        <form className="sign-up-form" onSubmit={handleSubmit(onSubmitForm)}>
+        <form
+          className="sign-up-form"
+          onSubmit={handleSubmit(onSubmitForm)}
+          onClick={() => dispatch(userSlice.actions.setError(''))}
+        >
           <p className={'sign-up-form__title ' + state.themeIndex}>
             {languages.registration[state.languageIndex]}
           </p>
@@ -74,7 +81,6 @@ export const RegisterPage = () => {
                 required: `${languages.requiredFieldNote[state.languageIndex]}`,
                 maxLength: 20,
                 minLength: 3,
-                pattern: /^[A-Za-z]+$/i,
               })}
             />
             <p className="form-messages">
@@ -132,8 +138,10 @@ export const RegisterPage = () => {
               {languages.submit[state.languageIndex]}
             </button>
           </div>
-          <p className="form-failed">{error}</p>
         </form>
+        <p className="form-failed">
+          {error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
+        </p>
 
         {password && (
           <article className="form-success">
@@ -141,9 +149,6 @@ export const RegisterPage = () => {
             <button className="form-success__button" onClick={handleLogin}>
               {languages.login[state.languageIndex]}
             </button>
-            <Link className="form-success__link" to="/">
-              {languages.returnWelcomePage[state.languageIndex]}
-            </Link>
           </article>
         )}
       </div>

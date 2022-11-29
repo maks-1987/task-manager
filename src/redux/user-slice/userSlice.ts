@@ -23,7 +23,7 @@ const initFormState: IUserState = {
 export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValue: string }>(
   'register/fetchRegister',
   async (user, { rejectWithValue, dispatch }) => {
-    const response = await fetch(Endpoints.SIGN_UP, {
+    const response: Response = await fetch(Endpoints.SIGN_UP, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,6 +32,9 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
     });
 
     if (!response.ok) {
+      if (response.status === 409) {
+        return rejectWithValue('userExist');
+      }
       const userData = await response.json();
       return rejectWithValue(userData.message);
     }
@@ -47,7 +50,7 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
 export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: string }>(
   'login/fetchLogin',
   async (user, { rejectWithValue, dispatch }) => {
-    const response = await fetch(Endpoints.SIGN_IN, {
+    const response: Response = await fetch(Endpoints.SIGN_IN, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,6 +59,9 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
     });
 
     if (!response.ok) {
+      if (response.status === 403) {
+        return rejectWithValue('userNotExist');
+      }
       const userData = await response.json();
       return rejectWithValue(userData.message);
     }
@@ -119,9 +125,9 @@ export const userSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchLogin.rejected, (state, action) => {
-        state.error = action.payload ? action.payload : '';
         state.user.name = '';
         state.user.id = '';
+        state.error = action.payload ? action.payload : '';
       });
   },
 });
