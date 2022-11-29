@@ -1,15 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  persistReducer,
-  persistStore,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from 'redux-persist';
 import { persistor } from '../../redux/store';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { languages } from '../../locales/languages';
