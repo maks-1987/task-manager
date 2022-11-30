@@ -17,7 +17,7 @@ import {
 } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard, JwtDecode } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
-import './columnsAndTasksForm.css';
+// import './columnsAndTasksForm.css';
 import { localeEN } from '../../../locales/localeEN';
 
 export default function ColumnsAndTaskForm() {

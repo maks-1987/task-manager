@@ -9,7 +9,6 @@ import {
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
-import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar';
 import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
@@ -20,6 +19,7 @@ import {
 } from '../../redux/columns-slice/tasksFetchRequest';
 import jwtDecode from 'jwt-decode';
 import Spinner from '../../UI/spinner/Spinner';
+import './singleBoard.css';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();

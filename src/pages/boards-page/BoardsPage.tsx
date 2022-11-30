@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
 import Spinner from '../../UI/spinner/Spinner';
 import './boardsPage.css';
-import Loader from '../../components/loader/Loader';
 
 export default function BoardsPage() {
   const dispatch = useAppDispatch();
@@ -33,7 +32,7 @@ export default function BoardsPage() {
         <h1 className="boards-page__title">Boards Page</h1>
         <AddBoardButton />
 
-        {isLoading && <Loader />}
+        {isLoading && <Spinner />}
         {!isLoading && (
           <section className="boards-page__container_boards-field">
             {Boolean(fetchBoardErrorMessage) && (
