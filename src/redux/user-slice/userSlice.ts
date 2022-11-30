@@ -121,6 +121,7 @@ export const userSlice = createSlice({
         state.user.name = '';
         state.user.id = '';
         state.error = action.payload ? action.payload : '';
+        state.spinnerStatus = false;
       })
       .addCase(fetchLogin.pending, (state) => {
         state.user.name = '';
@@ -137,6 +138,7 @@ export const userSlice = createSlice({
         state.user.name = '';
         state.user.id = '';
         state.error = action.payload ? action.payload : '';
+        state.spinnerStatus = false;
       });
   },
 });

@@ -67,7 +67,7 @@ export const RegisterPage = () => {
         <form
           className="sign-up-form"
           onSubmit={handleSubmit(onSubmitForm)}
-          onClick={() => {
+          onChange={() => {
             dispatch(userSlice.actions.setError(''));
             dispatch(userSlice.actions.setPassword(''));
           }}

@@ -90,7 +90,7 @@ export const LoginPage = () => {
       <form
         className="sign-in-form"
         onSubmit={handleSubmit(onSubmitForm)}
-        onClick={() => dispatch(userSlice.actions.setError(''))}
+        onChange={() => dispatch(userSlice.actions.setError(''))}
       >
         <p className={'sign-in-form__title ' + state.themeIndex}>
           {languages.authorization[state.languageIndex]}
