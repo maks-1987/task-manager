@@ -13,7 +13,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import userSlice from './user-slice/userSlice';
 import modalSlice from './modal-slice/modalSlice';
-import settingsSlise from './settings-slice/settingsSlise';
+import settingsSlice from './settings-slice/settingsSlice';
 import columnsSlice from './columns-slice/columnsSlice';
 
 const persistConfig = {
@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
   userSlice,
   modalSlice,
   boardsSlice,
-  settingsSlise,
+  settingsSlice,
   columnsSlice,
 });
 

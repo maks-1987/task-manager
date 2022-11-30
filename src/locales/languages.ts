@@ -12,6 +12,7 @@ export const languages = {
   createBoard: ['Create board', 'Створити дошку', 'Стварыць доску', 'Создать доску'],
   editProfile: ['Edit profile', 'Редагувати профіль', 'Рэдагаваць профіль', 'Редакт. профиль'],
   signOut: ['Sign out', 'Вийти', 'Выйсці', 'Выйти'],
+  toBoards: ['Boards', 'Дошки', 'Дошкi', 'Доски'],
   welcome: [
     'Welcome to our task manager',
     'Вітаємо у нашому таск-менеджері',

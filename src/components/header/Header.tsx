@@ -8,10 +8,12 @@ import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { localeEN } from '../../locales/localeEN';
 import { userSlice } from '../../redux/user-slice/userSlice';
+import { boardsSlice } from '../../redux/boards-slice/boardsSlice';
 import './Header.css';
 
 function Header(): JSX.Element {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
+  const boardsState = useAppSelector((store) => store.boardsSlice);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const paths: string[] = ['/', '/login', '/register'];
@@ -38,18 +40,7 @@ function Header(): JSX.Element {
           {languages.editProfile[state.languageIndex]}
         </Link>
 
-        <Link
-          className={'sign-out-btn ' + state.themeIndex}
-          to="/"
-          onClick={() => {
-            dispatch(userSlice.actions.setUserData({ id: '', name: '', login: '' }));
-            dispatch(userSlice.actions.setUserToken(''));
-            persistor.pause();
-            persistor.flush().then(() => {
-              return persistor.purge();
-            });
-          }}
-        >
+        <Link className={'sign-out-btn ' + state.themeIndex} to="/logout">
           {languages.signOut[state.languageIndex]}
         </Link>
 

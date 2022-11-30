@@ -18,7 +18,7 @@ export default function BoardsPage() {
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   useEffect(() => {
     dispatch(setResetCurrentBoardData());
     dispatch(setCurrentBoardId(''));

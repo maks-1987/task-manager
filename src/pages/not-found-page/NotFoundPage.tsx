@@ -5,7 +5,7 @@ import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import './notFoundPage.css';
 
 function NotFoundPage() {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   return (
     <div className={'not-found-page-container ' + state.themeIndex}>
       <div className={'return-link-container ' + state.themeIndex}>

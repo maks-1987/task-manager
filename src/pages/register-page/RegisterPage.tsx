@@ -16,7 +16,7 @@ export const RegisterPage = () => {
     mode: 'onChange',
   });
   const navigation = useNavigate();
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const { error, user, password, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
@@ -37,6 +37,7 @@ export const RegisterPage = () => {
 
   const handleLogin = () => {
     dispatch(fetchLogin({ login: user.login, password: password }));
+    dispatch(userSlice.actions.setSignInStatus(true));
     navigation(`/boards/${user.login}`);
   };
 

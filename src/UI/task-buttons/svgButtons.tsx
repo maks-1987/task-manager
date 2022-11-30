@@ -2,7 +2,7 @@ import { localeEN } from '../../locales/localeEN';
 import { useAppSelector } from '../../redux/hooks';
 
 export const EditTaskSVG = () => {
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   return (
     <svg
       className="svg-icon"
@@ -49,7 +49,7 @@ l-81 -302 0 -135 0 -136 136 0 135 0 302 81 c166 45 325 87 352 94 28 8 86 23
   );
 };
 export const DoneTaskSVG = () => {
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
 
   return (
     <svg

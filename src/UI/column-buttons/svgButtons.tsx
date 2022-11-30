@@ -2,7 +2,7 @@ import { localeEN } from '../../locales/localeEN';
 import { useAppSelector } from '../../redux/hooks';
 
 export const AddTaskSVG = () => {
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   return (
     <svg
       version="1.1"
@@ -19,7 +19,7 @@ export const AddTaskSVG = () => {
 };
 
 export const DeleteColumnSVG = () => {
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   return (
     <svg
       version="1.1"
@@ -39,7 +39,7 @@ export const DeleteColumnSVG = () => {
 };
 
 export const DeleteTaskSVG = () => {
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   return (
     <svg
       version="1.1"

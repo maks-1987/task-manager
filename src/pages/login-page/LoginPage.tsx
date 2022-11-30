@@ -17,7 +17,7 @@ export const LoginPage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const { error, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
@@ -39,14 +39,17 @@ export const LoginPage = () => {
 
     if (!response.ok) {
       dispatch(userSlice.actions.setError(loginData.message));
+      dispatch(userSlice.actions.setSignInStatus(false));
     }
     if (response.status === 403) {
       dispatch(userSlice.actions.setError(languages.userNotExist[state.languageIndex]));
+      dispatch(userSlice.actions.setSignInStatus(false));
     }
     if (response.ok) {
       dispatch(userSlice.actions.setUserLogin(data.login));
       dispatch(userSlice.actions.setPassword(''));
       dispatch(userSlice.actions.setUserToken(loginData.token));
+      dispatch(userSlice.actions.setSignInStatus(true));
 
       navigation(`/boards/${data.login}`);
     }

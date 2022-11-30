@@ -30,7 +30,7 @@ export default function ColumnsAndTaskForm() {
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const editedTaskData = useAppSelector((state) => state.columnsSlice.editedTaskData);
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
 
   const {
     register,

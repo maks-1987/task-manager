@@ -7,6 +7,7 @@ interface IUserState {
   token: string;
   error: string;
   password?: string;
+  isSignIn: boolean;
   spinnerStatus: boolean;
 }
 
@@ -19,6 +20,7 @@ const initFormState: IUserState = {
   password: '',
   token: '',
   error: '',
+  isSignIn: false,
   spinnerStatus: false,
 };
 
@@ -100,6 +102,9 @@ export const userSlice = createSlice({
     setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
     },
+    setSignInStatus(state, action: PayloadAction<boolean>) {
+      state.isSignIn = action.payload;
+    },
     setSpinnerStatus(state, action: PayloadAction<boolean>) {
       state.spinnerStatus = action.payload;
     },
@@ -132,15 +137,18 @@ export const userSlice = createSlice({
       .addCase(fetchLogin.fulfilled, (state, action) => {
         state.token = action.payload;
         state.error = '';
+        state.isSignIn = true;
         state.spinnerStatus = false;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.user.name = '';
         state.user.id = '';
         state.error = action.payload ? action.payload : '';
+        state.isSignIn = false;
         state.spinnerStatus = false;
       });
   },
 });
+export const { setSignInStatus } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './Spinner.css';
 
 function Spinner(): JSX.Element {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   const spinnerThemeColors = {
     light: '#e1e1e1',
     dark: '#e1e1e1',

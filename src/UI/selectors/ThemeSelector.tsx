@@ -3,13 +3,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { sxSelect, inputProps, sxMenuItem, selectItemsColors } from './muiSelectorStyles';
-import { setTheme } from '../../redux/settings-slice/settingsSlise';
+import { setTheme } from '../../redux/settings-slice/settingsSlice';
 import { lightIcon, darkIcon, colorIcon } from '../../pages/welcome-page/svg';
 import './selectors.css';
 import { localeEN } from '../../locales/localeEN';
 
 function ThemeSelector(): JSX.Element {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
 
   const selectItemsColor = selectItemsColors[state.themeIndex as keyof typeof selectItemsColors];
