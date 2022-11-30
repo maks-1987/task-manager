@@ -1,8 +1,8 @@
 .welcome-page-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
   height: 100vh;
   padding: 70px 20px 45px;
   background-color: var(--background-color1);
