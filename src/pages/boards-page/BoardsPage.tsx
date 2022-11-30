@@ -15,11 +15,13 @@ export default function BoardsPage() {
   const userBoards = useAppSelector((state) => state.boardsSlice.userBoards);
   const isLoading = useAppSelector((state) => state.boardsSlice.isLoading);
   const fetchBoardErrorMessage = useAppSelector((state) => state.boardsSlice.errorMessage);
+
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
+
   useEffect(() => {
-    dispatch(setResetCurrentBoardData());
+    setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));
     dispatch(setRemovedBoardId(''));
     // eslint-disable-next-line react-hooks/exhaustive-deps
