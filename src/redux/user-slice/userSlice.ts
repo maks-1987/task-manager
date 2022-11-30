@@ -7,6 +7,7 @@ interface IUserState {
   token: string;
   error: string;
   password?: string;
+  spinnerStatus: boolean;
 }
 
 const initFormState: IUserState = {
@@ -18,6 +19,7 @@ const initFormState: IUserState = {
   password: '',
   token: '',
   error: '',
+  spinnerStatus: false,
 };
 
 export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValue: string }>(
@@ -98,15 +100,20 @@ export const userSlice = createSlice({
     setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
     },
+    setSpinnerStatus(state, action: PayloadAction<boolean>) {
+      state.spinnerStatus = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRegistration.pending, (state) => {
         state.error = '';
+        state.spinnerStatus = true;
       })
       .addCase(fetchRegistration.fulfilled, (state, action) => {
         state.user = action.payload;
         state.error = '';
+        state.spinnerStatus = false;
       })
       .addCase(fetchRegistration.rejected, (state, action) => {
         state.token = '';
@@ -119,10 +126,12 @@ export const userSlice = createSlice({
         state.user.name = '';
         state.user.id = '';
         state.error = '';
+        state.spinnerStatus = true;
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
         state.token = action.payload;
         state.error = '';
+        state.spinnerStatus = false;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.user.name = '';

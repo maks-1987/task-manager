@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
+import { userSlice } from '../../redux/user-slice/userSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IUserForm } from '../../types/types';
 import { Endpoints } from '../../endpoints/endpoints';
@@ -9,6 +9,7 @@ import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import Spinner from '../../UI/spinner/Spinner';
 import '../register-page/registerPage.css';
 
 export const LoginPage = () => {
@@ -18,10 +19,12 @@ export const LoginPage = () => {
   });
   const state = useAppSelector((store) => store.settingsSlise);
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector((state) => state.userSlice);
+  const { error, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = async (data) => {
+    dispatch(userSlice.actions.setSpinnerStatus(true));
+
     const response = await fetch(Endpoints.SIGN_IN, {
       method: 'POST',
       headers: {
@@ -47,6 +50,7 @@ export const LoginPage = () => {
 
       navigation(`/boards/${data.login}`);
     }
+    dispatch(userSlice.actions.setSpinnerStatus(false));
   };
 
   useEffect(() => {
@@ -62,6 +66,7 @@ export const LoginPage = () => {
 
   return (
     <div className={'register-container ' + state.themeIndex}>
+      {spinnerStatus && <Spinner />}
       <div className="blur-background">
         <div className="welcome-page-link-container">
           <GoWelcomePageLink />

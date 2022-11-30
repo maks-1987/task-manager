@@ -8,6 +8,7 @@ import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import Spinner from '../../UI/spinner/Spinner';
 import './registerPage.css';
 
 export const RegisterPage = () => {
@@ -17,8 +18,7 @@ export const RegisterPage = () => {
   const navigation = useNavigate();
   const state = useAppSelector((store) => store.settingsSlise);
   const dispatch = useAppDispatch();
-  const { error, user, password } = useAppSelector((state) => state.userSlice);
-  const { isLoading } = useAppSelector((state) => state.boardsSlice);
+  const { error, user, password, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
@@ -43,6 +43,7 @@ export const RegisterPage = () => {
   return (
     <>
       <div className={'register-container ' + state.themeIndex}>
+        {spinnerStatus && <Spinner />}
         <div className="blur-background">
           <div className="welcome-page-link-container">
             <GoWelcomePageLink />

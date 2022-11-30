@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPreviewItem';
-import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
+import Spinner from '../../UI/spinner/Spinner';
 import './boardsPage.css';
 
 export default function BoardsPage() {
@@ -23,7 +23,7 @@ export default function BoardsPage() {
         <h1 className="boards-page__title">Boards Page</h1>
         <AddBoardButton />
         <section className="boards-page__container_boards-field">
-          {isLoading && <Loader />}
+          {isLoading && <Spinner />}
           {Boolean(fetchBoardErrorMessage) && (
             <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
           )}
