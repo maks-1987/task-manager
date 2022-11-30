@@ -8,7 +8,7 @@ import {
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard, IColumn, ITask, ChangeTask } from './../../types/types';
+import { IBoard, IColumn, ITask, ChangeTask, IFetchQuery } from './../../types/types';
 import {
   fetchAddNewUserTasks,
   fetchChangeOrderTask,
@@ -18,6 +18,7 @@ import {
 
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
+  userCurrentBoardList: IBoard[];
   isLoading: boolean;
   errorMessage: string;
   currentColumnId: string;
@@ -34,6 +35,7 @@ const initialState: IColumnsSlice = {
     description: '',
     columns: [],
   },
+  userCurrentBoardList: [],
   isLoading: true,
   errorMessage: '',
   currentColumnId: '',
@@ -87,6 +89,11 @@ export const columnsSlice = createSlice({
           : column.tasks;
       });
     },
+    setClearUserCurrentBoardList(state, action: PayloadAction<IFetchQuery>) {
+      state.userCurrentBoardList = state.userCurrentBoardList.filter(
+        (board) => board.id !== action.payload.boardId
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -96,6 +103,9 @@ export const columnsSlice = createSlice({
       })
       .addCase(fetchGetUserBoardByID.fulfilled, (state, action) => {
         state.userCurrentBoard = action.payload;
+        state.userCurrentBoardList.some((board) => board.id === action.payload.id)
+          ? null
+          : state.userCurrentBoardList.push(action.payload);
         state.isLoading = false;
         state.errorMessage = '';
       })
@@ -213,6 +223,7 @@ export const {
   setColumnsAfterDrag,
   setResetCurrentBoardData,
   setTasksAfterDrag,
+  setClearUserCurrentBoardList,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
