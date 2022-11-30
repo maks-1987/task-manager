@@ -162,33 +162,39 @@
   cursor: pointer;
 }
 
-.submit__button {
+.submit__button,
+.form-success__button {
   color: var(--color1);
   border: var(--border1);
   background-color: var(--background-color4);
 }
 
-.submit__button.dark {
+.submit__button.dark,
+.form-success__button.dark {
   color: var(--color2);
   border: var(--border2);
   background-color: var(--background-color5);
 }
 
-.submit__button.color {
+.submit__button.color,
+.form-success__button.color {
   color: var(--color3);
   border: var(--border3);
   background-color: var(--background-color6);
 }
 
-.submit__button:hover {
+.submit__button:hover,
+.form-success__button:hover {
   background-color: var(--background-color1);
 }
 
-.submit__button.dark:hover {
+.submit__button.dark:hover,
+.form-success__button.dark:hover {
   background-color: var(--background-color2);
 }
 
-.submit__button.color:hover {
+.submit__button.color:hover,
+.form-success__button.color:hover {
   background-color: var(--background-color3);
 }
 
@@ -228,17 +234,12 @@
 }
 
 .form-success {
-  color: green;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  margin: auto;
-  column-gap: 30px;
+  justify-content: center;
   align-items: center;
-}
-
-.form-success__message {
-  margin-bottom: 14px;
+  gap: 20px;
+  color: green;
 }
 
 .form-success__button {

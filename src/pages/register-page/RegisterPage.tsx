@@ -67,7 +67,10 @@ export const RegisterPage = () => {
         <form
           className="sign-up-form"
           onSubmit={handleSubmit(onSubmitForm)}
-          onClick={() => dispatch(userSlice.actions.setError(''))}
+          onClick={() => {
+            dispatch(userSlice.actions.setError(''));
+            dispatch(userSlice.actions.setPassword(''));
+          }}
         >
           <p className={'sign-up-form__title ' + state.themeIndex}>
             {languages.registration[state.languageIndex]}
@@ -146,9 +149,11 @@ export const RegisterPage = () => {
 
         {password && (
           <article className="form-success">
-            <p className="form-success__message">Now you can enter your personal account </p>
-            <button className="form-success__button" onClick={handleLogin}>
-              {languages.login[state.languageIndex]}
+            <p className="form-success__message">
+              {languages.successRegister[state.languageIndex]}
+            </p>
+            <button className={'form-success__button ' + state.themeIndex} onClick={handleLogin}>
+              {languages.signIn[state.languageIndex]}
             </button>
           </article>
         )}
