@@ -6,6 +6,7 @@ import './buttonSuccess.css';
 interface IProp {
   isValid?: boolean;
 }
+
 export default function ButtonSuccess(props: IProp) {
   const { isValid } = props;
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
@@ -14,15 +15,16 @@ export default function ButtonSuccess(props: IProp) {
   const showToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     !isValid && isCreateBoard
-      ? setToolTip(localeEN.tooTipContent.ADD_BOARD_TOOLTIP_MESSAGE)
+      ? setToolTip(localeEN.tooTipContent.ADD_BOARD_TOOLTIP_MESSAGE[state.languageIndex])
       : !isValid && isCreateColumn
-      ? setToolTip(localeEN.tooTipContent.ADD_COLUMN_TOOLTIP_MESSAGE)
+      ? setToolTip(localeEN.tooTipContent.ADD_COLUMN_TOOLTIP_MESSAGE[state.languageIndex])
       : null;
   };
   const hideToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     !isValid && setToolTip('');
   };
+  const state = useAppSelector((store) => store.settingsSlise);
   return (
     <>
       <button
@@ -30,6 +32,7 @@ export default function ButtonSuccess(props: IProp) {
         className="create-board-form__add-board-button"
         onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => showToolTip(e)}
         onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => hideToolTip(e)}
+        title={localeEN.tooltips.CONFIRM_MESSAGE[state.languageIndex]}
       >
         <div className="create-board-form__add-board-button_tooltip">{toolTip}</div>
         <svg

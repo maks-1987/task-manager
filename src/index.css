@@ -29,7 +29,8 @@
 }
 
 button,
-input {
+input,
+textarea {
   font-family: inherit;
   line-height: inherit;
   font-size: inherit;
