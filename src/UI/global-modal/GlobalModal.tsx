@@ -16,20 +16,20 @@ export const GlobalModal = (props: Props) => {
   const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
-
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   const currentModalTitle = isCreateBoard
-    ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE
+    ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE[languageIndex]
     : isCreateColumn
-    ? localeEN.modalContetntMessage.CREATE_NEW_COLUMN_MESSAGE
+    ? localeEN.modalContetntMessage.CREATE_NEW_COLUMN_MESSAGE[languageIndex]
     : isCreateTask
-    ? localeEN.modalContetntMessage.CREATE_NEW_TASK_MESSAGE
+    ? localeEN.modalContetntMessage.CREATE_NEW_TASK_MESSAGE[languageIndex]
     : isRemoveBoard
-    ? localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
+    ? localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE[languageIndex]
     : isRemoveColumn
-    ? localeEN.modalContetntMessage.REMOVE_COLUMN_CONFIRM_MESSAGE
+    ? localeEN.modalContetntMessage.REMOVE_COLUMN_CONFIRM_MESSAGE[languageIndex]
     : isRemoveTask
-    ? localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE
-    : localeEN.modalContetntMessage.EDIT_TASK_MESSAGE;
+    ? localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE[languageIndex]
+    : localeEN.modalContetntMessage.EDIT_TASK_MESSAGE[languageIndex];
 
   return (
     <div className={isModalOpen ? 'modal active' : 'modal'}>

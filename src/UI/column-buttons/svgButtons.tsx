@@ -1,4 +1,8 @@
-export const addTaskSVG = () => {
+import { localeEN } from '../../locales/localeEN';
+import { useAppSelector } from '../../redux/hooks';
+
+export const AddTaskSVG = () => {
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   return (
     <svg
       version="1.1"
@@ -7,14 +11,15 @@ export const addTaskSVG = () => {
       height="512"
       viewBox="0 0 512 512"
     >
-      <title>add new task</title>
+      <title>{localeEN.tooltips.ADD_TASK[languageIndex]}</title>
       <g id="icomoon-ignore"></g>
       <path fill="#000" d="M512 192h-192v-192h-128v192h-192v128h192v192h128v-192h192z"></path>
     </svg>
   );
 };
 
-export const deleteColumnSVG = () => {
+export const DeleteColumnSVG = () => {
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   return (
     <svg
       version="1.1"
@@ -23,7 +28,7 @@ export const deleteColumnSVG = () => {
       height="1024"
       viewBox="0 0 1024 1024"
     >
-      <title>delete column</title>
+      <title>{localeEN.tooltips.DELETE_COLUMN[languageIndex]}</title>
       <g id="icomoon-ignore"></g>
       <path
         fill="#000"
@@ -33,7 +38,8 @@ export const deleteColumnSVG = () => {
   );
 };
 
-export const deleteTaskSVG = () => {
+export const DeleteTaskSVG = () => {
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   return (
     <svg
       version="1.1"
@@ -42,7 +48,7 @@ export const deleteTaskSVG = () => {
       height="1024"
       viewBox="0 0 1024 1024"
     >
-      <title>delete task</title>
+      <title>{localeEN.tooltips.DELETE_TASK[languageIndex]}</title>
       <g id="icomoon-ignore"></g>
       <path
         fill="#000"
