@@ -24,7 +24,7 @@ export default function BoardPreviewItem(props: IProp) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [warnMessage, setWarnMessage] = useState<string>('');
-  const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
+  const userCurrentBoardList = useAppSelector((state) => state.columnsSlice.userCurrentBoardList);
   const user = useAppSelector((state) => state.userSlice.user.login);
   const token = useAppSelector((state) => state.userSlice.token);
   const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
@@ -73,9 +73,7 @@ export default function BoardPreviewItem(props: IProp) {
     dispatch(setCurrentBoardId(e.currentTarget.id));
     dispatch(fetchGetUserBoardByID(dataForFetch));
 
-    userCurrentBoard.columns.some(
-      (column) => column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex]
-    )
+    userCurrentBoardList.some((board) => board.id === e.currentTarget.id)
       ? null
       : dispatch(
           fetchAddNewUserColumns({
@@ -93,6 +91,7 @@ export default function BoardPreviewItem(props: IProp) {
     };
     dispatch(fetchGetAllUserColumns(dataForFetch));
   }, [userBoard.id, dispatch, token]);
+
   return (
     <article
       id={userBoard.id!}
