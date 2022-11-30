@@ -1,4 +1,8 @@
-export const editTaskSVG = () => {
+import { localeEN } from '../../locales/localeEN';
+import { useAppSelector } from '../../redux/hooks';
+
+export const EditTaskSVG = () => {
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
   return (
     <svg
       className="svg-icon"
@@ -7,7 +11,7 @@ export const editTaskSVG = () => {
       viewBox="0 0 1276.000000 1280.000000"
       preserveAspectRatio="xMidYMid meet"
     >
-      <title>edit task</title>
+      <title>{localeEN.tooltips.CHANGE_TASK[languageIndex]}</title>
       <metadata>Created by potrace 1.15, written by Peter Selinger 2001-2017</metadata>
       <g
         transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
@@ -44,7 +48,9 @@ l-81 -302 0 -135 0 -136 136 0 135 0 302 81 c166 45 325 87 352 94 28 8 86 23
     </svg>
   );
 };
-export const doneTaskSVG = () => {
+export const DoneTaskSVG = () => {
+  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+
   return (
     <svg
       className="svg-icon"
@@ -52,6 +58,7 @@ export const doneTaskSVG = () => {
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <title>{localeEN.tooltips.MARK_AS_DONE[languageIndex]}</title>
       <path d="M445.44 744.96l439.04-434.56c12.8-12.8 12.8-33.28 0-45.44-12.8-12.8-33.28-12.8-46.08 0l-425.6 421.12L184.96 457.6c-12.8-12.8-33.92-12.8-46.72 0-12.8 12.8-12.8 33.92 0 46.72l240 240C400 766.08 422.4 767.36 445.44 744.96z" />
     </svg>
   );
