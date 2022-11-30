@@ -8,7 +8,7 @@ import {
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard, IColumn, ITask, ChangeTask } from './../../types/types';
+import { IBoard, IColumn, ITask, ChangeTask, IFiles } from './../../types/types';
 import {
   fetchAddNewUserTasks,
   fetchChangeOrderTask,
@@ -86,6 +86,17 @@ export const columnsSlice = createSlice({
           ? (column.tasks = action.payload.taskArray)
           : column.tasks;
       });
+    },
+    setFiles(state, action: PayloadAction<IFiles>) {
+      state.editedTaskData.files?.push(action.payload);
+    },
+    setNewTasksByColumn(state, action: PayloadAction<{ tasks: ITask[]; columnId: string }>) {
+      // state.userCurrentBoard.columns[0].tasks = action.payload;
+      const [column] = state.userCurrentBoard.columns.filter(
+        (column) => column.id === action.payload.columnId
+      );
+      column.tasks = action.payload.tasks;
+      console.log(column.tasks);
     },
   },
   extraReducers: (builder) => {

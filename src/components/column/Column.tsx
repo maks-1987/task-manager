@@ -75,6 +75,7 @@ export const Column = (props: IProp) => {
               <ButtonNewTask column={props.column} />
               <ButtonDeleteColumn column={props.column} />
             </div>
+            <span>{id}</span>
             <Droppable droppableId={id} type="task">
               {(provided) => (
                 <div
