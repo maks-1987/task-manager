@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Task } from '../task/Task';
 import './column.css';
 import { ButtonDeleteColumn } from '../../UI/column-buttons/ButtonDeleteColumn';
@@ -15,7 +15,6 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 interface IProp {
   column: IComleteColumn;
-  doneColumnData: IColumn;
   index: number;
 }
 
@@ -26,13 +25,6 @@ export const Column = (props: IProp) => {
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const token = useAppSelector((state) => state.userSlice.token);
   const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
-  const userCurrentBoardList = useAppSelector((state) => state.columnsSlice.userCurrentBoardList);
-  const [done, setDone] = useState<IColumn>({
-    id: '',
-    title: '',
-    order: 0,
-    tasks: [],
-  });
 
   const changeColumnTitleHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
@@ -47,77 +39,18 @@ export const Column = (props: IProp) => {
   };
 
   useEffect(() => {
-    const dataForFetch: IFetchQuery = {
-      boardId: currentBoardId,
-      columnId: id,
-      token,
-    };
-    dispatch(fetchGetUserColumnByID(dataForFetch));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, id]);
-
-  useEffect(() => {
     setTimeout(() => {
-      const doneColumn: IColumn | undefined =
-        typeof props.doneColumnData !== 'undefined'
-          ? props.doneColumnData
-          : userCurrentBoardList
-              .filter((board) => board.id === currentBoardId)
-              .at(-1)
-              ?.columns.filter(
-                (column) =>
-                  column.title ===
-                  localeEN.columnContet.DEFAULT_DONE_COLUMN.filter(
-                    (title) => title === column.title
-                  )[0]
-              )
-              .at(-1);
-      setDone(doneColumn!);
+      const dataForFetch: IFetchQuery = {
+        boardId: currentBoardId,
+        columnId: id,
+        token,
+      };
+      dispatch(fetchGetUserColumnByID(dataForFetch));
     }, 500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, userCurrentBoardList]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      const doneColumn: IColumn | undefined =
-        typeof props.doneColumnData !== 'undefined'
-          ? props.doneColumnData
-          : userCurrentBoardList
-              .filter((board) => board.id === currentBoardId)
-              .at(-1)
-              ?.columns.filter(
-                (column) =>
-                  column.title ===
-                  localeEN.columnContet.DEFAULT_DONE_COLUMN.filter(
-                    (title) => title === column.title
-                  )[0]
-              )
-              .at(-1);
-      setDone(doneColumn!);
-    }, 500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, languageIndex]);
+  }, []);
 
-  useEffect(() => {
-    setTimeout(
-      () =>
-        done.id
-          ? dispatch(
-              fetchChangeUserColumn({
-                columnData: {
-                  ...done,
-                  title: localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex],
-                },
-                boardId: currentBoardId,
-                columnId: done.id,
-                token,
-              })
-            )
-          : null,
-      200
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, done, languageIndex]);
   return (
     <>
       <Draggable draggableId={id} index={props.index}>
@@ -170,14 +103,16 @@ export const Column = (props: IProp) => {
               )}
             </Droppable>
             <p
-              className={`${
-                title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex]
+              className={
+                localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
                   ? 'column-item__add-task_disabled'
                   : 'column-item__add-task'
-              }`}
+              }
             >
               <ButtonNewTask column={props.column} />
-              Add task
+              {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
+                ? null
+                : 'Add task'}
             </p>
           </div>
         )}
