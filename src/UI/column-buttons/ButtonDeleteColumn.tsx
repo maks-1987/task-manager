@@ -21,7 +21,7 @@ export const ButtonDeleteColumn = (props: IProp) => {
   return (
     <>
       <button
-        disabled={title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex]}
+        disabled={localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)}
         id={id}
         className="button-delete-column"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => goToModalWindow(e)}
