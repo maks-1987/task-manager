@@ -28,15 +28,8 @@ export default function SingleBoard() {
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
   const fetchColumnErrorMessage = useAppSelector((state) => state.columnsSlice.errorMessage);
-  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
   const [columnState, setColumnState] = useState<IColumn[]>(userCurrentBoard.columns);
   const { user } = useAppSelector((state) => state.userSlice);
-  const [doneColumnData, setDoneColumnData] = useState<IColumn>({
-    id: '',
-    title: '',
-    order: 0,
-    tasks: [],
-  });
   const jwt_decode: JwtDecode = jwtDecode(token);
   const userId = jwt_decode.userId;
 
@@ -51,13 +44,6 @@ export default function SingleBoard() {
   useEffect(() => {
     setColumnState(userCurrentBoard.columns);
   }, [userCurrentBoard.columns]);
-
-  useEffect(() => {
-    const doneColumn = userCurrentBoard.columns
-      .filter((column) => column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex])
-      .at(-1);
-    setDoneColumnData(doneColumn!);
-  }, [dispatch, languageIndex, setDoneColumnData, userCurrentBoard.columns]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
@@ -221,12 +207,7 @@ export default function SingleBoard() {
                 {!columnState?.length
                   ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
                   : userCurrentBoard.columns.map((column, index) => (
-                      <Column
-                        key={column.id}
-                        column={column}
-                        index={index}
-                        doneColumnData={doneColumnData}
-                      />
+                      <Column key={column.id} column={column} index={index} />
                     ))}
                 {provided.placeholder}
               </section>
