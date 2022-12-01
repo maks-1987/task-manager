@@ -32,7 +32,6 @@ export const Task = (props: IProp) => {
     const formData = new FormData();
     formData.append('taskId', id);
     formData.append('file', file as string | Blob);
-    console.log(formData.get('file'));
 
     const response = await fetch(`https://be-taskmanager.up.railway.app/file`, {
       method: 'POST',
@@ -66,16 +65,6 @@ export const Task = (props: IProp) => {
             <ButtonDoneTask id={id} task={props.task} column={props.column} />
             <ButtonEditTask id={id} column={props.column} />
             <ButtonDeleteTask id={id} column={props.column} />
-            {/*<button onClick={handleLoadFile}>file</button>*/}
-            {/*<input*/}
-            {/*  type="file"*/}
-            {/*  onChange={(event) => handleFile(event)}*/}
-            {/*  ref={fileBtn}*/}
-            {/*  className="vis-hidden"*/}
-            {/*  accept="image/*"*/}
-            {/*/>*/}
-            {/*<button onClick={handleFetch}>send</button>*/}
-            {/*<div>{file?.name}</div>*/}
           </div>
         </div>
       )}

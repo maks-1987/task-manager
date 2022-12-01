@@ -91,12 +91,10 @@ export const columnsSlice = createSlice({
       state.editedTaskData.files?.push(action.payload);
     },
     setNewTasksByColumn(state, action: PayloadAction<{ tasks: ITask[]; columnId: string }>) {
-      // state.userCurrentBoard.columns[0].tasks = action.payload;
       const [column] = state.userCurrentBoard.columns.filter(
         (column) => column.id === action.payload.columnId
       );
       column.tasks = action.payload.tasks;
-      console.log(column.tasks);
     },
   },
   extraReducers: (builder) => {
