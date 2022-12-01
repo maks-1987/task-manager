@@ -8,7 +8,6 @@ import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { localeEN } from '../../locales/localeEN';
 import { userSlice } from '../../redux/user-slice/userSlice';
-import { boardsSlice } from '../../redux/boards-slice/boardsSlice';
 import './Header.css';
 
 function Header(): JSX.Element {
