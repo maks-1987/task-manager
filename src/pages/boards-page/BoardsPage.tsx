@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPreviewItem';
-import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
 import { setCurrentBoardId, setRemovedBoardId } from '../../redux/boards-slice/boardsSlice';
 import { setResetCurrentBoardData } from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
+import Spinner from '../../UI/spinner/Spinner';
 import './boardsPage.css';
 
 export default function BoardsPage() {
@@ -18,7 +18,7 @@ export default function BoardsPage() {
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   useEffect(() => {
     dispatch(setResetCurrentBoardData());
     dispatch(setCurrentBoardId(''));
@@ -31,7 +31,8 @@ export default function BoardsPage() {
       <div className="boards-page__container">
         <h1 className="boards-page__title">Boards Page</h1>
         <AddBoardButton />
-        {isLoading && <Loader />}
+
+        {isLoading && <Spinner />}
         {!isLoading && (
           <section className="boards-page__container_boards-field">
             {Boolean(fetchBoardErrorMessage) && (

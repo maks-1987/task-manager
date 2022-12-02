@@ -4,6 +4,7 @@
   --color1: #0f0f0f;
   --color2: #fefefe;
   --color3: #ebefd0;
+  --color4: #3a3939;
 
   --link-color1: #2270ec;
   --link-color2: #2270ec;
@@ -46,4 +47,3 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-

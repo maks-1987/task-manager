@@ -8,6 +8,7 @@ import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import Spinner from '../../UI/spinner/Spinner';
 import './registerPage.css';
 
 export const RegisterPage = () => {
@@ -15,9 +16,9 @@ export const RegisterPage = () => {
     mode: 'onChange',
   });
   const navigation = useNavigate();
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
-  const { error, user, password } = useAppSelector((state) => state.userSlice);
+  const { error, user, password, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
@@ -36,18 +37,22 @@ export const RegisterPage = () => {
 
   const handleLogin = () => {
     dispatch(fetchLogin({ login: user.login, password: password }));
-    navigation('/');
+    dispatch(userSlice.actions.setSignInStatus(true));
+    navigation(`/boards/${user.login}`);
   };
 
   return (
     <>
       <div className={'register-container ' + state.themeIndex}>
-        <div className="welcome-page-link-container">
-          <GoWelcomePageLink />
-        </div>
-        <div className="selectors-container">
-          <LanguageSelector />
-          <ThemeSelector />
+        {spinnerStatus && <Spinner />}
+        <div className="blur-background">
+          <div className="welcome-page-link-container">
+            <GoWelcomePageLink />
+          </div>
+          <div className="selectors-container">
+            <LanguageSelector />
+            <ThemeSelector />
+          </div>
         </div>
 
         <div>
@@ -60,7 +65,14 @@ export const RegisterPage = () => {
           </h3>
         </div>
 
-        <form className="sign-up-form" onSubmit={handleSubmit(onSubmitForm)}>
+        <form
+          className="sign-up-form"
+          onSubmit={handleSubmit(onSubmitForm)}
+          onChange={() => {
+            dispatch(userSlice.actions.setError(''));
+            dispatch(userSlice.actions.setPassword(''));
+          }}
+        >
           <p className={'sign-up-form__title ' + state.themeIndex}>
             {languages.registration[state.languageIndex]}
           </p>
@@ -74,7 +86,6 @@ export const RegisterPage = () => {
                 required: `${languages.requiredFieldNote[state.languageIndex]}`,
                 maxLength: 20,
                 minLength: 3,
-                pattern: /^[A-Za-z]+$/i,
               })}
             />
             <p className="form-messages">
@@ -132,18 +143,19 @@ export const RegisterPage = () => {
               {languages.submit[state.languageIndex]}
             </button>
           </div>
-          <p className="form-failed">{error}</p>
         </form>
+        <p className="form-failed">
+          {error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
+        </p>
 
         {password && (
           <article className="form-success">
-            <p className="form-success__message">Now you can enter your personal account </p>
-            <button className="form-success__button" onClick={handleLogin}>
-              Login
+            <p className="form-success__message">
+              {languages.successRegister[state.languageIndex]}
+            </p>
+            <button className={'form-success__button ' + state.themeIndex} onClick={handleLogin}>
+              {languages.signIn[state.languageIndex]}
             </button>
-            <Link className="form-success__link" to="/">
-              Back to Main page
-            </Link>
           </article>
         )}
       </div>

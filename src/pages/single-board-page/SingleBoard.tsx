@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
-import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
 import {
   fetchChangeOrderColumn,
@@ -10,7 +9,6 @@ import {
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
-import './singleBoard.css';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar';
 import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
@@ -20,6 +18,8 @@ import {
   fetchRemoveUserTask,
 } from '../../redux/columns-slice/tasksFetchRequest';
 import jwtDecode from 'jwt-decode';
+import Spinner from '../../UI/spinner/Spinner';
+import './singleBoard.css';
 
 export default function SingleBoard() {
   const dispatch = useAppDispatch();
@@ -189,7 +189,7 @@ export default function SingleBoard() {
       <Link className="project-board__link" to={`/boards/${user.login}`}>
         <span>↩</span>To boards page
       </Link>
-      {isLoading && <Loader />}
+      {isLoading && <Spinner />}
       <h2 className="project-board__title">{userCurrentBoard.title}</h2>
       <TaskProgressBar />
       <DragDropContext onDragEnd={onDragEnd}>

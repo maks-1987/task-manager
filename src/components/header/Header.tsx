@@ -9,9 +9,12 @@ import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSli
 import { localeEN } from '../../locales/localeEN';
 import { userSlice } from '../../redux/user-slice/userSlice';
 import './Header.css';
+import { setSpinnerStatus } from '../../redux/user-slice/userSlice';
+import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
 
 function Header(): JSX.Element {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
+  const boardsState = useAppSelector((store) => store.boardsSlice);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const paths: string[] = ['/', '/login', '/register'];
@@ -25,6 +28,11 @@ function Header(): JSX.Element {
     <></>
   ) : (
     <header className={'header ' + state.themeIndex}>
+      <div className="selectors-container">
+        <GoWelcomePageBtn />
+        <ThemeSelector />
+        <LanguageSelector />
+      </div>
       <nav className="nav">
         <button
           className={'nav__link ' + state.themeIndex}
@@ -40,21 +48,11 @@ function Header(): JSX.Element {
 
         <Link
           className={'sign-out-btn ' + state.themeIndex}
-          to="/"
-          onClick={() => {
-            dispatch(userSlice.actions.setUserData({ id: '', name: '', login: '' }));
-            dispatch(userSlice.actions.setUserToken(''));
-            persistor.pause();
-            persistor.flush().then(() => {
-              return persistor.purge();
-            });
-          }}
+          to="/logout"
+          onClick={() => dispatch(setSpinnerStatus(true))}
         >
           {languages.signOut[state.languageIndex]}
         </Link>
-
-        <LanguageSelector />
-        <ThemeSelector />
       </nav>
     </header>
   );

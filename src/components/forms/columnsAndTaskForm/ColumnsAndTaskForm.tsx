@@ -17,7 +17,7 @@ import {
 } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard, JwtDecode } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
-import './columnsAndTasksForm.css';
+// import './columnsAndTasksForm.css';
 import { localeEN } from '../../../locales/localeEN';
 
 export default function ColumnsAndTaskForm() {
@@ -30,7 +30,7 @@ export default function ColumnsAndTaskForm() {
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const editedTaskData = useAppSelector((state) => state.columnsSlice.editedTaskData);
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
 
   const {
     register,

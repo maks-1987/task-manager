@@ -15,7 +15,7 @@ import { localeEN } from '../../../locales/localeEN';
 export default function CreateBoardForm() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
-  const { languageIndex } = useAppSelector((state) => state.settingsSlise);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   const {
     register,
     handleSubmit,

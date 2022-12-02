@@ -1,6 +1,6 @@
 .welcome-link,
 .welcome-link-arrow {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--link-color1);
   text-align: center;
@@ -18,9 +18,33 @@
 }
 
 .welcome-link-arrow {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .welcome-link:hover {
-    text-decoration: underline;
-  }
+  text-decoration: underline;
+}
+
+.to-welcome-page-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 35px;
+  font-weight: bolder;
+  color: var(--color1);
+  text-decoration: none;
+}
+
+.to-welcome-page-btn.dark {
+  color: var(--color2);
+}
+
+.to-welcome-page-btn.color {
+  color: var(--color3);
+}
+
+.to-welcome-page-btn:hover {
+  border: var(--border1);
+  border-radius: 5px;
+}

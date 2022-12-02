@@ -9,7 +9,7 @@ import CreateBoardForm from '../forms/createBoardForm/CreateBoardForm';
 import Header from '../header/Header';
 
 export default function Layout() {
-  const lang = useAppSelector((state) => state.settingsSlise);
+  const lang = useAppSelector((state) => state.settingsSlice);
   const isModalOpen = useAppSelector((state) => state.modalSlice.isModalOpen);
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);

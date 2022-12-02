@@ -5,7 +5,7 @@ import { languages } from '../../locales/languages';
 import './goWelcomePageLink.css';
 
 function GoWelcomePageLink(): JSX.Element {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
 
   return (
     <Link to="/" className={'welcome-link ' + state.themeIndex}>
