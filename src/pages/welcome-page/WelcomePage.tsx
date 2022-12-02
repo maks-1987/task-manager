@@ -7,6 +7,7 @@ import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import Spinner from '../../UI/spinner/Spinner';
 import './welcomePage.css';
+import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlice);
@@ -16,31 +17,33 @@ function WelcomePage() {
   return (
     <>
       <div className={'welcome-page-container ' + state.themeIndex}>
-        {spinnerStatus && <Spinner />}
-        <div className="selectors-container">
-          <LanguageSelector />
-          <ThemeSelector />
+        <div className="blur-background">
+          {spinnerStatus && <Spinner />}
+          <div className="selectors-container">
+            <GoWelcomePageBtn />
+            <ThemeSelector />
+            <LanguageSelector />
+          </div>
+          {isSignIn ? (
+            <div className="auth-links-duplicate">
+              <Link to="/boards/:user" className={'auth-link-duplicate ' + state.themeIndex}>
+                {languages.toBoards[state.languageIndex]}
+              </Link>
+              <Link to="/logout" className={'auth-link-duplicate ' + state.themeIndex}>
+                {languages.signOut[state.languageIndex]}
+              </Link>
+            </div>
+          ) : (
+            <div className="auth-links-duplicate">
+              <Link to="/login" className={'auth-link-duplicate ' + state.themeIndex}>
+                {languages.signIn[state.languageIndex]}
+              </Link>
+              <Link to="/register" className={'auth-link-duplicate ' + state.themeIndex}>
+                {languages.register[state.languageIndex]}
+              </Link>
+            </div>
+          )}
         </div>
-        {isSignIn ? (
-          <div className="auth-links-duplicate">
-            <Link to="/boards/:user" className={'auth-link-duplicate ' + state.themeIndex}>
-              {languages.toBoards[state.languageIndex]}
-            </Link>
-            <Link to="/logout" className={'auth-link-duplicate ' + state.themeIndex}>
-              {languages.signOut[state.languageIndex]}
-            </Link>
-          </div>
-        ) : (
-          <div className="auth-links-duplicate">
-            <Link to="/login" className={'auth-link-duplicate ' + state.themeIndex}>
-              {languages.signIn[state.languageIndex]}
-            </Link>
-            <Link to="/register" className={'auth-link-duplicate ' + state.themeIndex}>
-              {languages.register[state.languageIndex]}
-            </Link>
-          </div>
-        )}
-
         <div>
           <h2 className={'welcome-page-title ' + state.themeIndex}>
             {languages.welcome[state.languageIndex]}
@@ -82,7 +85,9 @@ function WelcomePage() {
               alt="Max"
               sx={{ width: 100, height: 100 }}
             />
-            <h5 className={'content-item-title ' + state.themeIndex}></h5>
+            <h5 className={'content-item-title ' + state.themeIndex}>
+              {languages.Max[state.languageIndex]}
+            </h5>
             <p className={'content-item-description ' + state.themeIndex}></p>
           </div>
           <div className={'content-item ' + state.themeIndex}>
@@ -92,7 +97,9 @@ function WelcomePage() {
               alt="Den1"
               sx={{ width: 100, height: 100 }}
             />
-            <h5 className={'content-item-title ' + state.themeIndex}></h5>
+            <h5 className={'content-item-title ' + state.themeIndex}>
+              {languages.Den1[state.languageIndex]}
+            </h5>
             <p className={'content-item-description ' + state.themeIndex}></p>
           </div>
           <div className={'content-item ' + state.themeIndex}>

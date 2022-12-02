@@ -4,7 +4,7 @@ import Select from '@mui/material/Select';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { sxSelect, inputProps, sxMenuItem, selectItemsColors } from './muiSelectorStyles';
 import { setTheme } from '../../redux/settings-slice/settingsSlice';
-import { lightIcon, darkIcon, colorIcon } from '../../pages/welcome-page/svg';
+import { lightIcon, darkIcon, colorIcon } from './svg';
 import './selectors.css';
 import { localeEN } from '../../locales/localeEN';
 
@@ -29,7 +29,7 @@ function ThemeSelector(): JSX.Element {
           className={'option-icon ' + state.themeIndex}
           width="26px"
           height="26px"
-          viewBox="0 0 24 24"
+          viewBox="0 1 24 24"
         >
           {lightIcon()}
         </svg>

@@ -9,8 +9,8 @@ export const languages = {
     ' На стартавую старонку',
     ' На стартовую страницу',
   ],
-  createBoard: ['Create board', 'Створити дошку', 'Стварыць доску', 'Создать доску'],
-  editProfile: ['Edit profile', 'Редагувати профіль', 'Рэдагаваць профіль', 'Редакт. профиль'],
+  createBoard: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
+  editProfile: ['Edit profile', 'Редаг. профіль', 'Рэдаг. профіль', 'Редакт. профиль'],
   signOut: ['Sign out', 'Вийти', 'Выйсці', 'Выйти'],
   toBoards: ['Boards', 'Дошки', 'Дошкi', 'Доски'],
   welcome: [
@@ -20,8 +20,8 @@ export const languages = {
     'Добро пожаловать в наш таск-менеджер',
   ],
   about: ['About the team:', 'Про команду:', 'Аб камандзе:', 'О команде:'],
-  Max: ['', '', '', ''],
-  Den1: ['', '', '', ''],
+  Max: ['Maksym Dudniev', '', 'Максiм Дуднеў', 'Максим Дуднев'],
+  Den1: ['Dzianis Matsveyeu', 'Денис ', 'Дзянiс Мацвееў', 'Денис Матвеев'],
   Den2: ['Dzianis Valkovich', 'Денис Валковiч', 'Дзянiс Валковiч', 'Денис Волкович'],
   Den2Part: [
     `Participation in the project:\n

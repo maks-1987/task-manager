@@ -10,6 +10,7 @@ import { localeEN } from '../../locales/localeEN';
 import { userSlice } from '../../redux/user-slice/userSlice';
 import './Header.css';
 import { setSpinnerStatus } from '../../redux/user-slice/userSlice';
+import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
 
 function Header(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlice);
@@ -27,6 +28,11 @@ function Header(): JSX.Element {
     <></>
   ) : (
     <header className={'header ' + state.themeIndex}>
+      <div className="selectors-container">
+        <GoWelcomePageBtn />
+        <ThemeSelector />
+        <LanguageSelector />
+      </div>
       <nav className="nav">
         <button
           className={'nav__link ' + state.themeIndex}
@@ -47,9 +53,6 @@ function Header(): JSX.Element {
         >
           {languages.signOut[state.languageIndex]}
         </Link>
-
-        <LanguageSelector />
-        <ThemeSelector />
       </nav>
     </header>
   );

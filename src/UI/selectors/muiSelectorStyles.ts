@@ -6,6 +6,7 @@ export const sxSelect = {
     display: 'flex',
     justifyContent: 'center',
     padding: '0 !important',
+    paddingTop: '2px !important',
   },
   '.MuiSelect-icon': {
     right: 0,
