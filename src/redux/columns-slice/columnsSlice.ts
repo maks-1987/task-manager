@@ -14,6 +14,7 @@ import {
   fetchChangeOrderTask,
   fetchChangeUserTask,
   fetchRemoveUserTask,
+  fetchFiles,
 } from './tasksFetchRequest';
 
 interface IColumnsSlice {

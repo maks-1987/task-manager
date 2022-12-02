@@ -9,6 +9,7 @@
     background-color: white;
     overflow: hidden;
     line-break: anywhere;
+    flex-wrap: wrap;
 }
 
 .task_contetnt {
@@ -61,4 +62,19 @@
   overflow: hidden;
   padding: 0;
   margin: 0;
+}
+
+.user-file {
+    width: 70px;
+    height: 70px;
+}
+
+.default-task {
+    height: 40px;
+    width: 40px;
+}
+
+.default-task svg {
+    height: 100%;
+    width: 100%;
 }

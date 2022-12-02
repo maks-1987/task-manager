@@ -157,3 +157,25 @@ export const fetchChangeColumnTask = createAsyncThunk<ITask, IFetchQuery>(
     return editedTask;
   }
 );
+
+export const fetchFiles = createAsyncThunk<
+  Blob,
+  { taskId: string; filename: string; token: string }
+>('files/fetchFiles', async (dataForFetch, { rejectWithValue }) => {
+  const responseFile = await fetch(
+    `${Endpoints.FILE}/${dataForFetch.taskId}/${dataForFetch.filename}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+    }
+  );
+
+  if (!responseFile.ok) {
+    const data = await responseFile.json();
+    return rejectWithValue(data.message);
+  }
+
+  return await responseFile.blob();
+});
