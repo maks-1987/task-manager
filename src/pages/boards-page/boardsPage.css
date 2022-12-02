@@ -1,7 +1,7 @@
 .boards-page {
-  width: 100%;
-  height: 800px;
-  max-height: 90vh;
+  /*width: 100%;*/
+  /*height: 800px;*/
+  /*max-height: 90vh;*/
   margin: 0 auto;
   
 }
@@ -10,8 +10,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  /*width: 100%;*/
+  /*height: 100%;*/
   max-width: 1280px;
   margin: 0 auto;
   overflow: hidden;

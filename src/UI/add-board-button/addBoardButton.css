@@ -16,7 +16,7 @@
   height: 40px;
   background-color: transparent;
   border: none;
-  z-index: 1000;
+  z-index: 10;
 }
 .add-board-button-label {
   width: 100px;
