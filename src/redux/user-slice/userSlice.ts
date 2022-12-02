@@ -149,6 +149,6 @@ export const userSlice = createSlice({
       });
   },
 });
-export const { setSignInStatus } = userSlice.actions;
+export const { setUserData, setUserToken, setSignInStatus, setSpinnerStatus } = userSlice.actions;
 
 export default userSlice.reducer;

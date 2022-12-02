@@ -37,6 +37,10 @@ export const boardsSlice = createSlice({
     setCurrentBoardId(state, action: PayloadAction<string>) {
       state.currentBoardId = action.payload;
     },
+    clearBordsData(state, action: PayloadAction<unknown>) {
+      state.board = action.payload as IUserBoard;
+      state.userBoards = action.payload as IUserBoard[];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -71,7 +75,7 @@ export const boardsSlice = createSlice({
       });
   },
 });
-export const { setRemovedBoardId, setCurrentBoardId } = boardsSlice.actions;
+export const { setRemovedBoardId, setCurrentBoardId, clearBordsData } = boardsSlice.actions;
 export default boardsSlice.reducer;
 
 const isError = (action: AnyAction) => {

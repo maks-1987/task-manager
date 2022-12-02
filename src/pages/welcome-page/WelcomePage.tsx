@@ -5,16 +5,18 @@ import { useAppSelector } from '../../redux/hooks';
 import { languages } from '../../locales/languages';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import Spinner from '../../UI/spinner/Spinner';
 import './welcomePage.css';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlice);
   const { isSignIn } = useAppSelector((state) => state.userSlice);
-  const { user } = useAppSelector((state) => state.userSlice);
+  const { user, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
   return (
     <>
       <div className={'welcome-page-container ' + state.themeIndex}>
+        {spinnerStatus && <Spinner />}
         <div className="selectors-container">
           <LanguageSelector />
           <ThemeSelector />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RotatingLines } from 'react-loader-spinner';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 import './Spinner.css';
 
 function Spinner(): JSX.Element {

@@ -10,6 +10,7 @@ import { localeEN } from '../../locales/localeEN';
 import { userSlice } from '../../redux/user-slice/userSlice';
 import { boardsSlice } from '../../redux/boards-slice/boardsSlice';
 import './Header.css';
+import { setSpinnerStatus } from '../../redux/user-slice/userSlice';
 
 function Header(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlice);
@@ -40,7 +41,11 @@ function Header(): JSX.Element {
           {languages.editProfile[state.languageIndex]}
         </Link>
 
-        <Link className={'sign-out-btn ' + state.themeIndex} to="/logout">
+        <Link
+          className={'sign-out-btn ' + state.themeIndex}
+          to="/logout"
+          onClick={() => dispatch(setSpinnerStatus(true))}
+        >
           {languages.signOut[state.languageIndex]}
         </Link>
 
