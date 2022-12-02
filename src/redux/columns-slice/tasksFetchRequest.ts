@@ -150,7 +150,6 @@ export const fetchMarkTasksAsDone = createAsyncThunk<ITask, IFetchQuery>(
       return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
     }
     const completeTask: ITask = await response.json();
-    console.log(completeTask);
     return completeTask;
   }
 );

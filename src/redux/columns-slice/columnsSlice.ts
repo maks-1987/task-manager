@@ -100,7 +100,6 @@ export const columnsSlice = createSlice({
       });
     },
     setTasksAsDone(state, action: PayloadAction<IFetchQuery>) {
-      console.log(action.payload);
       const doneTask: ITask = {
         id: action.payload.taskId!,
         title: action.payload.taskData!.title!,

@@ -100,7 +100,6 @@ export default function BoardPreviewItem(props: IProp) {
     };
     dispatch(fetchGetAllUserColumns(dataForFetch));
     setTimeout(() => dispatch(setResetCurrentBoardData()), 100);
-    console.log('board');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
