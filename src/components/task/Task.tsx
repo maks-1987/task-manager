@@ -6,9 +6,9 @@ import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
 
 import './task.css';
 import { Draggable } from 'react-beautiful-dnd';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 import { Endpoints } from '../../endpoints/endpoints';
-import { DefaultTaskIcon } from '../../UI/column-buttons/svgButtons';
+import { DefaultTaskIcon, UploadFileIcon } from '../../UI/column-buttons/svgButtons';
 
 interface IProp {
   task: ITask;
@@ -19,14 +19,11 @@ interface IProp {
 export const Task = (props: IProp) => {
   const { token } = useAppSelector((state) => state.userSlice);
   const { id, order, title, description } = props.task;
-  const [file, setFile] = useState<File>();
   const [returnedFile, setReturnedFile] = useState<Blob>();
-  const [error, setError] = useState('');
   const fileBtn = useRef<HTMLInputElement | null>(null);
   const { files } = props.task;
 
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(event.currentTarget.files![0]);
     await handleFetch(event.currentTarget.files![0]);
   };
 
@@ -39,7 +36,7 @@ export const Task = (props: IProp) => {
     formData.append('taskId', id);
     formData.append('file', files as string | File);
 
-    const response = await fetch(`${Endpoints.FILE}`, {
+    await fetch(`${Endpoints.FILE}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,11 +44,6 @@ export const Task = (props: IProp) => {
       },
       body: formData,
     });
-
-    if (!response.ok) {
-      const result = await response.json();
-      setError(result.message);
-    }
 
     const responseFile = await fetch(`${Endpoints.FILE}/${id}/${files.name}`, {
       method: 'GET',
@@ -67,24 +59,24 @@ export const Task = (props: IProp) => {
   };
 
   const getFile = async () => {
-    const responseFile = await fetch(`${Endpoints.FILE}/${props.task.id}/${files![0].filename}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const lastFile = files?.length ? files?.length - 1 : 0;
+    const responseFile = await fetch(
+      `${Endpoints.FILE}/${props.task.id}/${files![lastFile].filename}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    if (!responseFile.ok) {
-      const data = await responseFile.json();
-      setError(data.message);
-    }
     const data = await responseFile.blob();
     setReturnedFile(data);
   };
 
   useEffect(() => {
     if (files?.length) getFile();
-  }, []);
+  }, [files?.length]);
 
   return (
     <Draggable draggableId={id} index={props.index}>
@@ -108,7 +100,9 @@ export const Task = (props: IProp) => {
             <ButtonEditTask id={id} column={props.column} />
             <ButtonDeleteTask id={id} column={props.column} />
 
-            <button onClick={handleLoadFile}>file</button>
+            <button className="upload-file-task" onClick={handleLoadFile}>
+              {<UploadFileIcon />}
+            </button>
             <input
               type="file"
               onChange={handleFile}
@@ -117,13 +111,13 @@ export const Task = (props: IProp) => {
               accept="image/*"
             />
             {!returnedFile ? (
-              <span className="default-task">
+              <span className="default-task-image">
                 <DefaultTaskIcon />
               </span>
             ) : (
               <img
                 className="user-file"
-                alt="file"
+                alt={files![files?.length ? files?.length - 1 : 0].filename}
                 id="userfile"
                 src={returnedFile && URL.createObjectURL(returnedFile as Blob)}
               />
