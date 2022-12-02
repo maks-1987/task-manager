@@ -58,7 +58,6 @@ export const Task = (props: IProp) => {
             <h3 className="task__title">{title}</h3>
             <div className="task__description">
               <p className="task__description_content">{`${description}`}</p>
-              <span>{id}</span>
             </div>
           </div>
           <div className="task_button-block">
