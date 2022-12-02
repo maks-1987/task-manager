@@ -11,25 +11,27 @@
   }
 
 .column-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 300px;
     flex: 0 0 300px;
-    /*overflow-y: auto;*/
     border: var(--border1);
     border-radius: 6px;
     background-color: white;
     padding: 8px;
-    height: 80vh;
-    max-height: 82vh;
+    min-height: 70vh;
+    max-height: 74vh;
 }
 
 .column-item hr {
   height: 10px;
   background-color: mediumpurple;
-  margin-bottom: 14px;
   border: none;
   border-radius: 4px;
+  position: absolute;
+  left: 8px;
+  right: 8px;
 }
 
 .column-item__control {
@@ -37,12 +39,18 @@
   align-items: center;
   column-gap: 10px;
   margin-bottom: 24px;
+  margin-top: 24px;
 }
 
 .column-item__title {
   flex: 1;
   font-size: 18px;
   font-weight: 600;
+}
+
+.column-item__task-container {
+    overflow-y: auto;
+    min-height: 5vh;
 }
 
 .column-item input[type=text]:not(:focus) {

@@ -75,9 +75,14 @@ export const Column = (props: IProp) => {
               <ButtonNewTask column={props.column} />
               <ButtonDeleteColumn column={props.column} />
             </div>
+            <span>{id}</span>
             <Droppable droppableId={id} type="task">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
+                <div
+                  className="column-item__task-container"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
                   <section className="task-list">
                     {isLoading && <Spinner />}
                     {tasks?.length === 0 ? (

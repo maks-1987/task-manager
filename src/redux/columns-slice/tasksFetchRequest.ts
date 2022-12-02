@@ -127,3 +127,33 @@ export const fetchChangeOrderTask = createAsyncThunk<ITask, IFetchQuery>(
     return editedTask;
   }
 );
+
+export const fetchChangeColumnTask = createAsyncThunk<ITask, IFetchQuery>(
+  'change/changeColumnTask',
+  async (dataForFetch, { rejectWithValue }) => {
+    const response: Response = await fetch(
+      `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnId}/tasks/${dataForFetch.taskId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${dataForFetch.token}`,
+        },
+        body: JSON.stringify({
+          title: dataForFetch.taskData?.title,
+          order: dataForFetch.taskData?.order,
+          description: dataForFetch.taskData?.description,
+          userId: dataForFetch.userId,
+          boardId: dataForFetch.boardId,
+          columnId: dataForFetch.newColumn,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+    }
+    const editedTask: ITask = await response.json();
+    return editedTask;
+  }
+);

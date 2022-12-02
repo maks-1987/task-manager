@@ -7,13 +7,18 @@ import {
   fetchGetAllUserColumns,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
+import { ChangeTask, IColumn, IFetchQuery, ITask, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar';
-import { setColumnsAfterDrag, setTasksAfterDrag } from '../../redux/columns-slice/columnsSlice';
+import {
+  columnsSlice,
+  setColumnsAfterDrag,
+  setTasksAfterDrag,
+} from '../../redux/columns-slice/columnsSlice';
 import {
   fetchAddNewUserTasks,
+  fetchChangeColumnTask,
   fetchChangeOrderTask,
   fetchRemoveUserTask,
 } from '../../redux/columns-slice/tasksFetchRequest';
@@ -119,27 +124,6 @@ export default function SingleBoard() {
       if (startColumn !== finishColumn && startColumn !== undefined && finishColumn !== undefined) {
         const [draggableTask] = startColumn?.tasks.filter((task) => task.id === draggableId);
 
-        const removeTask: IFetchQuery = {
-          boardId: userCurrentBoard.id,
-          columnId: source.droppableId,
-          token,
-          taskId: draggableId,
-        };
-
-        const addTask: IFetchQuery = {
-          boardId: userCurrentBoard.id,
-          columnId: destination.droppableId,
-          token,
-          taskData: {
-            title: draggableTask.title,
-            description: draggableTask.description,
-            userId,
-          },
-        };
-
-        dispatch(fetchRemoveUserTask(removeTask));
-        dispatch(fetchAddNewUserTasks(addTask));
-
         const startTaskArray = Array.from(startColumn.tasks);
         startTaskArray.splice(source.index, 1);
         const orderedStartTaskArray = startTaskArray.map((task, index) => ({
@@ -155,9 +139,17 @@ export default function SingleBoard() {
             token: token,
             taskData: task,
             userId: userId,
+            newColumn: source.droppableId,
           };
           dispatch(fetchChangeOrderTask(dataForFetch));
         });
+
+        dispatch(
+          columnsSlice.actions.setNewTasksByColumn({
+            tasks: orderedStartTaskArray,
+            columnId: source.droppableId,
+          })
+        );
 
         const finishTaskArray = Array.from(finishColumn.tasks);
         finishTaskArray.splice(destination.index, 0, draggableTask);
@@ -167,8 +159,6 @@ export default function SingleBoard() {
         }));
 
         orderedFinishTaskArray.map((task) => {
-          if (task.id === draggableId) return;
-
           const dataForFetch: IFetchQuery = {
             boardId: userCurrentBoard.id,
             columnId: destination.droppableId,
@@ -178,8 +168,23 @@ export default function SingleBoard() {
             userId: userId,
           };
 
-          dispatch(fetchChangeOrderTask(dataForFetch));
+          if (task.id === draggableId) {
+            dispatch(
+              fetchChangeColumnTask({
+                ...dataForFetch,
+                columnId: source.droppableId,
+                newColumn: destination.droppableId,
+              })
+            );
+          }
         });
+
+        dispatch(
+          columnsSlice.actions.setNewTasksByColumn({
+            tasks: orderedFinishTaskArray,
+            columnId: destination.droppableId,
+          })
+        );
       }
     }
   };
