@@ -1,6 +1,8 @@
 import jwtDecode from 'jwt-decode';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { languages } from '../../../locales/languages';
+import { localeEN } from '../../../locales/localeEN';
 import { fetchAddNewUserColumns } from '../../../redux/columns-slice/columnsFetchRequest';
 import {
   fetchAddNewUserTasks,
@@ -28,6 +30,8 @@ export default function ColumnsAndTaskForm() {
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const editedTaskData = useAppSelector((state) => state.columnsSlice.editedTaskData);
+  const [isCompare, setIsCompare] = useState<boolean>(false);
+  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
 
   const {
     register,
@@ -74,14 +78,23 @@ export default function ColumnsAndTaskForm() {
     dispatch(setIsCreateBoard(false));
     dispatch(setIsEditTask(false));
   };
+
+  const titleCompairHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isCompaireTitle = localeEN.columnContet.DEFAULT_DONE_COLUMN.some(
+      (title) => title.toLowerCase() === e.currentTarget.value.toLowerCase()
+    );
+    isCreateColumn && setIsCompare(isCompaireTitle);
+  };
   useEffect(() => {
     isSubmitSuccessful && reset();
   }, [isSubmitSuccessful, reset]);
+
   return (
-    <>
-      <form onSubmit={handleSubmit(columnOrTaskCreateHandler)} className="create-board-form">
+    <section className="coluns-and-task-form_container">
+      <form onSubmit={handleSubmit(columnOrTaskCreateHandler)} className="coluns-and-task-form">
         <input
           {...register('title', {
+            onChange: (e: React.ChangeEvent<HTMLInputElement>) => titleCompairHandler(e),
             required: 'This field is requaered',
             minLength: {
               value: 2,
@@ -90,8 +103,11 @@ export default function ColumnsAndTaskForm() {
           })}
           type="text"
           placeholder={errors.title?.message ? errors.title?.message : 'Title'}
-          className="create-board-form__title-input"
+          className="coluns-and-task-form__title-input"
         />
+        {isCompare ? (
+          <p className="compare-warning-message">{languages.compaireColumn[languageIndex]}</p>
+        ) : null}
         <textarea
           {...register('description', {
             required: 'This field is requaered',
@@ -102,10 +118,10 @@ export default function ColumnsAndTaskForm() {
             disabled: !isCreateTask && !isEditTask,
           })}
           placeholder="ojfp'ja"
-          className="create-board-form__description-input"
+          className="coluns-and-task-form__description-input"
         />
-        <ButtonSuccess isValid={isValid} />
+        <ButtonSuccess isValid={isValid} isCompare={isCompare} />
       </form>
-    </>
+    </section>
   );
 }
