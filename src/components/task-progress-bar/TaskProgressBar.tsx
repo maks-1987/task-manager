@@ -15,12 +15,20 @@ export default function TaskProgressBar() {
 
   useEffect(() => {
     const doneTasks = userCurrentBoard.columns
-      .filter((column) => column.title === localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex])
+      .filter(
+        (column) =>
+          column.title ===
+          localeEN.columnContet.DEFAULT_DONE_COLUMN.filter((title) => title === column.title).at(-1)
+      )
       .map((column) => column.tasks)
       .flat().length;
 
     const tasksAll = userCurrentBoard.columns
-      .filter((column) => column.title !== localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex])
+      .filter(
+        (column) =>
+          column.title !==
+          localeEN.columnContet.DEFAULT_DONE_COLUMN.filter((title) => title === column.title).at(-1)
+      )
       .map((column) => column.tasks)
       .flat().length;
 
