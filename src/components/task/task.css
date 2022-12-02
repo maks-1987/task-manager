@@ -9,6 +9,7 @@
     background-color: white;
     overflow: hidden;
     line-break: anywhere;
+    flex-wrap: wrap;
 }
 
 .task_contetnt {
@@ -61,4 +62,34 @@
   overflow: hidden;
   padding: 0;
   margin: 0;
+}
+
+.user-file {
+  width: 70px;
+  height: 70px;
+}
+
+.default-task-image {
+  height: 40px;
+  width: 40px;
+}
+
+.default-task-image svg {
+  height: 100%;
+  width: 100%;
+}
+
+.upload-file-task {
+  width: 25px;
+  height: 25px;
+  background-color: initial;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  margin: 0 3px 0 3px;
+}
+
+.upload-file-task svg {
+  height: 100%;
+  width: 100%;
 }

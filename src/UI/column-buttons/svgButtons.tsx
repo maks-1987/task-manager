@@ -57,3 +57,38 @@ export const DeleteTaskSVG = () => {
     </svg>
   );
 };
+
+export const DefaultTaskIcon = () => {
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="1024"
+      height="1024"
+      viewBox="0 0 1024 1024"
+    >
+      <title></title>
+      <g id="icomoon-ignore"></g>
+      <path
+        fill="#e51937"
+        d="M765.013 496.043l118.699 298.155h-183.381l-77.867-202.069-421.76 284.459-158.037-338.987h34.773l187.307 145.835 324.693-176.981-46.293-120.32-49.835 105.856-210.688 115.883 151.595-398.592h216.619l86.272 216.747 286.891-156.373v-269.653h-1024v1024h1024v-702.635z"
+      ></path>
+    </svg>
+  );
+};
+
+export const UploadFileIcon = () => {
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="512"
+      height="512"
+      viewBox="0 0 512 512"
+    >
+      <title></title>
+      <g id="icomoon-ignore"></g>
+      <path d="M368 224l-128 128-128-128h80v-192h96v192zM240 352h-240v128h480v-128h-240zM448 416h-64v-32h64v32z"></path>
+    </svg>
+  );
+};
