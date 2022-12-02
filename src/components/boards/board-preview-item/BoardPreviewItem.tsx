@@ -9,10 +9,7 @@ import {
   fetchGetAllUserColumns,
   fetchGetUserBoardByID,
 } from '../../../redux/columns-slice/columnsFetchRequest';
-import {
-  setCurrentDoneColumn,
-  setResetCurrentBoardData,
-} from '../../../redux/columns-slice/columnsSlice';
+import { setResetCurrentBoardData } from '../../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
