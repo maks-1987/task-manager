@@ -99,6 +99,30 @@ export const columnsSlice = createSlice({
           : column.tasks;
       });
     },
+    setTasksAsDone(state, action: PayloadAction<IFetchQuery>) {
+      console.log(action.payload);
+      const doneTask: ITask = {
+        id: action.payload.taskId!,
+        title: action.payload.taskData!.title!,
+        description: action.payload.taskData!.description!,
+        order: action.payload.taskData!.order!,
+        userId: action.payload.taskData!.userId!,
+      };
+      state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
+        return {
+          ...column,
+          tasks:
+            column.id === action.payload.columnId
+              ? [...column.tasks.filter((task) => task.id !== action.payload.taskId)]
+              : column.tasks,
+        };
+      });
+      state.userCurrentBoard.columns.map((column) => {
+        column.id === action.payload.taskData?.columnId
+          ? column.tasks.push(doneTask)
+          : column.tasks;
+      });
+    },
     setClearUserCurrentBoardList(state, action: PayloadAction<IFetchQuery>) {
       state.userCurrentBoardList = state.userCurrentBoardList.filter(
         (board) => board.id !== action.payload.boardId
@@ -266,6 +290,7 @@ export const {
   setTasksAfterDrag,
   setClearUserCurrentBoardList,
   setDoneColumnListByBoardId,
+  setTasksAsDone,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
