@@ -7,7 +7,7 @@ import {
   fetchGetAllUserColumns,
 } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { ChangeTask, IColumn, IFetchQuery, ITask, JwtDecode } from '../../types/types';
+import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar';
@@ -17,10 +17,8 @@ import {
   setTasksAfterDrag,
 } from '../../redux/columns-slice/columnsSlice';
 import {
-  fetchAddNewUserTasks,
   fetchChangeColumnTask,
   fetchChangeOrderTask,
-  fetchRemoveUserTask,
 } from '../../redux/columns-slice/tasksFetchRequest';
 import jwtDecode from 'jwt-decode';
 import Spinner from '../../UI/spinner/Spinner';
