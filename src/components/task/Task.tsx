@@ -117,7 +117,7 @@ export const Task = (props: IProp) => {
             ) : (
               <img
                 className="user-file"
-                alt={files![files?.length ? files?.length - 1 : 0].filename}
+                alt={files?.length ? files![files?.length ? files?.length - 1 : 0].filename : ''}
                 id="userfile"
                 src={returnedFile && URL.createObjectURL(returnedFile as Blob)}
               />
