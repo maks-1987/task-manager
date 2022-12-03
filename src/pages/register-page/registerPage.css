@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
   padding: 50px 20px 40px;
   background-color: var(--background-color1);
 }

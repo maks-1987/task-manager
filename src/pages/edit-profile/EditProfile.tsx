@@ -57,8 +57,8 @@ export const EditProfilePage = () => {
         </div>
 
         <div className={'return-to-boards ' + state.themeIndex}>
-          <Link to={`/boards/${user.login}`} className={'auth-link ' + state.themeIndex}>
-            <span className={'auth-link-arrow ' + state.themeIndex}>❮</span>
+          <Link to={`/boards/${user.login}`} className={'boards-link ' + state.themeIndex}>
+            <span className={'boards-link-arrow ' + state.themeIndex}>❮</span>
             {languages.returnBoardsPage[state.languageIndex]}
           </Link>
         </div>
@@ -71,8 +71,8 @@ export const EditProfilePage = () => {
             dispatch(userSlice.actions.setPassword(''));
           }}
         >
-          <p className={'sign-up-form__title ' + state.themeIndex}>
-            {languages.registration[state.languageIndex]}
+          <p className={'edit-profile-title sign-up-form__title ' + state.themeIndex}>
+            {languages.editProfile[state.languageIndex]}
           </p>
           <div className={'sign-up-form__item username ' + state.themeIndex}>
             <label htmlFor="name">{languages.name[state.languageIndex]}</label>

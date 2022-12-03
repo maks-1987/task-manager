@@ -1,3 +1,26 @@
 .return-to-boards {
-    
+  position: fixed;
+  top: 70px;
+  right: 20px;
+}
+
+.boards-link,
+.boards-link-arrow {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--link-color1);
+  text-align: center;
+  text-decoration: none;
+}
+
+.boards-link-arrow {
+  font-size: 14px;
+}
+
+.boards-link:hover {
+  text-decoration: underline;
+}
+
+.edit-profile-title {
+    margin-top: 50px;
 }
