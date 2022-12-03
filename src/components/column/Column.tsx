@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { Task } from '../task/Task';
 import './column.css';
 import { ButtonDeleteColumn } from '../../UI/column-buttons/ButtonDeleteColumn';
 import { ButtonNewTask } from '../../UI/column-buttons/ButtonNewTask';
-import { IComleteColumn, IFetchQuery } from '../../types/types';
+import { IColumn, IComleteColumn, IFetchQuery } from '../../types/types';
 import { localeEN } from '../../locales/localeEN';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
@@ -24,6 +24,7 @@ export const Column = (props: IProp) => {
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const token = useAppSelector((state) => state.userSlice.token);
+  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
 
   const changeColumnTitleHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
@@ -36,15 +37,20 @@ export const Column = (props: IProp) => {
       ? null
       : setTimeout(() => dispatch(fetchChangeUserColumn(dataForFetch)), 1000);
   };
-  useMemo(() => {
-    const dataForFetch: IFetchQuery = {
-      boardId: currentBoardId,
-      columnId: id,
-      token,
-    };
-    dispatch(fetchGetUserColumnByID(dataForFetch));
+
+  useEffect(() => {
+    setTimeout(() => {
+      const dataForFetch: IFetchQuery = {
+        boardId: currentBoardId,
+        columnId: id,
+        token,
+      };
+      dispatch(fetchGetUserColumnByID(dataForFetch));
+    }, 500);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, id]);
+  }, []);
+
   return (
     <>
       <Draggable draggableId={id} index={props.index}>
@@ -58,7 +64,7 @@ export const Column = (props: IProp) => {
           >
             <hr {...provided.dragHandleProps} />
             <div className="column-item__control">
-              {title === 'done' ? (
+              {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title) ? (
                 <h3 className="column-item__title">{title}</h3>
               ) : (
                 <input
@@ -86,9 +92,9 @@ export const Column = (props: IProp) => {
                     {isLoading && <Spinner />}
                     {tasks?.length === 0 ? (
                       <span className="column-item__message">
-                        {title === 'done'
-                          ? localeEN.columnContet.HAVE_NOT_TASK_DONE_MESSAGE
-                          : localeEN.columnContet.HAVE_NOT_TASK_MESSAGE}
+                        {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
+                          ? localeEN.columnContet.HAVE_NOT_TASK_DONE_MESSAGE[languageIndex]
+                          : localeEN.columnContet.HAVE_NOT_TASK_MESSAGE[languageIndex]}
                       </span>
                     ) : (
                       tasks?.map((task, index) => (
@@ -101,12 +107,16 @@ export const Column = (props: IProp) => {
               )}
             </Droppable>
             <p
-              className={`${
-                title === 'done' ? 'column-item__add-task_disabled' : 'column-item__add-task'
-              }`}
+              className={
+                localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
+                  ? 'column-item__add-task_disabled'
+                  : 'column-item__add-task'
+              }
             >
               <ButtonNewTask column={props.column} />
-              Add task
+              {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
+                ? null
+                : 'Add task'}
             </p>
           </div>
         )}

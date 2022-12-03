@@ -34,11 +34,17 @@ export const localeEN = {
   },
   columnContet: {
     HAVE_NOT_COLUMN_MESSAGE: 'You have not any columns!',
-    HAVE_NOT_TASK_MESSAGE: 'Nothing to do!',
-    HAVE_NOT_TASK_DONE_MESSAGE: 'No task completed!',
+    HAVE_NOT_TASK_MESSAGE: ['No tasks!', 'Немає завдань!', 'Hяма задач!', 'Hет задач!'],
+    HAVE_NOT_TASK_DONE_MESSAGE: [
+      'No completed tasks!',
+      'Немає виконаних завдань!',
+      'Няма выкананых задач!',
+      'Hет выполненых задач!',
+    ],
+    DEFAULT_DONE_COLUMN: ['Done', 'Виконано', 'Выканана', 'Выполнено'],
   },
   modalContetntMessage: {
-    REMOVE_BOARD_CONFIRM_MESSAGE: [
+       REMOVE_BOARD_CONFIRM_MESSAGE: [
       'If you want to delete the board, confirm the action',
       'Якщо ви хочете видалити дошку, підтвердьте дію',
       'Калі вы хочаце выдаліць дошку, пацвердзіце дзеянне',

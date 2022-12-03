@@ -27,10 +27,11 @@
 }
 
 .selectors-container {
-  position: fixed;
-  top: 2px;
-  left: 15px;
+  /*position: fixed;*/
+  /*top: 2px;*/
+  /*left: 15px;*/
   display: flex;
+  margin-right: auto;
 }
 
 .auth-links-duplicate {
