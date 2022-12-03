@@ -15,9 +15,9 @@ export default function ButtonSuccess(props: IProp) {
   const showToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     !isValid && isCreateBoard
-      ? setToolTip(localeEN.tooTipContent.ADD_BOARD_TOOLTIP_MESSAGE)
+      ? setToolTip(localeEN.tooTipContent.ADD_BOARD_TOOLTIP_MESSAGE[state.languageIndex])
       : !isValid && isCreateColumn
-      ? setToolTip(localeEN.tooTipContent.ADD_COLUMN_TOOLTIP_MESSAGE)
+      ? setToolTip(localeEN.tooTipContent.ADD_COLUMN_TOOLTIP_MESSAGE[state.languageIndex])
       : null;
   };
   const hideToolTip = (e: React.MouseEvent<HTMLButtonElement>) => {
