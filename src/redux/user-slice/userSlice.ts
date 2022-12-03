@@ -7,6 +7,8 @@ interface IUserState {
   token: string;
   error: string;
   password?: string;
+  isSignIn: boolean;
+  spinnerStatus: boolean;
 }
 
 const initFormState: IUserState = {
@@ -18,12 +20,14 @@ const initFormState: IUserState = {
   password: '',
   token: '',
   error: '',
+  isSignIn: false,
+  spinnerStatus: false,
 };
 
 export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValue: string }>(
   'register/fetchRegister',
   async (user, { rejectWithValue, dispatch }) => {
-    const response = await fetch(Endpoints.SIGN_UP, {
+    const response: Response = await fetch(Endpoints.SIGN_UP, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,6 +36,9 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
     });
 
     if (!response.ok) {
+      if (response.status === 409) {
+        return rejectWithValue('userExist');
+      }
       const userData = await response.json();
       return rejectWithValue(userData.message);
     }
@@ -47,7 +54,7 @@ export const fetchRegistration = createAsyncThunk<IUser, IUserForm, { rejectValu
 export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: string }>(
   'login/fetchLogin',
   async (user, { rejectWithValue, dispatch }) => {
-    const response = await fetch(Endpoints.SIGN_IN, {
+    const response: Response = await fetch(Endpoints.SIGN_IN, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,6 +63,9 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
     });
 
     if (!response.ok) {
+      if (response.status === 403) {
+        return rejectWithValue('userNotExist');
+      }
       const userData = await response.json();
       return rejectWithValue(userData.message);
     }
@@ -92,15 +102,23 @@ export const userSlice = createSlice({
     setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
     },
+    setSignInStatus(state, action: PayloadAction<boolean>) {
+      state.isSignIn = action.payload;
+    },
+    setSpinnerStatus(state, action: PayloadAction<boolean>) {
+      state.spinnerStatus = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRegistration.pending, (state) => {
         state.error = '';
+        state.spinnerStatus = true;
       })
       .addCase(fetchRegistration.fulfilled, (state, action) => {
         state.user = action.payload;
         state.error = '';
+        state.spinnerStatus = false;
       })
       .addCase(fetchRegistration.rejected, (state, action) => {
         state.token = '';
@@ -108,22 +126,29 @@ export const userSlice = createSlice({
         state.user.name = '';
         state.user.id = '';
         state.error = action.payload ? action.payload : '';
+        state.spinnerStatus = false;
       })
       .addCase(fetchLogin.pending, (state) => {
         state.user.name = '';
         state.user.id = '';
         state.error = '';
+        state.spinnerStatus = true;
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
         state.token = action.payload;
         state.error = '';
+        state.isSignIn = true;
+        state.spinnerStatus = false;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
-        state.error = action.payload ? action.payload : '';
         state.user.name = '';
         state.user.id = '';
+        state.error = action.payload ? action.payload : '';
+        state.isSignIn = false;
+        state.spinnerStatus = false;
       });
   },
 });
+export const { setUserData, setUserToken, setSignInStatus, setSpinnerStatus } = userSlice.actions;
 
 export default userSlice.reducer;

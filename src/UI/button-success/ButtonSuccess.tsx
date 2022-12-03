@@ -24,6 +24,7 @@ export default function ButtonSuccess(props: IProp) {
     e.stopPropagation();
     !isValid && setToolTip('');
   };
+  const state = useAppSelector((store) => store.settingsSlice);
   return (
     <>
       <button

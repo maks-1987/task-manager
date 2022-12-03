@@ -153,3 +153,55 @@ export const fetchMarkTasksAsDone = createAsyncThunk<ITask, IFetchQuery>(
     return completeTask;
   }
 );
+
+export const fetchChangeColumnTask = createAsyncThunk<ITask, IFetchQuery>(
+  'change/changeColumnTask',
+  async (dataForFetch, { rejectWithValue }) => {
+    const response: Response = await fetch(
+      `${Endpoints.BOARDS}/${dataForFetch.boardId}/columns/${dataForFetch.columnId}/tasks/${dataForFetch.taskId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${dataForFetch.token}`,
+        },
+        body: JSON.stringify({
+          title: dataForFetch.taskData?.title,
+          order: dataForFetch.taskData?.order,
+          description: dataForFetch.taskData?.description,
+          userId: dataForFetch.userId,
+          boardId: dataForFetch.boardId,
+          columnId: dataForFetch.newColumn,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+    }
+    const editedTask: ITask = await response.json();
+    return editedTask;
+  }
+);
+
+export const fetchFiles = createAsyncThunk<
+  Blob,
+  { taskId: string; filename: string; token: string }
+>('files/fetchFiles', async (dataForFetch, { rejectWithValue }) => {
+  const responseFile = await fetch(
+    `${Endpoints.FILE}/${dataForFetch.taskId}/${dataForFetch.filename}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+    }
+  );
+
+  if (!responseFile.ok) {
+    const data = await responseFile.json();
+    return rejectWithValue(data.message);
+  }
+
+  return await responseFile.blob();
+});

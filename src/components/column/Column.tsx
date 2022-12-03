@@ -10,7 +10,7 @@ import {
   fetchChangeUserColumn,
   fetchGetUserColumnByID,
 } from '../../redux/columns-slice/columnsFetchRequest';
-import Loader from '../loader/Loader';
+import Spinner from '../../UI/spinner/Spinner';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 interface IProp {
@@ -83,9 +83,13 @@ export const Column = (props: IProp) => {
             </div>
             <Droppable droppableId={id} type="task">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
+                <div
+                  className="column-item__task-container"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
                   <section className="task-list">
-                    {isLoading && <Loader />}
+                    {isLoading && <Spinner />}
                     {tasks?.length === 0 ? (
                       <span className="column-item__message">
                         {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)

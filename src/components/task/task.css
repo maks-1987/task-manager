@@ -7,6 +7,9 @@
     border-radius: 6px;
     padding: 4px;
     background-color: white;
+    overflow: hidden;
+    line-break: anywhere;
+    flex-wrap: wrap;
 }
 
 .task_contetnt {
@@ -27,7 +30,6 @@
   align-items: flex-start;
   width: 100%;
   height: 90%;
-  margin-right: 5px;
 }
 
 .task__title {
@@ -49,8 +51,45 @@
 
 .task_button-block {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  width: 70%;
+  align-items: center;
+}
+
+.vis-hidden {
+  opacity: 0;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.user-file {
+  width: 70px;
+  height: 70px;
+}
+
+.default-task-image {
+  height: 40px;
+  width: 40px;
+}
+
+.default-task-image svg {
+  height: 100%;
+  width: 100%;
+}
+
+.upload-file-task {
+  width: 25px;
   height: 25px;
+  background-color: initial;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  margin: 0 3px 0 3px;
+}
+
+.upload-file-task svg {
+  height: 100%;
+  width: 100%;
 }

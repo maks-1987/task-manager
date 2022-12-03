@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPreviewItem';
-import Loader from '../../components/loader/Loader';
 import { localeEN } from '../../locales/localeEN';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
 import { setCurrentBoardId, setRemovedBoardId } from '../../redux/boards-slice/boardsSlice';
 import { setResetCurrentBoardData } from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
+import Spinner from '../../UI/spinner/Spinner';
 import './boardsPage.css';
 
 export default function BoardsPage() {
@@ -19,7 +19,7 @@ export default function BoardsPage() {
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
-
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   useEffect(() => {
     setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));

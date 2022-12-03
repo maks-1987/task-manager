@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { fetchLogin, userSlice } from '../../redux/user-slice/userSlice';
+import { userSlice } from '../../redux/user-slice/userSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IUserForm } from '../../types/types';
 import { Endpoints } from '../../endpoints/endpoints';
@@ -9,6 +9,7 @@ import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import Spinner from '../../UI/spinner/Spinner';
 import '../register-page/registerPage.css';
 
 export const LoginPage = () => {
@@ -16,12 +17,14 @@ export const LoginPage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector((state) => state.userSlice);
+  const { error, spinnerStatus } = useAppSelector((state) => state.userSlice);
 
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = async (data) => {
+    dispatch(userSlice.actions.setSpinnerStatus(true));
+
     const response = await fetch(Endpoints.SIGN_IN, {
       method: 'POST',
       headers: {
@@ -36,13 +39,21 @@ export const LoginPage = () => {
 
     if (!response.ok) {
       dispatch(userSlice.actions.setError(loginData.message));
-    } else {
+      dispatch(userSlice.actions.setSignInStatus(false));
+    }
+    if (response.status === 403) {
+      dispatch(userSlice.actions.setError(languages.userNotExist[state.languageIndex]));
+      dispatch(userSlice.actions.setSignInStatus(false));
+    }
+    if (response.ok) {
       dispatch(userSlice.actions.setUserLogin(data.login));
       dispatch(userSlice.actions.setPassword(''));
       dispatch(userSlice.actions.setUserToken(loginData.token));
+      dispatch(userSlice.actions.setSignInStatus(true));
 
       navigation(`/boards/${data.login}`);
     }
+    dispatch(userSlice.actions.setSpinnerStatus(false));
   };
 
   useEffect(() => {
@@ -58,12 +69,15 @@ export const LoginPage = () => {
 
   return (
     <div className={'register-container ' + state.themeIndex}>
-      <div className="welcome-page-link-container">
-        <GoWelcomePageLink />
-      </div>
-      <div className="selectors-container">
-        <LanguageSelector />
-        <ThemeSelector />
+      {spinnerStatus && <Spinner />}
+      <div className="blur-background">
+        <div className="welcome-page-link-container">
+          <GoWelcomePageLink />
+        </div>
+        <div className="selectors-container">
+          <LanguageSelector />
+          <ThemeSelector />
+        </div>
       </div>
 
       <div>
@@ -76,11 +90,15 @@ export const LoginPage = () => {
         </h3>
       </div>
 
-      <form className="sign-in-form" onSubmit={handleSubmit(onSubmitForm)}>
-        <p className={'sign-up-form__title ' + state.themeIndex}>
+      <form
+        className="sign-in-form"
+        onSubmit={handleSubmit(onSubmitForm)}
+        onChange={() => dispatch(userSlice.actions.setError(''))}
+      >
+        <p className={'sign-in-form__title ' + state.themeIndex}>
           {languages.authorization[state.languageIndex]}
         </p>
-        <div className={'sign-up-form__item login ' + state.themeIndex}>
+        <div className={'sign-in-form__item login ' + state.themeIndex}>
           <label htmlFor="login">{languages.login[state.languageIndex]}</label>
           <input
             className={'sign-in-form__input ' + state.themeIndex}
@@ -102,7 +120,7 @@ export const LoginPage = () => {
             )}
           </p>
         </div>
-        <div className={'sign-up-form__item password ' + state.themeIndex}>
+        <div className={'sign-in-form__item password ' + state.themeIndex}>
           <label htmlFor="password">{languages.password[state.languageIndex]}</label>
           <input
             className={'sign-in-form__input ' + state.themeIndex}

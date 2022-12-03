@@ -1,8 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { languages } from '../../../locales/languages';
-import { localeEN } from '../../../locales/localeEN';
 import { fetchAddNewUserColumns } from '../../../redux/columns-slice/columnsFetchRequest';
 import {
   fetchAddNewUserTasks,
@@ -19,6 +17,9 @@ import {
 } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard, JwtDecode } from '../../../types/types';
 import ButtonSuccess from '../../../UI/button-success/ButtonSuccess';
+import './columnsAndTasksForm.css';
+import { localeEN } from '../../../locales/localeEN';
+import { languages } from '../../../locales/languages';
 
 export default function ColumnsAndTaskForm() {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ export default function ColumnsAndTaskForm() {
   const editedTaskData = useAppSelector((state) => state.columnsSlice.editedTaskData);
   const [isCompare, setIsCompare] = useState<boolean>(false);
   const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
+  const state = useAppSelector((store) => store.settingsSlice);
 
   const {
     register,
@@ -95,14 +97,14 @@ export default function ColumnsAndTaskForm() {
         <input
           {...register('title', {
             onChange: (e: React.ChangeEvent<HTMLInputElement>) => titleCompairHandler(e),
-            required: 'This field is requaered',
+            required: localeEN.columnAndTaskMessages.MESSAGE_REQUIRED[state.languageIndex],
             minLength: {
               value: 2,
-              message: 'Should be min 2 character',
+              message: localeEN.columnAndTaskMessages.MIN_LENGTH_WARN_TITLE[state.languageIndex],
             },
           })}
           type="text"
-          placeholder={errors.title?.message ? errors.title?.message : 'Title'}
+          placeholder={localeEN.placeholderText.TITLE_TASK_DESCRIPTION[state.languageIndex]}
           className="coluns-and-task-form__title-input"
         />
         {isCompare ? (
@@ -110,14 +112,15 @@ export default function ColumnsAndTaskForm() {
         ) : null}
         <textarea
           {...register('description', {
-            required: 'This field is requaered',
+            required: localeEN.columnAndTaskMessages.MESSAGE_REQUIRED[state.languageIndex],
             minLength: {
               value: 5,
-              message: 'Should be min 5 character',
+              message: 
+                localeEN.columnAndTaskMessages.MIN_LENGTH_WARN_DESCRIPTION[state.languageIndex],
             },
             disabled: !isCreateTask && !isEditTask,
           })}
-          placeholder="ojfp'ja"
+          placeholder={localeEN.placeholderText.TASK_DESCRIPTION[state.languageIndex]}
           className="coluns-and-task-form__description-input"
         />
         <ButtonSuccess isValid={isValid} isCompare={isCompare} />

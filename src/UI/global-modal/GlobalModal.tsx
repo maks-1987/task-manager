@@ -16,7 +16,7 @@ export const GlobalModal = (props: Props) => {
   const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
-
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   const currentModalTitle = isCreateBoard
     ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE
     : isCreateColumn

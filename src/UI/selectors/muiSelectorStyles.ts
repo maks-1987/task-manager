@@ -5,15 +5,15 @@ export const sxSelect = {
   '.MuiOutlinedInput-input': {
     display: 'flex',
     justifyContent: 'center',
-    padding: 0,
-    paddingLeft: 3.75,
+    padding: '0 !important',
+    paddingTop: '2px !important',
   },
   '.MuiSelect-icon': {
     right: 0,
   },
 
   width: 60,
-  height: 23,
+  height: 35,
   fontWeight: 500,
   borderRadius: 1,
 };
@@ -27,7 +27,7 @@ export const selectItemsColors = {
 export const inputProps = (themeColor: string) => {
   return {
     MenuProps: {
-      sx: { top: -15 },
+      sx: { top: 10 },
 
       PaperProps: {
         sx: {

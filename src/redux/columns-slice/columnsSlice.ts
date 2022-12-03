@@ -15,6 +15,7 @@ import {
   ChangeTask,
   IFetchQuery,
   IDoneColumnByBoardId,
+  IFiles,
 } from './../../types/types';
 import {
   fetchAddNewUserTasks,
@@ -144,6 +145,15 @@ export const columnsSlice = createSlice({
       )
         ? null
         : state.userDoneColumnListByBoardId.push(boardIdAndDoneColumn);
+    },
+    setFiles(state, action: PayloadAction<IFiles>) {
+      state.editedTaskData.files?.push(action.payload);
+    },
+    setNewTasksByColumn(state, action: PayloadAction<{ tasks: ITask[]; columnId: string }>) {
+      const [column] = state.userCurrentBoard.columns.filter(
+        (column) => column.id === action.payload.columnId
+      );
+      column.tasks = action.payload.tasks;
     },
   },
   extraReducers: (builder) => {

@@ -4,7 +4,7 @@ import { rssSvg } from './svg';
 import './Footer.css';
 
 export default function Footer() {
-  const state = useAppSelector((store) => store.settingsSlise);
+  const state = useAppSelector((store) => store.settingsSlice);
 
   function ghSvg(): JSX.Element {
     return (

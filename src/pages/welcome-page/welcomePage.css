@@ -1,12 +1,21 @@
 .welcome-page-container {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
   height: 100vh;
   padding: 70px 20px 45px;
   background-color: var(--background-color1);
+}
+
+.blur-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  backdrop-filter: blur(5px);
+  z-index: 10;
 }
 
 .welcome-page-container.dark {
@@ -17,20 +26,21 @@
   background-color: var(--background-color3);
 }
 
-.selectors-container,
-.auth-links-duplicate {
-  position: fixed;
-  top: 10px;
-  right: 15px;
+.selectors-container {
+  /*position: fixed;*/
+  /*top: 2px;*/
+  /*left: 15px;*/
   display: flex;
-  gap: 5px;
+  margin-right: auto;
 }
 
 .auth-links-duplicate {
-  top: 40px;
-  width: 125px;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  display: flex;
   justify-content: space-evenly;
-  gap: 10px;
+  gap: 15px;
 }
 
 .welcome-page-title,
@@ -55,7 +65,7 @@
   align-items: center;
   gap: 30px;
   width: 100%;
-  padding: 10px;
+  padding: 20px 0 10px;
 }
 
 .auth-link,
@@ -74,7 +84,7 @@
 }
 
 .auth-link-duplicate {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -99,10 +109,10 @@
   justify-content: space-evenly;
   gap: 10px;
   width: 100%;
-  height: 75%;
-  padding: 10px;
+  padding: 10px 10px 20px;
   color: var(--color1);
   background-color: var(--background-color4);
+  overflow: auto;
 }
 
 .welcome-page-content.dark {
@@ -117,22 +127,28 @@
 
 .content-title {
   width: 100%;
+  padding-left: 10px;
   font-size: 20px;
 }
 
 .content-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 32%;
-  height: calc(100% - 43px);
   padding: 10px;
-  border: var(--border1);
-  border-radius: 3px;
 }
 
-/* .content-item-img {
-  width: 60%;
-  height: 50%;
-  border: var(--border1);
-  border-radius: 3px;
-} */
+.content-item-title {
+  margin: 5px 0 30px;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.content-item-description {
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 0.9;
+  white-space: pre-line;
+}

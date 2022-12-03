@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 70px;
   min-height: 100vh;
   padding: 50px 20px 40px;
   background-color: var(--background-color1);
@@ -19,11 +18,11 @@
 .welcome-page-link-container {
   position: fixed;
   top: 10px;
-  left: 20px;
+  right: 20px;
 }
 
 .register-note {
-  padding-top: 20px;
+  padding: 50px 0 50px;
   font-size: 20px;
   font-weight: 500;
   color: var(--color1);
@@ -154,22 +153,40 @@
   cursor: pointer;
 }
 
-.submit__button {
+.submit__button,
+.form-success__button {
   color: var(--color1);
   border: var(--border1);
   background-color: var(--background-color4);
 }
 
-.submit__button.dark {
+.submit__button.dark,
+.form-success__button.dark {
   color: var(--color2);
   border: var(--border2);
   background-color: var(--background-color5);
 }
 
-.submit__button.color {
+.submit__button.color,
+.form-success__button.color {
   color: var(--color3);
   border: var(--border3);
   background-color: var(--background-color6);
+}
+
+.submit__button:hover,
+.form-success__button:hover {
+  background-color: var(--background-color1);
+}
+
+.submit__button.dark:hover,
+.form-success__button.dark:hover {
+  background-color: var(--background-color2);
+}
+
+.submit__button.color:hover,
+.form-success__button.color:hover {
+  background-color: var(--background-color3);
 }
 
 .sign-up-form__item.password,
@@ -190,17 +207,14 @@
 }
 
 .form-messages {
-  width: 100%;
   font-size: 16px;
   color: #e1001f;
-  min-height: 1.2rem;
 }
 
 .form-success,
 .form-failed {
   width: 100%;
   min-height: 1rem;
-  margin-top: 20px;
   font-size: 18px;
   font-weight: 600;
   text-align: center;
@@ -211,17 +225,12 @@
 }
 
 .form-success {
-  color: green;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  margin: auto;
-  column-gap: 30px;
+  justify-content: center;
   align-items: center;
-}
-
-.form-success__message {
-  margin-bottom: 14px;
+  gap: 20px;
+  color: green;
 }
 
 .form-success__button {

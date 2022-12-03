@@ -7,15 +7,32 @@ import Layout from './Layout';
 import { RegisterPage } from '../../pages/register-page/RegisterPage';
 import { LoginPage } from '../../pages/login-page/LoginPage';
 import SingleBoard from '../../pages/single-board-page/SingleBoard';
+import LogOut from '../log-out/LogOut';
+import AuthRequire from '../../hoc/AuthRequire';
 
 export default function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<WelcomePage />} />
-        <Route path="boards/:user" element={<BoardsPage />} />
-        <Route path="boards/:user/:boardId" element={<SingleBoard />} />
+        <Route
+          path="boards/:user"
+          element={
+            <AuthRequire>
+              <BoardsPage />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="boards/:user/:boardId"
+          element={
+            <AuthRequire>
+              <SingleBoard />
+            </AuthRequire>
+          }
+        />
         <Route path="login" element={<LoginPage />} />
+        <Route path="logout" element={<LogOut />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
