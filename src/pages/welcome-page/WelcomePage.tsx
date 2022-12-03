@@ -17,8 +17,8 @@ function WelcomePage() {
   return (
     <>
       <div className={'welcome-page-container ' + state.themeIndex}>
+        {spinnerStatus && <Spinner />}
         <div className="blur-background">
-          {spinnerStatus && <Spinner />}
           <div className="selectors-container">
             <GoWelcomePageBtn />
             <ThemeSelector />
@@ -81,7 +81,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src="../FotoPassport.png"
+              src="../Max.png"
               alt="Max"
               sx={{ width: 100, height: 100 }}
             />
@@ -93,7 +93,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src=""
+              src="../Den1.png"
               alt="Den1"
               sx={{ width: 100, height: 100 }}
             />
@@ -105,7 +105,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src="../Denis.jpg"
+              src="../Den2.jpg"
               alt="Den2"
               sx={{ width: 110, height: 110 }}
             />

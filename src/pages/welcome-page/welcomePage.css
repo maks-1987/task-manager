@@ -105,7 +105,7 @@
 .welcome-page-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   gap: 10px;
   width: 100%;
   padding: 10px 10px 20px;
@@ -126,8 +126,8 @@
 
 .content-title {
   width: 100%;
-  padding-left: 10px;
-  font-size: 20px;
+  padding: 0 20px 10px;
+  font-size: 24px;
 }
 
 .content-item {

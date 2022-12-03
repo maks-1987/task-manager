@@ -1,20 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { persistor } from '../../redux/store';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { languages } from '../../locales/languages';
-import LanguageSelector from '../../UI/selectors/LanguageSelector';
-import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
-import { localeEN } from '../../locales/localeEN';
-import { userSlice } from '../../redux/user-slice/userSlice';
-import './Header.css';
 import { setSpinnerStatus } from '../../redux/user-slice/userSlice';
+import { languages } from '../../locales/languages';
+import { localeEN } from '../../locales/localeEN';
+import ThemeSelector from '../../UI/selectors/ThemeSelector';
+import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
+import './Header.css';
 
 function Header(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlice);
-  const boardsState = useAppSelector((store) => store.boardsSlice);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const paths: string[] = ['/', '/login', '/register'];
