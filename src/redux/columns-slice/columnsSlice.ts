@@ -8,16 +8,27 @@ import {
   fetchGetUserColumnByID,
   fetchRemoveUserColumn,
 } from './columnsFetchRequest';
-import { IBoard, IColumn, ITask, ChangeTask, IFiles } from './../../types/types';
+import {
+  IBoard,
+  IColumn,
+  ITask,
+  ChangeTask,
+  IFetchQuery,
+  IDoneColumnByBoardId,
+  IFiles,
+} from './../../types/types';
 import {
   fetchAddNewUserTasks,
   fetchChangeOrderTask,
   fetchChangeUserTask,
   fetchRemoveUserTask,
 } from './tasksFetchRequest';
+import { localeEN } from '../../locales/localeEN';
 
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
+  userCurrentBoardList: IBoard[];
+  userDoneColumnListByBoardId: IDoneColumnByBoardId[];
   isLoading: boolean;
   errorMessage: string;
   currentColumnId: string;
@@ -34,6 +45,8 @@ const initialState: IColumnsSlice = {
     description: '',
     columns: [],
   },
+  userCurrentBoardList: [],
+  userDoneColumnListByBoardId: [],
   isLoading: true,
   errorMessage: '',
   currentColumnId: '',
@@ -87,6 +100,52 @@ export const columnsSlice = createSlice({
           : column.tasks;
       });
     },
+    setTasksAsDone(state, action: PayloadAction<IFetchQuery>) {
+      const doneTask: ITask = {
+        id: action.payload.taskId!,
+        title: action.payload.taskData!.title!,
+        description: action.payload.taskData!.description!,
+        order: action.payload.taskData!.order!,
+        userId: action.payload.taskData!.userId!,
+      };
+      state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
+        return {
+          ...column,
+          tasks:
+            column.id === action.payload.columnId
+              ? [...column.tasks.filter((task) => task.id !== action.payload.taskId)]
+              : column.tasks,
+        };
+      });
+      state.userCurrentBoard.columns.map((column) => {
+        column.id === action.payload.taskData?.columnId
+          ? column.tasks.push(doneTask)
+          : column.tasks;
+      });
+    },
+    setClearUserCurrentBoardList(state, action: PayloadAction<IFetchQuery>) {
+      state.userCurrentBoardList = state.userCurrentBoardList.filter(
+        (board) => board.id !== action.payload.boardId
+      );
+      state.userDoneColumnListByBoardId = state.userDoneColumnListByBoardId.filter(
+        (item) => item.boardId !== action.payload.boardId
+      );
+    },
+    setDoneColumnListByBoardId(state, action: PayloadAction<IDoneColumnByBoardId>) {
+      const boardIdAndDoneColumn = {
+        ...action.payload,
+        doneColumn: action.payload.doneColumn.filter(
+          (column) =>
+            column.title ===
+            localeEN.columnContet.DEFAULT_DONE_COLUMN.filter((title) => title === column.title)[0]
+        ),
+      };
+      state.userDoneColumnListByBoardId.some(
+        (item) => item.boardId === boardIdAndDoneColumn.boardId
+      )
+        ? null
+        : state.userDoneColumnListByBoardId.push(boardIdAndDoneColumn);
+    },
     setFiles(state, action: PayloadAction<IFiles>) {
       state.editedTaskData.files?.push(action.payload);
     },
@@ -105,6 +164,9 @@ export const columnsSlice = createSlice({
       })
       .addCase(fetchGetUserBoardByID.fulfilled, (state, action) => {
         state.userCurrentBoard = action.payload;
+        state.userCurrentBoardList.some((board) => board.id === action.payload.id)
+          ? null
+          : state.userCurrentBoardList.push(action.payload);
         state.isLoading = false;
         state.errorMessage = '';
       })
@@ -129,6 +191,10 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
+      .addCase(fetchAddNewUserColumns.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchAddNewUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCurrentBoard.columns.push(action.payload);
@@ -141,19 +207,29 @@ export const columnsSlice = createSlice({
         );
         state.errorMessage = '';
       })
+      .addCase(fetchChangeUserColumn.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchChangeUserColumn.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
           return {
             ...column,
             title: column.id === action.payload.id ? action.payload.title : column.title,
           };
         });
+        state.errorMessage = '';
+      })
+      .addCase(fetchAddNewUserTasks.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
       })
       .addCase(fetchAddNewUserTasks.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.userCurrentBoard.columns.forEach((column) => {
           column.id === action.payload.columnId && column.tasks?.push(action.payload);
         });
-        state.isLoading = false;
         state.errorMessage = '';
       })
       .addCase(fetchRemoveUserTask.fulfilled, (state, action) => {
@@ -167,7 +243,6 @@ export const columnsSlice = createSlice({
                 : column.tasks,
           };
         });
-        state.isLoading = false;
         state.errorMessage = '';
       })
       .addCase(fetchChangeUserTask.fulfilled, (state, action) => {
@@ -222,6 +297,9 @@ export const {
   setColumnsAfterDrag,
   setResetCurrentBoardData,
   setTasksAfterDrag,
+  setClearUserCurrentBoardList,
+  setDoneColumnListByBoardId,
+  setTasksAsDone,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
 

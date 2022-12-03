@@ -15,12 +15,13 @@ export default function BoardsPage() {
   const userBoards = useAppSelector((state) => state.boardsSlice.userBoards);
   const isLoading = useAppSelector((state) => state.boardsSlice.isLoading);
   const fetchBoardErrorMessage = useAppSelector((state) => state.boardsSlice.errorMessage);
+
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
-  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
+
   useEffect(() => {
-    dispatch(setResetCurrentBoardData());
+    setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));
     dispatch(setRemovedBoardId(''));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,22 +32,17 @@ export default function BoardsPage() {
       <div className="boards-page__container">
         <h1 className="boards-page__title">Boards Page</h1>
         <AddBoardButton />
-
-        {isLoading && <Spinner />}
-        {!isLoading && (
-          <section className="boards-page__container_boards-field">
-            {Boolean(fetchBoardErrorMessage) && (
-              <h2 className="fetch-erroe-message">
-                {localeEN.errors.FETCH_ERRORS_MESSAGE[languageIndex]}
-              </h2>
-            )}
-            {!userBoards.length
-              ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
-              : userBoards.map((board, index) => (
-                  <BoardPreviewItem key={board.id} userBoard={board} index={index} />
-                ))}
-          </section>
-        )}
+        <section className="boards-page__container_boards-field">
+          {isLoading && <Spinner />}
+          {Boolean(fetchBoardErrorMessage) && (
+            <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
+          )}
+          {!userBoards.length
+            ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
+            : userBoards.map((board, index) => (
+                <BoardPreviewItem key={board.id} userBoard={board} index={index} />
+              ))}
+        </section>
       </div>
     </section>
   );

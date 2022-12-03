@@ -21,6 +21,8 @@ export interface IUserTask {
   title?: string;
   description?: string;
   order?: number;
+  boardId?: string;
+  columnId?: string;
 }
 
 export interface IFetchQuery {
@@ -91,3 +93,8 @@ export type ChangeTask = {
   taskArray: ITask[];
   destinationId: string;
 };
+
+export interface IDoneColumnByBoardId {
+  boardId: string;
+  doneColumn: IColumn[];
+}

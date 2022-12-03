@@ -9,6 +9,7 @@ import {
   fetchGetAllUserColumns,
   fetchGetUserBoardByID,
 } from '../../../redux/columns-slice/columnsFetchRequest';
+import { setResetCurrentBoardData } from '../../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
@@ -24,9 +25,13 @@ export default function BoardPreviewItem(props: IProp) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [warnMessage, setWarnMessage] = useState<string>('');
-  const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
+  const userCurrentBoardList = useAppSelector((state) => state.columnsSlice.userCurrentBoardList);
   const user = useAppSelector((state) => state.userSlice.user.login);
   const token = useAppSelector((state) => state.userSlice.token);
+  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
+  const userDoneColumnListByBoardId = useAppSelector(
+    (state) => state.columnsSlice.userDoneColumnListByBoardId
+  );
 
   const {
     register,
@@ -64,23 +69,28 @@ export default function BoardPreviewItem(props: IProp) {
     e.stopPropagation();
   };
   const goToCurrentUserBoardByID = (e: React.MouseEvent<HTMLElement>) => {
+    dispatch(setResetCurrentBoardData());
+    const isDoneTitle = userDoneColumnListByBoardId
+      .filter((item) => item.boardId === e.currentTarget.id)
+      .at(-1)!.doneColumn;
+
     const dataForFetch: IFetchQuery = {
       boardId: userBoard.id!,
       token,
     };
-    isValid ? navigate(`/boards/${user}/${e.currentTarget.id}`) : null;
-    dispatch(setCurrentBoardId(e.currentTarget.id));
-    dispatch(fetchGetUserBoardByID(dataForFetch));
 
-    userCurrentBoard.columns.some((column) => column.title === 'done')
+    isDoneTitle.length > 0 || userCurrentBoardList.some((board) => board.id === e.currentTarget.id)
       ? null
       : dispatch(
           fetchAddNewUserColumns({
-            boardData: { title: 'done' },
+            boardData: { title: localeEN.columnContet.DEFAULT_DONE_COLUMN[languageIndex] },
             boardId: e.currentTarget.id,
             token,
           })
         );
+    dispatch(setCurrentBoardId(e.currentTarget.id));
+    isValid ? navigate(`/boards/${user}/${e.currentTarget.id}`) : null;
+    dispatch(fetchGetUserBoardByID(dataForFetch));
   };
 
   useEffect(() => {
@@ -89,7 +99,10 @@ export default function BoardPreviewItem(props: IProp) {
       token,
     };
     dispatch(fetchGetAllUserColumns(dataForFetch));
-  }, [userBoard.id, dispatch, token]);
+    setTimeout(() => dispatch(setResetCurrentBoardData()), 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
   return (
     <article
       id={userBoard.id!}

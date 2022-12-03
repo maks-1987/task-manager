@@ -1,7 +1,10 @@
 import React from 'react';
 import { fetchRemoveUserBoard } from '../../redux/boards-slice/boardsFechRequest';
 import { fetchRemoveUserColumn } from '../../redux/columns-slice/columnsFetchRequest';
-import { setCurrentColumnId } from '../../redux/columns-slice/columnsSlice';
+import {
+  setClearUserCurrentBoardList,
+  setCurrentColumnId,
+} from '../../redux/columns-slice/columnsSlice';
 import { fetchRemoveUserTask } from '../../redux/columns-slice/tasksFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
@@ -46,8 +49,8 @@ export default function ConfirmButton() {
           taskId: removedTaskId,
           token,
         };
-
     isRemoveBoard && dispatch(fetchRemoveUserBoard(dataForFetch));
+    isRemoveBoard && dispatch(setClearUserCurrentBoardList(dataForFetch));
     isRemoveColumn && dispatch(fetchRemoveUserColumn(dataForFetch));
     isRemoveTask && dispatch(fetchRemoveUserTask(dataForFetch));
     dispatch(setModalOpen(false));
