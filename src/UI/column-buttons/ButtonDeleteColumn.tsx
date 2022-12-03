@@ -26,7 +26,7 @@ export const ButtonDeleteColumn = (props: IProp) => {
         className="button-delete-column"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => goToModalWindow(e)}
       >
-        {deleteColumnSVG()}
+        <DeleteColumnSVG />
       </button>
     </>
   );
