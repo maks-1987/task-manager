@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { localeEN } from '../../locales/localeEN';
 import { useAppSelector } from '../../redux/hooks';
 import './taskProgressBar.css';
 
 export default function TaskProgressBar() {
   const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
-  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
+  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
   const [uncompleteTasks, setUncompleteTasks] = useState<number>(0);
   const [doneTasks, setDoneTasks] = useState<number>(0);
   const [visible, setVisible] = useState<DocumentVisibilityState | undefined>('hidden');

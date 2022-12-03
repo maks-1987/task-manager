@@ -24,7 +24,7 @@ export const Column = (props: IProp) => {
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const token = useAppSelector((state) => state.userSlice.token);
-  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
+  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
 
   const changeColumnTitleHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {

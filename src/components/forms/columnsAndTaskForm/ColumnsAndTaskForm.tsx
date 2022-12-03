@@ -32,7 +32,7 @@ export default function ColumnsAndTaskForm() {
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const editedTaskData = useAppSelector((state) => state.columnsSlice.editedTaskData);
   const [isCompare, setIsCompare] = useState<boolean>(false);
-  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
+  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
   const state = useAppSelector((store) => store.settingsSlice);
 
   const {
@@ -115,7 +115,7 @@ export default function ColumnsAndTaskForm() {
             required: localeEN.columnAndTaskMessages.MESSAGE_REQUIRED[state.languageIndex],
             minLength: {
               value: 5,
-              message: 
+              message:
                 localeEN.columnAndTaskMessages.MIN_LENGTH_WARN_DESCRIPTION[state.languageIndex],
             },
             disabled: !isCreateTask && !isEditTask,

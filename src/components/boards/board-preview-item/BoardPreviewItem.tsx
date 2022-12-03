@@ -28,7 +28,7 @@ export default function BoardPreviewItem(props: IProp) {
   const userCurrentBoardList = useAppSelector((state) => state.columnsSlice.userCurrentBoardList);
   const user = useAppSelector((state) => state.userSlice.user.login);
   const token = useAppSelector((state) => state.userSlice.token);
-  const languageIndex = useAppSelector((state) => state.settingsSlise.languageIndex);
+  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
   const userDoneColumnListByBoardId = useAppSelector(
     (state) => state.columnsSlice.userDoneColumnListByBoardId
   );

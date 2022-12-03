@@ -19,7 +19,7 @@ export default function BoardsPage() {
   useEffect(() => {
     dispatch(fetchGetUserBoards(token));
   }, [dispatch, token]);
-  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
+
   useEffect(() => {
     setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));
@@ -33,7 +33,7 @@ export default function BoardsPage() {
         <h1 className="boards-page__title">Boards Page</h1>
         <AddBoardButton />
         <section className="boards-page__container_boards-field">
-          {isLoading && <Loader />}
+          {isLoading && <Spinner />}
           {Boolean(fetchBoardErrorMessage) && (
             <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
           )}
