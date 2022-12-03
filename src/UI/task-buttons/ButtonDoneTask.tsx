@@ -4,7 +4,7 @@ import { setCurrentColumnId, setTasksAsDone } from '../../redux/columns-slice/co
 import { fetchMarkTasksAsDone } from '../../redux/columns-slice/tasksFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IComleteColumn, IFetchQuery, ITask } from '../../types/types';
-import { doneTaskSVG } from './svgButtons';
+import { DoneTaskSVG } from './svgButtons';
 import './task-buttons.css';
 
 interface IProp {
@@ -58,7 +58,7 @@ export const ButtonDoneTask = (props: IProp) => {
         className="button-done-task"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => doneTaskHandler(e)}
       >
-        {doneTaskSVG()}
+        <DoneTaskSVG />
       </button>
     </>
   );
