@@ -1,6 +1,8 @@
 import { IFetchQuery, IBoard, IColumn } from './../../types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
+import { AppDispatch } from '../store';
+import { setDoneColumnListByBoardId } from './columnsSlice';
 
 export const fetchGetUserBoardByID = createAsyncThunk<IBoard, IFetchQuery, { rejectValue: string }>(
   'fetch/fetchGetUserBoardByID',
@@ -47,8 +49,8 @@ export const fetchGetUserColumnByID = createAsyncThunk<
 export const fetchGetAllUserColumns = createAsyncThunk<
   IColumn[],
   IFetchQuery,
-  { rejectValue: string }
->('fetch/fetchGetAllUserColumns', async (dataForFetch, { rejectWithValue }) => {
+  { rejectValue: string; dispatch: AppDispatch }
+>('fetch/fetchGetAllUserColumns', async (dataForFetch, { rejectWithValue, dispatch }) => {
   const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}/columns`, {
     method: 'GET',
     headers: {
@@ -62,6 +64,7 @@ export const fetchGetAllUserColumns = createAsyncThunk<
   }
 
   const userColumn: IColumn[] = await response.json();
+  dispatch(setDoneColumnListByBoardId({ boardId: dataForFetch.boardId!, doneColumn: userColumn }));
   return userColumn;
 });
 

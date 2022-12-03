@@ -20,7 +20,7 @@ export default function CreateBoardForm() {
     register,
     handleSubmit,
     reset,
-    formState: { isValid, isSubmitSuccessful },
+    formState: { isValid, errors, isSubmitSuccessful },
   } = useForm<IUserBoard>({ mode: 'onBlur' });
 
   const boardCreateHandler: SubmitHandler<IUserBoard> = (formData: IUserBoard) => {

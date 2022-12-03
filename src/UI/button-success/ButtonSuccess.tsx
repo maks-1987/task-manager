@@ -5,10 +5,10 @@ import './buttonSuccess.css';
 
 interface IProp {
   isValid?: boolean;
+  isCompare?: boolean;
 }
-
 export default function ButtonSuccess(props: IProp) {
-  const { isValid } = props;
+  const { isValid, isCompare } = props;
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
   const [toolTip, setToolTip] = useState<string>('');
@@ -28,11 +28,10 @@ export default function ButtonSuccess(props: IProp) {
   return (
     <>
       <button
-        disabled={!isValid}
+        disabled={!isValid || isCompare}
         className="create-board-form__add-board-button"
         onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => showToolTip(e)}
         onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => hideToolTip(e)}
-        title={localeEN.tooltips.CONFIRM_MESSAGE[state.languageIndex]}
       >
         <div className="create-board-form__add-board-button_tooltip">{toolTip}</div>
         <svg
