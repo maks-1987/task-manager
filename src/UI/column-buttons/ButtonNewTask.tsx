@@ -25,7 +25,7 @@ export const ButtonNewTask = (props: IProp) => {
       className="button-new-task"
       title="add new task"
     >
-      {addTaskSVG()}
+      <AddTaskSVG />
     </button>
   );
 };
