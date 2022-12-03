@@ -20,7 +20,6 @@ function WelcomePage() {
         {spinnerStatus && <Spinner />}
         <div className="blur-background">
           <div className="selectors-container">
-            <GoWelcomePageBtn />
             <ThemeSelector />
             <LanguageSelector />
           </div>

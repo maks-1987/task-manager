@@ -41,7 +41,7 @@ function Header(): JSX.Element {
   ) : (
     <header className={'header ' + state.themeIndex} ref={headerRef}>
       <div className="selectors-container">
-        <GoWelcomePageBtn />
+        {/* <GoWelcomePageBtn /> */}
         <ThemeSelector />
         <LanguageSelector />
       </div>

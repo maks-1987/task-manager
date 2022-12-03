@@ -24,7 +24,6 @@ export default function BoardsPage() {
     setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));
     dispatch(setRemovedBoardId(''));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

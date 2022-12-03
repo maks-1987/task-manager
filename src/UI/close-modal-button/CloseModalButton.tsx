@@ -2,7 +2,6 @@ import React from 'react';
 import './closeModalButton.css';
 import { useAppDispatch } from '../../redux/hooks';
 import {
-  modalSlice,
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
@@ -10,6 +9,7 @@ import {
   setIsRemoveBoard,
   setIsRemoveColumn,
   setIsRemoveTask,
+  setModalOpen,
 } from '../../redux/modal-slice/modalSlice';
 
 export default function CloseModalButton() {
@@ -20,7 +20,7 @@ export default function CloseModalButton() {
     dispatch(setIsRemoveTask(false));
     dispatch(setIsCreateColumn(false));
     dispatch(setIsCreateTask(false));
-    dispatch(modalSlice.actions.setModalOpen(false));
+    dispatch(setModalOpen(false));
     dispatch(setIsCreateBoard(false));
     dispatch(setIsEditTask(false));
   };
