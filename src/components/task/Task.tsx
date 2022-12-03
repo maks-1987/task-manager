@@ -72,9 +72,7 @@ export const Task = (props: IProp) => {
             <ButtonEditTask id={id} column={props.column} />
             <ButtonDeleteTask id={id} column={props.column} />
 
-            <button className="upload-file-task" onClick={handleLoadFile}>
-              {<UploadFileIcon />}
-            </button>
+            <button className="upload-file-task" onClick={handleLoadFile}></button>
             <input
               type="file"
               onChange={handleFile}
