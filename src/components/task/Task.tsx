@@ -18,10 +18,10 @@ interface IProp {
 
 export const Task = (props: IProp) => {
   const { token } = useAppSelector((state) => state.userSlice);
-  const { id, order, title, description } = props.task;
+  const { id, order, title, description, files } = props.task;
   const [returnedFile, setReturnedFile] = useState<Blob>();
   const fileBtn = useRef<HTMLInputElement | null>(null);
-  const { files } = props.task;
+  const [fileCounter, setFileCounter] = useState<number | undefined>(0);
 
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     await handleFetch(event.currentTarget.files![0]);
@@ -31,12 +31,12 @@ export const Task = (props: IProp) => {
     fileBtn.current?.click();
   };
 
-  const handleFetch = async (files: File) => {
+  const handleFetch = async (file: File) => {
     const formData = new FormData();
     formData.append('taskId', id);
-    formData.append('file', files as string | File);
+    formData.append('file', file as string | File);
 
-    await fetch(`${Endpoints.FILE}`, {
+    const response = await fetch(`${Endpoints.FILE}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,37 +45,28 @@ export const Task = (props: IProp) => {
       body: formData,
     });
 
-    const responseFile = await fetch(`${Endpoints.FILE}/${id}/${files.name}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (responseFile.ok) {
-      const data = await responseFile.blob();
-      setReturnedFile(data);
-    }
+    if (response.ok) setFileCounter(() => fileCounter! + 1);
   };
 
-  const getFile = async () => {
-    const lastFile = files?.length ? files?.length - 1 : 0;
-    const responseFile = await fetch(
-      `${Endpoints.FILE}/${props.task.id}/${files![lastFile].filename}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await responseFile.blob();
-    setReturnedFile(data);
-  };
+  // const getFile = async () => {
+  //   const lastFile = files?.length ? files?.length - 1 : 0;
+  //   const responseFile = await fetch(
+  //     `${Endpoints.FILE}/${props.task.id}/${files![lastFile].filename}`,
+  //     {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //
+  //   const data = await responseFile.blob();
+  //   setReturnedFile(data);
+  // };
 
   useEffect(() => {
-    if (files?.length) getFile();
+    // if (files?.length) getFile();
+    setFileCounter(files?.length);
   }, [files?.length]);
 
   return (
@@ -115,12 +106,15 @@ export const Task = (props: IProp) => {
                 <DefaultTaskIcon />
               </span>
             ) : (
-              <img
-                className="user-file"
-                alt={files?.length ? files![files?.length ? files?.length - 1 : 0].filename : ''}
-                id="userfile"
-                src={returnedFile && URL.createObjectURL(returnedFile as Blob)}
-              />
+              <>
+                <img
+                  className="user-file"
+                  alt={files?.length ? files![files?.length ? files?.length - 1 : 0].filename : ''}
+                  id="userfile"
+                  src={returnedFile && URL.createObjectURL(returnedFile as Blob)}
+                />
+                <span className="task__counter-files">{files?.length && fileCounter}</span>
+              </>
             )}
           </div>
         </div>

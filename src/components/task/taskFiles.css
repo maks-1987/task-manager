@@ -1,0 +1,6 @@
+.task-files-wrapper {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
