@@ -4,7 +4,7 @@ import { setCurrentColumnId, setEditedTaskId } from '../../redux/columns-slice/c
 import { useAppDispatch } from '../../redux/hooks';
 import { setIsEditTask, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { IComleteColumn } from '../../types/types';
-import { editTaskSVG } from './svgButtons';
+import { EditTaskSVG } from './svgButtons';
 import './task-buttons.css';
 
 interface IProp {
@@ -30,7 +30,7 @@ export const ButtonEditTask = (props: IProp) => {
         className="button-edit-task"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => goToModalWindow(e)}
       >
-        {editTaskSVG()}
+        <EditTaskSVG />
       </button>
     </>
   );
