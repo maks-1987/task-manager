@@ -3,12 +3,11 @@ import { IComleteColumn, ITask } from '../../types/types';
 import { ButtonDeleteTask } from '../../UI/task-buttons/ButtonDeleteTask';
 import { ButtonDoneTask } from '../../UI/task-buttons/ButtonDoneTask';
 import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
-
 import './task.css';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../redux/hooks';
 import { Endpoints } from '../../endpoints/endpoints';
-import { DefaultTaskIcon, UploadFileIcon } from '../../UI/column-buttons/svgButtons';
+import { UploadFileIcon } from '../../UI/column-buttons/svgButtons';
 
 interface IProp {
   task: ITask;
@@ -19,7 +18,6 @@ interface IProp {
 export const Task = (props: IProp) => {
   const { token } = useAppSelector((state) => state.userSlice);
   const { id, order, title, description, files } = props.task;
-  const [returnedFile, setReturnedFile] = useState<Blob>();
   const fileBtn = useRef<HTMLInputElement | null>(null);
   const [fileCounter, setFileCounter] = useState<number | undefined>(0);
 
@@ -48,24 +46,7 @@ export const Task = (props: IProp) => {
     if (response.ok) setFileCounter(() => fileCounter! + 1);
   };
 
-  // const getFile = async () => {
-  //   const lastFile = files?.length ? files?.length - 1 : 0;
-  //   const responseFile = await fetch(
-  //     `${Endpoints.FILE}/${props.task.id}/${files![lastFile].filename}`,
-  //     {
-  //       method: 'GET',
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }
-  //   );
-  //
-  //   const data = await responseFile.blob();
-  //   setReturnedFile(data);
-  // };
-
   useEffect(() => {
-    // if (files?.length) getFile();
     setFileCounter(files?.length);
   }, [files?.length]);
 
@@ -101,21 +82,7 @@ export const Task = (props: IProp) => {
               className="vis-hidden"
               accept="image/*"
             />
-            {!returnedFile ? (
-              <span className="default-task-image">
-                <DefaultTaskIcon />
-              </span>
-            ) : (
-              <>
-                <img
-                  className="user-file"
-                  alt={files?.length ? files![files?.length ? files?.length - 1 : 0].filename : ''}
-                  id="userfile"
-                  src={returnedFile && URL.createObjectURL(returnedFile as Blob)}
-                />
-                <span className="task__counter-files">{files?.length && fileCounter}</span>
-              </>
-            )}
+            <span className="task__counter-files">{files?.length && fileCounter}</span>
           </div>
         </div>
       )}

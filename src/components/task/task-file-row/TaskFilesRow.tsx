@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './taskFilesRow.css';
 import { useAppSelector } from '../../../redux/hooks';
 import { Endpoints } from '../../../endpoints/endpoints';
@@ -28,11 +28,23 @@ export const TaskFilesRow = (props: Props) => {
     }
   };
 
+  useEffect(() => {
+    getFile();
+  }, []);
+
   return (
     <div className="task-files-item">
       <span className="file-name">{fileName}</span>
       <span className="file-size">{fileSize}</span>
-      <span className="file-img">image</span>
+      <span className="file-preview">
+        {taskFiles && (
+          <img
+            className="image"
+            alt={fileName}
+            src={taskFiles && URL.createObjectURL(taskFiles as Blob)}
+          />
+        )}
+      </span>
     </div>
   );
 };

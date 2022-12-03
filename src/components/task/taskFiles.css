@@ -3,4 +3,16 @@
     list-style: none;
     flex-wrap: wrap;
     text-align: center;
+    padding: 5px;
+    border: var(--border1);
+}
+
+.task-files__title {
+    flex: 1;
+}
+
+.task-files-content {
+    flex: 1 0 100%;
+    max-height: 180px;
+    overflow-y: auto;
 }
