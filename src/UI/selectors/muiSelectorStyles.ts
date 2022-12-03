@@ -12,8 +12,8 @@ export const sxSelect = {
     right: 0,
   },
 
-  width: 60,
-  height: 35,
+  width: 40,
+  height: 25,
   fontWeight: 500,
   borderRadius: 1,
 };

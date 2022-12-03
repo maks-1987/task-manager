@@ -7,7 +7,6 @@ import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import Spinner from '../../UI/spinner/Spinner';
 import './welcomePage.css';
-import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlice);

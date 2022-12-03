@@ -7,7 +7,6 @@ import { languages } from '../../locales/languages';
 import { localeEN } from '../../locales/localeEN';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
-import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
 import './Header.css';
 
 function Header(): JSX.Element {
@@ -41,11 +40,14 @@ function Header(): JSX.Element {
   ) : (
     <header className={'header ' + state.themeIndex} ref={headerRef}>
       <div className="selectors-container">
-        {/* <GoWelcomePageBtn /> */}
         <ThemeSelector />
         <LanguageSelector />
       </div>
       <nav className="nav">
+        <Link className={'nav__link ' + state.themeIndex} to="/">
+          {languages.startPage[state.languageIndex]}
+        </Link>
+
         <button
           className={'nav__link ' + state.themeIndex}
           onClick={addBoardButtonHandler}
