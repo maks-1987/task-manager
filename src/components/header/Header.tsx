@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { persistor } from '../../redux/store';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -24,10 +24,25 @@ function Header(): JSX.Element {
     dispatch(setIsCreateBoard(true));
   };
 
+  const headerRef = useRef<HTMLElement | null>(null);
+
+  const isSticky = () => {
+    const scrollTop = window.scrollY;
+    scrollTop >= 100 && headerRef.current?.classList.add('is-sticky');
+    scrollTop <= 60 && headerRef.current?.classList.remove('is-sticky');
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', isSticky);
+    return () => {
+      window.removeEventListener('scroll', isSticky);
+    };
+  });
+
   return paths.includes(location.pathname) ? (
     <></>
   ) : (
-    <header className={'header ' + state.themeIndex}>
+    <header className={'header ' + state.themeIndex} ref={headerRef}>
       <div className="selectors-container">
         <GoWelcomePageBtn />
         <ThemeSelector />
