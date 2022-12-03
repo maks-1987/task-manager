@@ -16,7 +16,7 @@ export default function Layout() {
   const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
   const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const currentPropComponent = isRemoveBoard ? (
-    localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE
+    localeEN.modalContetntMessage.REMOVE_BOARD_CONFIRM_MESSAGE[lang.languageIndex]
   ) : isCreateColumn || isCreateTask || isEditTask ? (
     <ColumnsAndTaskForm />
   ) : (
