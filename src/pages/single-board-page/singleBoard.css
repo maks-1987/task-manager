@@ -1,31 +1,30 @@
-
-.project-board__title,
-.project-board__link {
-    padding-left: 10px;
-    padding-right: 10px;
-
-}
-
-.project-board {
-
-}
+.project-board {}
 
 .project-board__link {
     text-decoration: none;
     line-height: 40px;
+    color: var(--color4);
+    transition: 0.2s color ease-in;
+}
+
+.project-board__link:hover {
+    color: var(--link-color1);
 }
 
 .project-board__title {
-    flex: 1 1 100%;
     border-bottom: var(--border1);
     padding-bottom: 14px;
+    text-align: center;
 }
+
 .project-board__columns {
-    min-height: 82vh;
+    height: 73vh;
+    max-height: 75vh;
     display: flex;
     justify-content: flex-start;
-    padding: 10px 15px;
+    padding: 10px 0px;
 }
+
 .project-board__columns-list {
     display: flex;
     height: 100%;

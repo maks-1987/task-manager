@@ -45,7 +45,7 @@ export default function TaskProgressBar() {
   return (
     <div className="progress-block">
       <div className="done-task">
-        <span className="done-task_text"> Done:{doneTasks} </span>
+        <span className="done-task_text">Done: {doneTasks} </span>
       </div>
       <div ref={progressBar} className="progress-bar">
         <div
@@ -58,7 +58,7 @@ export default function TaskProgressBar() {
         ></div>
       </div>
       <div className="total-task">
-        <span className="total-task_text"> Total:{uncompleteTasks} </span>
+        <span className="total-task_text">Total: {uncompleteTasks} </span>
       </div>
     </div>
   );

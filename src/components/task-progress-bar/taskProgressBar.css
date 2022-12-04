@@ -4,20 +4,29 @@
   display:flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px auto;
+  margin: 10px auto;
 }
 .progress-bar {
   box-sizing: border-box;
   height: 5px;
-  width: 95%;
+  width: 85%;
   background-color:red;
   border-radius:5px;
-  margin: auto;
+  margin: 7px;
 }
 .progress-scale {
   height: 5px;
   background-color: green;
   border-radius: 5px;
   visibility: hidden;
+}
+
+.total-task,
+.done-task {
+  flex: 1 35%;
+}
+
+.done-task {
+  text-align: right;
 }
 

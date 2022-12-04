@@ -188,13 +188,14 @@ export default function SingleBoard() {
   };
 
   return (
-    <main className="project-board">
+    <main className="project-board container">
       <Link className="project-board__link" to={`/boards/${user.login}`}>
         <span>↩</span>To boards page
       </Link>
       {isLoading && <Spinner />}
       <h2 className="project-board__title">{userCurrentBoard.title}</h2>
       <TaskProgressBar />
+      <ButtonNewColumn />
       <DragDropContext onDragEnd={onDragEnd}>
         <article className="project-board__columns">
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
@@ -216,7 +217,7 @@ export default function SingleBoard() {
               </section>
             )}
           </Droppable>
-          <ButtonNewColumn />
+          {/*<ButtonNewColumn />*/}
         </article>
       </DragDropContext>
     </main>

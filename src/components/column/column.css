@@ -20,8 +20,7 @@
     border-radius: 6px;
     background-color: white;
     padding: 8px;
-    min-height: 70vh;
-    max-height: 74vh;
+    min-height: 65vh;
 }
 
 .column-item hr {
