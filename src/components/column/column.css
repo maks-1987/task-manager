@@ -88,3 +88,7 @@
 .column-item__add-task.dark {
   color: var(--color2);
 }
+
+.column-item__message.dark {
+  color: var(--color2);
+}

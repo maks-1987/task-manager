@@ -64,3 +64,7 @@
 .project-board__columns-list.dark::-webkit-scrollbar {
     background-color: var(--background-color1);
 }
+
+.fetch-erroe-message.dark {
+    color: var(--color2);
+}

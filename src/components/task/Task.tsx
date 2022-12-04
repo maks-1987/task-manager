@@ -79,6 +79,9 @@ export const Task = (props: IProp) => {
               className="upload-file-task"
               onClick={handleLoadFile}
               title={localeEN.tooltips.UPLOAD_FILE[languageIndex]}
+              disabled={localeEN.columnContet.DEFAULT_DONE_COLUMN.some(
+                (lang) => lang === props.column.title
+              )}
             ></button>
             <input
               type="file"

@@ -91,7 +91,7 @@ export const Column = (props: IProp) => {
                   <section className="task-list">
                     {isLoading && <Spinner />}
                     {tasks?.length === 0 ? (
-                      <span className="column-item__message">
+                      <span className={'column-item__message ' + themeIndex}>
                         {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
                           ? localeEN.columnContet.HAVE_NOT_TASK_DONE_MESSAGE[languageIndex]
                           : localeEN.columnContet.HAVE_NOT_TASK_MESSAGE[languageIndex]}

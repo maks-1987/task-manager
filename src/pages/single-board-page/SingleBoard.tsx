@@ -208,7 +208,9 @@ export default function SingleBoard() {
                   ref={provided.innerRef}
                 >
                   {Boolean(fetchColumnErrorMessage) && (
-                    <h2 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h2>
+                    <h2 className={'fetch-erroe-message ' + languageIndex}>
+                      {localeEN.errors.FETCH_ERRORS_MESSAGE}
+                    </h2>
                   )}
                   {!columnState?.length
                     ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
@@ -219,7 +221,6 @@ export default function SingleBoard() {
                 </section>
               )}
             </Droppable>
-            {/*<ButtonNewColumn />*/}
           </article>
         </DragDropContext>
       </div>
