@@ -19,7 +19,6 @@ export const Task = (props: IProp) => {
   const { id, order, title, description, files } = props.task;
   const fileBtn = useRef<HTMLInputElement | null>(null);
   const [fileCounter, setFileCounter] = useState<number | undefined>(0);
-
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     await handleFetch(event.currentTarget.files![0]);
   };
@@ -42,11 +41,13 @@ export const Task = (props: IProp) => {
       body: formData,
     });
 
-    if (response.ok) setFileCounter(() => fileCounter! + 1);
+    if (response.ok) {
+      setFileCounter(() => (fileCounter ? fileCounter + 1 : 1));
+    }
   };
 
   useEffect(() => {
-    setFileCounter(files?.length);
+    setFileCounter(files?.length !== undefined ? files.length : 0);
   }, [files?.length]);
 
   return (
@@ -79,7 +80,7 @@ export const Task = (props: IProp) => {
               className="vis-hidden"
               accept="image/*"
             />
-            <span className="task__counter-files">{files?.length && fileCounter}</span>
+            <span className="task__counter-files">{fileCounter}</span>
           </div>
         </div>
       )}
