@@ -57,6 +57,8 @@
   flex: 1;
   font-size: 18px;
   font-weight: 600;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .column-item__task-container {

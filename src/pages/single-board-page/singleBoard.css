@@ -39,6 +39,9 @@
     padding-bottom: 14px;
     text-align: center;
     letter-spacing: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .project-board__title.dark {

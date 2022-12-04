@@ -15,6 +15,12 @@
   margin: 7px;
 }
 
+@media screen and (max-width: 440px)  {
+  .progress-bar {
+    width: 36%;
+  }
+}
+
 .progress-bar.color {
   background-color: var(--background-color10);
 }
