@@ -40,7 +40,7 @@ export default function ColumnsAndTaskForm() {
     register,
     handleSubmit,
     reset,
-    formState: { isValid, errors, isSubmitSuccessful },
+    formState: { isValid, isSubmitSuccessful },
   } = useForm<IUserBoard>({
     mode: 'onBlur',
     defaultValues: {

@@ -3,7 +3,7 @@ import { Task } from '../task/Task';
 import './column.css';
 import { ButtonDeleteColumn } from '../../UI/column-buttons/ButtonDeleteColumn';
 import { ButtonNewTask } from '../../UI/column-buttons/ButtonNewTask';
-import { IColumn, IComleteColumn, IFetchQuery } from '../../types/types';
+import { IComleteColumn, IFetchQuery } from '../../types/types';
 import { localeEN } from '../../locales/localeEN';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {

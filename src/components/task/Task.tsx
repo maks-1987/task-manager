@@ -7,7 +7,6 @@ import './task.css';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../redux/hooks';
 import { Endpoints } from '../../endpoints/endpoints';
-import { UploadFileIcon } from '../../UI/column-buttons/svgButtons';
 
 interface IProp {
   task: ITask;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type InitState = {
+export type InitState = {
   isModalOpen: boolean;
   isRemoveBoard: boolean;
   isRemoveColumn: boolean;
