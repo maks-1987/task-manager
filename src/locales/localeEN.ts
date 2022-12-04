@@ -44,7 +44,7 @@ export const localeEN = {
     DEFAULT_DONE_COLUMN: ['Done', 'Виконано', 'Выканана', 'Выполнено'],
   },
   modalContetntMessage: {
-       REMOVE_BOARD_CONFIRM_MESSAGE: [
+    REMOVE_BOARD_CONFIRM_MESSAGE: [
       'If you want to delete the board, confirm the action',
       'Якщо ви хочете видалити дошку, підтвердьте дію',
       'Калі вы хочаце выдаліць дошку, пацвердзіце дзеянне',

@@ -101,7 +101,7 @@ export const languages = {
     'Старонка не знойдзена...',
     'Страница не найдена...',
   ],
-    compaireColumn: [
+  compaireColumn: [
     '*this name is reserved!',
     '*ця назва за резервована!',
     '*гэта назва за рэзервавана!',
