@@ -43,11 +43,13 @@
   background-color: transparent;
 }
 
-.nav__link.dark {
+.nav__link.dark,
+.sign-out-btn.dark {
   color: var(--color2);
 }
 
-.nav__link.color {
+.nav__link.color,
+.sign-out-btn.color {
   color: var(--color3);
 }
 
