@@ -1,10 +1,9 @@
 .boards-page__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 10px;
-  min-height: calc(100vh - 85px) ;
+  min-height: calc(100vh - 85px);
   padding: 20px 20px 45px;
   background-color: var(--background-color1);
 }
@@ -20,7 +19,7 @@
 .boards-page-items {
   display: flex;
   justify-content: space-between;
-  width: 81%;
+  width: 80%;
 }
 
 .boards-page__title {
@@ -42,8 +41,7 @@
 .boards-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 90%;
-  min-height: 300px;
+  gap: 5px;
+  width: 80%;
   overflow-y: auto;
 }
