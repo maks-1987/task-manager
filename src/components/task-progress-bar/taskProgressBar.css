@@ -14,6 +14,11 @@
   border-radius:5px;
   margin: 7px;
 }
+
+.progress-bar.color {
+  background-color: var(--background-color10);
+}
+
 .progress-scale {
   height: 5px;
   background-color: green;

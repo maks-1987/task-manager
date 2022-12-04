@@ -35,11 +35,9 @@
 .task__title {
   display: block;
   max-width: 100%;
-  line-height: 1em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-decoration: underline;
 }
 
 .task__description {

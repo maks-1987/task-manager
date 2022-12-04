@@ -1,4 +1,5 @@
-.project-board.dark::before {
+.project-board.dark::before,
+.project-board.color::before {
     content: '';
     position: fixed;
     top: 0;
@@ -7,6 +8,10 @@
     right: 0;
     z-index: -1;
     background-color: var(--background-color2);
+}
+
+.project-board.color::before {
+    background-color: var(--background-color6);
 }
 
 .project-board__link {

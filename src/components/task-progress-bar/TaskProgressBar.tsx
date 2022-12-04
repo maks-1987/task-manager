@@ -47,7 +47,7 @@ export default function TaskProgressBar() {
       <div className={'done-task ' + themeIndex}>
         <span className="done-task_text">Done: {doneTasks} </span>
       </div>
-      <div ref={progressBar} className="progress-bar">
+      <div ref={progressBar} className={'progress-bar ' + themeIndex}>
         <div
           ref={progressScale}
           className={'progress-scale ' + themeIndex}
