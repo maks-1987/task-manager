@@ -45,7 +45,9 @@ export default function TaskProgressBar() {
   return (
     <div className="progress-block">
       <div className={'done-task ' + themeIndex}>
-        <span className="done-task_text">Done: {doneTasks} </span>
+        <span className="done-task_text">
+          {`${localeEN.columnContet.PROGRES_DONE[languageIndex]}: ${doneTasks}`}
+        </span>
       </div>
       <div ref={progressBar} className={'progress-bar ' + themeIndex}>
         <div
@@ -58,7 +60,7 @@ export default function TaskProgressBar() {
         ></div>
       </div>
       <div className={'total-task ' + themeIndex}>
-        <span className="total-task_text">Total: {uncompleteTasks} </span>
+        <span className="total-task_text">{`${localeEN.columnContet.PROGRES_TOTAL[languageIndex]}: ${uncompleteTasks}`}</span>
       </div>
     </div>
   );

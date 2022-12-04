@@ -42,6 +42,9 @@ export const localeEN = {
       'Hет выполненых задач!',
     ],
     DEFAULT_DONE_COLUMN: ['Done', 'Виконано', 'Выканана', 'Выполнено'],
+    ADD_NEW_COLUMN: ['New Column', 'Нова колонка', 'Новы слупок', 'Новая колонка'],
+    PROGRES_DONE: ['Done', 'Зроблено', 'Зроблена', 'Выполнено'],
+    PROGRES_TOTAL: ['Total', 'Всього', 'Усяго', 'Всего'],
   },
   modalContetntMessage: {
     REMOVE_BOARD_CONFIRM_MESSAGE: [
@@ -92,6 +95,7 @@ export const localeEN = {
     DELETE_TASK: ['delete task', 'видалити справу', 'выдаліць задачу', 'удалить задачу'],
     DELETE_COLUMN: ['delete column', 'видалити стовпець', 'выдаліць', 'удалить колонку'],
     ADD_TASK: ['add task', 'додати справу', 'дадаць задачу', 'добавить задачу'],
+    UPLOAD_FILE: ['upload file', 'завантвжити файл', 'загрузіць файл', 'загрузить файл'],
   },
   placeholderText: {
     TASK_DESCRIPTION: ['Description', 'Опис', 'Апісанне', 'Описание'],

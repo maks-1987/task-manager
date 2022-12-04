@@ -7,6 +7,7 @@ import './task.css';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../redux/hooks';
 import { Endpoints } from '../../endpoints/endpoints';
+import { localeEN } from '../../locales/localeEN';
 
 interface IProp {
   task: ITask;
@@ -19,6 +20,8 @@ export const Task = (props: IProp) => {
   const { id, order, title, description, files } = props.task;
   const fileBtn = useRef<HTMLInputElement | null>(null);
   const [fileCounter, setFileCounter] = useState<number | undefined>(0);
+  const { languageIndex } = useAppSelector((state) => state.settingsSlice);
+
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     await handleFetch(event.currentTarget.files![0]);
   };
@@ -72,7 +75,11 @@ export const Task = (props: IProp) => {
             <ButtonEditTask id={id} column={props.column} />
             <ButtonDeleteTask id={id} column={props.column} />
 
-            <button className="upload-file-task" onClick={handleLoadFile}></button>
+            <button
+              className="upload-file-task"
+              onClick={handleLoadFile}
+              title={localeEN.tooltips.UPLOAD_FILE[languageIndex]}
+            ></button>
             <input
               type="file"
               onChange={handleFile}
