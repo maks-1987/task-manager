@@ -16,6 +16,9 @@
   --background-color4: #f8f8f8;
   --background-color5: #2c2c2c;
   --background-color6: #89b8a5;
+  --background-color7: #696969;
+  --background-color8: #e0d2d2;
+  --background-color9: #b895ff;
 
   --border1: 1px solid #e1e1e1;
   --border2: 1px solid #fefefe;
@@ -51,4 +54,6 @@ code {
 .container {
   padding-left: 15px;
   padding-right: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
 }

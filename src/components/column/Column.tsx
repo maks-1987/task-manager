@@ -24,7 +24,7 @@ export const Column = (props: IProp) => {
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
   const token = useAppSelector((state) => state.userSlice.token);
-  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
+  const { languageIndex, themeIndex } = useAppSelector((state) => state.settingsSlice);
 
   const changeColumnTitleHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const dataForFetch: IFetchQuery = {
@@ -56,14 +56,14 @@ export const Column = (props: IProp) => {
       <Draggable draggableId={id} index={props.index}>
         {(provided) => (
           <div
-            className="column-item"
+            className={'column-item ' + themeIndex}
             id={id}
             style={{ order: `${order}` }}
             {...provided.draggableProps}
             ref={provided.innerRef}
           >
             <hr {...provided.dragHandleProps} />
-            <div className="column-item__control">
+            <div className={'column-item__control ' + themeIndex}>
               {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title) ? (
                 <h3 className="column-item__title">{title}</h3>
               ) : (
@@ -84,7 +84,7 @@ export const Column = (props: IProp) => {
             <Droppable droppableId={id} type="task">
               {(provided) => (
                 <div
-                  className="column-item__task-container"
+                  className={'column-item__task-container ' + themeIndex}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
@@ -110,7 +110,7 @@ export const Column = (props: IProp) => {
               className={
                 localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
                   ? 'column-item__add-task_disabled'
-                  : 'column-item__add-task'
+                  : 'column-item__add-task ' + themeIndex
               }
             >
               <ButtonNewTask column={props.column} />

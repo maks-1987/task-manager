@@ -21,9 +21,18 @@
   visibility: hidden;
 }
 
+.progress-scale.dark {
+  background-color: var(--background-color6);
+}
+
 .total-task,
 .done-task {
   flex: 1 35%;
+}
+
+.total-task.dark,
+.done-task.dark {
+  color: var(--color2)
 }
 
 .done-task {
