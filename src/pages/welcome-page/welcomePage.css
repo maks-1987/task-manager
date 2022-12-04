@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: calc(100vh - 25px);
   padding: 70px 20px 45px;
   background-color: var(--background-color1);
 }

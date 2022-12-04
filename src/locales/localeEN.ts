@@ -85,7 +85,7 @@ export const localeEN = {
   tooltips: {
     CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
     CHOICE_THEME: ['Select theme', 'Оберіть тему', 'Выбраць тэму', 'Выбрать тему'],
-    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выберыце мову', 'Выберите язык'],
+    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выбраць мову', 'Выбрать язык'],
     CONFIRM_MESSAGE: ['Confirm', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
     MARK_AS_DONE: ['done', 'виконано', 'зроблена', 'выполнено'],
     CHANGE_TASK: ['change', 'змінити', 'змяніць', 'изменить'],

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import MediaQuery from 'react-responsive';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { setSpinnerStatus } from '../../redux/user-slice/userSlice';
@@ -7,6 +8,7 @@ import { languages } from '../../locales/languages';
 import { localeEN } from '../../locales/localeEN';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
+import BurgerMenu from '../burger-menu/BurgerMenu';
 import './Header.css';
 
 function Header(): JSX.Element {
@@ -24,7 +26,7 @@ function Header(): JSX.Element {
 
   const isSticky = () => {
     const scrollTop = window.scrollY;
-    scrollTop >= 100 && headerRef.current?.classList.add('is-sticky');
+    scrollTop >= 60 && headerRef.current?.classList.add('is-sticky');
     scrollTop <= 60 && headerRef.current?.classList.remove('is-sticky');
   };
 
@@ -43,31 +45,38 @@ function Header(): JSX.Element {
         <ThemeSelector />
         <LanguageSelector />
       </div>
-      <nav className="nav">
-        <Link className={'nav__link ' + state.themeIndex} to="/">
-          {languages.startPage[state.languageIndex]}
-        </Link>
 
-        <button
-          className={'nav__link ' + state.themeIndex}
-          onClick={addBoardButtonHandler}
-          title={localeEN.tooltips.CREATE_NEW_BOARD[state.languageIndex]}
-        >
-          {languages.createBoard[state.languageIndex]}
-        </button>
+      <MediaQuery minWidth={641}>
+        <nav className="nav">
+          <Link className={'nav__link ' + state.themeIndex} to="/">
+            {languages.startPage[state.languageIndex]}
+          </Link>
 
-        <Link className={'nav__link ' + state.themeIndex} to="profile">
-          {languages.editProfile[state.languageIndex]}
-        </Link>
+          <button
+            className={'nav__link ' + state.themeIndex}
+            onClick={addBoardButtonHandler}
+            title={localeEN.tooltips.CREATE_NEW_BOARD[state.languageIndex]}
+          >
+            {languages.createBoard[state.languageIndex]}
+          </button>
 
-        <Link
-          className={'sign-out-btn ' + state.themeIndex}
-          to="/logout"
-          onClick={() => dispatch(setSpinnerStatus(true))}
-        >
-          {languages.signOut[state.languageIndex]}
-        </Link>
-      </nav>
+          <Link className={'nav__link ' + state.themeIndex} to="profile">
+            {languages.editProfile[state.languageIndex]}
+          </Link>
+
+          <Link
+            className={'nav__link ' + state.themeIndex}
+            to="/logout"
+            onClick={() => dispatch(setSpinnerStatus(true))}
+          >
+            {languages.signOut[state.languageIndex]}
+          </Link>
+        </nav>
+      </MediaQuery>
+
+      <MediaQuery maxWidth={640}>
+        <BurgerMenu />
+      </MediaQuery>
     </header>
   );
 }

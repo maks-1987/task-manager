@@ -17,6 +17,14 @@
   border: var(--border1);
 }
 
+.select.dark:hover {
+  border: var(--border2);
+}
+
+.select.color:hover {
+  border: var(--border3);
+}
+
 .option:hover {
   background-color: var(--background-color1);
 }

@@ -27,8 +27,7 @@
   padding: 0 20px;
 }
 
-.nav__link,
-.sign-out-btn {
+.nav__link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,19 +42,24 @@
   background-color: transparent;
 }
 
-.nav__link.dark,
-.sign-out-btn.dark {
+.nav__link.dark {
   color: var(--color2);
 }
 
-.nav__link.color,
-.sign-out-btn.color {
+.nav__link.color {
   color: var(--color3);
 }
 
-.nav__link:hover,
-.sign-out-btn:hover {
+.nav__link:hover {
   border: var(--border1);
+}
+
+.nav__link.dark:hover {
+  border: var(--border2);
+}
+
+.nav__link.color:hover {
+  border: var(--border3);
 }
 
 .header.is-sticky,
@@ -63,17 +67,17 @@
 .color.header.is-sticky {
   position: sticky;
   top: 0;
-  height: 40px;
+  height: 45px;
 }
 
 .header.is-sticky {
   background-color: var(--background-color4);
 }
 
-.dark.header.is-sticky  {
+.dark.header.is-sticky {
   background-color: var(--background-color5);
 }
 
-.color.header.is-sticky  {
+.color.header.is-sticky {
   background-color: var(--background-color6);
 }

@@ -44,7 +44,7 @@ export const EditProfilePage = () => {
 
   return (
     <>
-      <div className={'register-container ' + state.themeIndex}>
+      <div className={'edit-container ' + state.themeIndex}>
         {spinnerStatus && <Spinner />}
         <div className="blur-background">
           <div className="welcome-page-link-container">
@@ -75,7 +75,7 @@ export const EditProfilePage = () => {
             {languages.editProfile[state.languageIndex]}
           </p>
           <div className={'sign-up-form__item username ' + state.themeIndex}>
-            <label htmlFor="name">{languages.name[state.languageIndex]}</label>
+            <label htmlFor="name">{languages.newName[state.languageIndex]}</label>
             <input
               className={'sign-up-form__input ' + state.themeIndex}
               type="text"
@@ -96,30 +96,9 @@ export const EditProfilePage = () => {
               )}
             </p>
           </div>
-          <div className={'sign-up-form__item login ' + state.themeIndex}>
-            <label htmlFor="login">{languages.login[state.languageIndex]}</label>
-            <input
-              className={'sign-up-form__input ' + state.themeIndex}
-              type="text"
-              id="login"
-              {...register('login', {
-                required: `${languages.requiredFieldNote[state.languageIndex]}`,
-                maxLength: 20,
-                minLength: 3,
-              })}
-            />
-            <p className="form-messages">
-              {errors.login?.type === 'required' && <span>{errors.login.message}</span>}
-              {errors.login?.type === 'minLength' && (
-                <span>{languages.formWarnMin[state.languageIndex]}</span>
-              )}
-              {errors.login?.type === 'maxLength' && (
-                <span>{languages.formWarnMax[state.languageIndex]}</span>
-              )}
-            </p>
-          </div>
+
           <div className={'sign-up-form__item password ' + state.themeIndex}>
-            <label htmlFor="password">{languages.password[state.languageIndex]}</label>
+            <label htmlFor="password">{languages.newPassword[state.languageIndex]}</label>
             <input
               className={'sign-up-form__input ' + state.themeIndex}
               type="password"

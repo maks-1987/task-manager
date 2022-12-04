@@ -13,7 +13,7 @@ export const sxSelect = {
   },
 
   width: 40,
-  height: 25,
+  height: 40,
   fontWeight: 500,
   borderRadius: 1,
 };

@@ -65,6 +65,8 @@ export const languages = {
   name: ['Name', 'Ім`я', 'Iмя', 'Имя'],
   login: ['Login', 'Логін', 'Логiн', 'Логин'],
   password: ['Password', 'Пароль', 'Пароль', 'Пароль'],
+  newName: ['New name', 'Нове iм`я', 'Новае iмя', 'Новое имя'],
+  newPassword: ['New password', 'Новий пароль', 'Новы пароль', 'Новый пароль'],
   submit: ['Submit', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
   formWarnMin: [
     '*only letters and numbers & min 3 chars',
