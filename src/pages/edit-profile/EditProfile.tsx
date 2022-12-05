@@ -22,9 +22,7 @@ export const EditProfilePage = () => {
 
   const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
-  const { error, user, spinnerStatus, token } = useAppSelector(
-    (state) => state.userSlice
-  );
+  const { error, user, spinnerStatus, token } = useAppSelector((state) => state.userSlice);
 
   const jwt_decode: JwtDecode = jwtDecode(token);
   const [successVisible, setSuccessVisible] = useState<string>('');
