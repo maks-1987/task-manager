@@ -26,8 +26,8 @@ function Header(): JSX.Element {
 
   const isSticky = () => {
     const scrollTop = window.scrollY;
-    scrollTop >= 60 && headerRef.current?.classList.add('is-sticky');
-    scrollTop <= 60 && headerRef.current?.classList.remove('is-sticky');
+    scrollTop >= 0 && headerRef.current?.classList.add('is-sticky');
+    scrollTop <= 0 && headerRef.current?.classList.remove('is-sticky');
   };
 
   useEffect(() => {

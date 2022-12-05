@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { languages } from '../../locales/languages';
 import { localeEN } from '../../locales/localeEN';
 import { useAppSelector } from '../../redux/hooks';
 import './buttonSuccess.css';
@@ -7,7 +8,7 @@ interface IProp {
   isValid?: boolean;
   isCompare?: boolean;
 }
-export default function ButtonSuccess(props: IProp) {
+export default function ccess(props: IProp) {
   const { isValid, isCompare } = props;
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
@@ -33,6 +34,7 @@ export default function ButtonSuccess(props: IProp) {
         onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => showToolTip(e)}
         onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => hideToolTip(e)}
       >
+        {languages.submit[state.languageIndex]}
         <div className="add-board-button_tooltip">{toolTip}</div>
         <svg className={'add-board-button-svg ' + state.themeIndex} viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none" />

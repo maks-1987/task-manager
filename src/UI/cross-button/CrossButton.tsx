@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector } from '../../redux/hooks';
 import './crossButton.css';
 
 interface IProp {
@@ -7,6 +8,8 @@ interface IProp {
 }
 export default function CrossButton(props: IProp) {
   const { id, goToModalWindow } = props;
+  const state = useAppSelector((store) => store.settingsSlice);
+
   return (
     <>
       <button
@@ -15,7 +18,7 @@ export default function CrossButton(props: IProp) {
         className="boarder-previwe-item__remove-button"
       >
         <svg
-          className="remove-button__cross"
+          className={'remove-button__cross ' + state.themeIndex}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 50 50"
           enableBackground="new 0 0 50 50"

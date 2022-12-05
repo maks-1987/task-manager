@@ -33,12 +33,11 @@
   align-items: center;
   gap: 25px;
   width: 70%;
-  min-height: 45%;
+  height: 35%;
   margin: auto;
   padding: 30px 20px;
   background-color: var(--background-color4);
   border-radius: 8px;
-  box-shadow: -1px 1px 1px #8f8f8f;
 }
 
 .modal__content.dark {

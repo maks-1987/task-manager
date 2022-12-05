@@ -41,8 +41,9 @@
 .boards-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   width: 80%;
+  margin-top: 10px;
   overflow-y: auto;
 }
 

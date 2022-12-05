@@ -56,8 +56,14 @@ export const boardsSlice = createSlice({
       .addCase(fetchAddNewUserBoard.fulfilled, (state, action) => {
         state.userBoards.push(action.payload);
       })
+      .addCase(fetchRemoveUserBoard.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchRemoveUserBoard.fulfilled, (state, action) => {
         state.userBoards = state.userBoards.filter((board) => board.id !== action.payload.boardId);
+        state.isLoading = false;
+        state.errorMessage = '';
       })
       .addCase(fetchChangeUserBoard.fulfilled, (state, action) => {
         state.userBoards = state.userBoards.map((board) => {
