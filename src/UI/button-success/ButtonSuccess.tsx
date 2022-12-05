@@ -28,8 +28,8 @@ export default function ButtonSuccess(props: IProp) {
   return (
     <>
       <button
+        className={'add-board-button ' + state.themeIndex}
         disabled={!isValid || isCompare}
-        className="add-board-button"
         onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => showToolTip(e)}
         onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => hideToolTip(e)}
       >
