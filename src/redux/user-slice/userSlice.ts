@@ -1,7 +1,6 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IFetchQuery, IUser, IUserForm } from '../../types/types';
 import { Endpoints } from '../../endpoints/endpoints';
-import { stat } from 'fs';
 
 interface IUserState {
   user: IUser;
@@ -213,7 +212,6 @@ export const userSlice = createSlice({
         state.user.name = '';
         state.user.login = '';
         state.password = '';
-        // state.token = '';
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload !== undefined ? action.payload : '';

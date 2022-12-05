@@ -47,7 +47,7 @@ export const GlobalModal = (props: Props) => {
     : isRemoveTask
     ? localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE[languageIndex]
     : isDeleteUser
-    ? 'Delete user'
+    ? localeEN.modalContetntMessage.DELETE_USER_CONFIRM_MESSAGE[languageIndex]
     : localeEN.modalContetntMessage.EDIT_TASK_MESSAGE[languageIndex];
 
   const state = useAppSelector((store) => store.settingsSlice);

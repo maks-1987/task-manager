@@ -56,7 +56,6 @@ export const EditProfilePage = () => {
   const handleDeleteUser = () => {
     dispatch(modalSlice.actions.setModalOpen(true));
     dispatch(modalSlice.actions.setDeleteUser(true));
-    // dispatch(fetchDeleteUser({ userId: jwt_decode.userId, token }));
   };
 
   return (

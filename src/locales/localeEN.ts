@@ -82,6 +82,12 @@ export const localeEN = {
       'Создать новую задачу',
     ],
     EDIT_TASK_MESSAGE: ['Edit task', 'Створити завдання', 'Стварыце задачу', 'Создать задачу'],
+    DELETE_USER_CONFIRM_MESSAGE: [
+      'Delete user',
+      'Видалити користувача',
+      'Выдаліць карыстальніка',
+      'Удалить пользователя',
+    ],
   },
   tooltips: {
     CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
