@@ -72,7 +72,9 @@ export const Column = (props: IProp) => {
                   className="column-item__title"
                   type="text"
                   defaultValue={title}
-                  placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
+                  placeholder={
+                    localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE[languageIndex]
+                  }
                   onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     changeColumnTitleHandler(e)
                   }

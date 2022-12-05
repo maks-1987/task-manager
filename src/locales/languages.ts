@@ -119,6 +119,18 @@ export const languages = {
     '*это название зарезервировано!',
   ],
   Boards: ['Boards', 'Дошки', 'Дошкi', 'Доски'],
+  boardsPageNoBoardsMessage: [
+    "You don't have any boards!",
+    'У вас немає жодної дошки!',
+    'У вас няма ніводнай дошкі!',
+    'У вас нет ни одной доски!',
+  ],
+  columnInputToolTip: [
+    'Сannot be empty!',
+    'Не може бути порожнім!',
+    'Не можа быць пустым!',
+    'Не может быть пустым!',
+  ],
   errorBoards: [
     'Something went wrong! Try reloading the page.',
     'Щось пішло не так! Спробуйте перезавантажити сторінку.',
