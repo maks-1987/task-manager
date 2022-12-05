@@ -31,6 +31,7 @@ interface IColumnsSlice {
   userCurrentBoardListForTaskProgressBar: IBoard[];
   userDoneColumnListByBoardId: IDoneColumnByBoardId[];
   isLoading: boolean;
+  isTaskLoading: boolean;
   errorMessage: string;
   currentColumnId: string;
   removedColumnId: string;
@@ -52,6 +53,7 @@ const initialState: IColumnsSlice = {
   userCurrentBoardListForTaskProgressBar: [],
   userDoneColumnListByBoardId: [],
   isLoading: true,
+  isTaskLoading: true,
   errorMessage: '',
   currentColumnId: '',
   removedColumnId: '',
@@ -299,10 +301,17 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
-
+      .addCase(fetchAddNewUserColumns.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchAddNewUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCurrentBoard.columns.push(action.payload);
+        state.errorMessage = '';
+      })
+      .addCase(fetchRemoveUserColumn.pending, (state) => {
+        state.isLoading = true;
         state.errorMessage = '';
       })
       .addCase(fetchRemoveUserColumn.fulfilled, (state, action) => {
@@ -353,9 +362,12 @@ export const columnsSlice = createSlice({
 
         state.errorMessage = '';
       })
-
+      .addCase(fetchAddNewUserTasks.pending, (state) => {
+        state.isTaskLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchAddNewUserTasks.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isTaskLoading = false;
         state.userCurrentBoard.columns.forEach((column) => {
           column.id === action.payload.columnId && column.tasks?.push(action.payload);
         });
@@ -376,6 +388,10 @@ export const columnsSlice = createSlice({
                 : board.columns,
           };
         });
+      })
+      .addCase(fetchRemoveUserTask.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
       })
       .addCase(fetchRemoveUserTask.fulfilled, (state, action) => {
         state.isLoading = false;

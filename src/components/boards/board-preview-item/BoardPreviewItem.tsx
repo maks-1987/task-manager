@@ -142,10 +142,10 @@ export default function BoardPreviewItem(props: IProp) {
             className="boarder-previwe-item__title"
             {...register('title', {
               onBlur: (e: React.FocusEvent<HTMLInputElement>) => onBlurValidation(e),
-              required: localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE,
+              required: localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE[languageIndex],
               minLength: {
                 value: 5,
-                message: localeEN.boardsContet.MIN_LENGTH_WARN_MESSAGE,
+                message: localeEN.boardsContet.MIN_LENGTH_WARN_MESSAGE[languageIndex],
               },
             })}
             onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
@@ -159,10 +159,10 @@ export default function BoardPreviewItem(props: IProp) {
             className="boarder-previwe-item__description"
             {...register('description', {
               onBlur: (e: React.FocusEvent<HTMLInputElement>) => onBlurValidation(e),
-              required: localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE,
+              required: localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE[languageIndex],
               minLength: {
                 value: 5,
-                message: localeEN.boardsContet.MIN_LENGTH_WARN_MESSAGE,
+                message: localeEN.boardsContet.MIN_LENGTH_WARN_MESSAGE[languageIndex],
               },
             })}
             onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}

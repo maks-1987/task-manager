@@ -222,7 +222,7 @@ export default function SingleBoard() {
                     </h2>
                   )}
                   {!columnState?.length
-                    ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
+                    ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE[languageIndex]
                     : userCurrentBoard.columns.map((column, index) => (
                         <Column key={column.id} column={column} index={index} />
                       ))}
