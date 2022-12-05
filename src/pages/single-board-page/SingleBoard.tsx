@@ -26,6 +26,7 @@ import { languages } from '../../locales/languages';
 import './singleBoard.css';
 
 export default function SingleBoard() {
+  const state = useAppSelector((store) => store.settingsSlice);
   const { themeIndex, languageIndex } = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
