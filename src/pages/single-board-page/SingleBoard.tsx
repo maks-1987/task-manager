@@ -27,6 +27,7 @@ import './singleBoard.css';
 
 export default function SingleBoard() {
   const state = useAppSelector((store) => store.settingsSlice);
+  const { themeIndex, languageIndex } = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const token = useAppSelector((state) => state.userSlice.token);
@@ -37,7 +38,6 @@ export default function SingleBoard() {
   const { user } = useAppSelector((state) => state.userSlice);
   const jwt_decode: JwtDecode = jwtDecode(token);
   const userId = jwt_decode.userId;
-  const { themeIndex, languageIndex } = useAppSelector((store) => store.settingsSlice);
 
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
