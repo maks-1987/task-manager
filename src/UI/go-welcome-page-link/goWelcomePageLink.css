@@ -24,27 +24,3 @@
 .welcome-link:hover {
   text-decoration: underline;
 }
-
-.to-welcome-page-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 35px;
-  font-weight: bolder;
-  color: var(--color1);
-  text-decoration: none;
-}
-
-.to-welcome-page-btn.dark {
-  color: var(--color2);
-}
-
-.to-welcome-page-btn.color {
-  color: var(--color3);
-}
-
-.to-welcome-page-btn:hover {
-  border: var(--border1);
-  border-radius: 5px;
-}

@@ -6,7 +6,7 @@ import './Spinner.css';
 function Spinner(): JSX.Element {
   const state = useAppSelector((store) => store.settingsSlice);
   const spinnerThemeColors = {
-    light: '#e1e1e1',
+    light: '#c0c0c0',
     dark: '#e1e1e1',
     color: '#ebefd0',
   };

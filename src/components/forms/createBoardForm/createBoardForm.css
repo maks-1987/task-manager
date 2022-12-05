@@ -1,19 +1,19 @@
-.create-board-form{
+.board-form{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 450px;
-  min-width: 300px;
-  height: 40px;
+  gap: 15px;
+  width: 85%;
 }
-.create-board-form__title-input,
-.create-board-form__description-input {
-  width: 40%;
-  min-width: 100px;
-  height: 100%;
+
+.board-form__title-input,
+.board-form__description-input {
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+  font-size: 22px;
   border: none;
-  border-bottom: 1px solid rgba(39, 34, 34, 0.473); 
-  margin: auto 10px auto 10px ;
-  font-size: 1em;
+  border-radius: 3px;
 }
 

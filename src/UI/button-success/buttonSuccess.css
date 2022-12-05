@@ -1,4 +1,4 @@
-.create-board-form__add-board-button {
+.add-board-button {
   position: relative;
   display: flex;
   justify-content: center;
@@ -9,50 +9,63 @@
   border: none;
   z-index: 1000;
 }
-.create-board-form__add-board-button:disabled {
-  border: 1px solid rgba(39, 34, 34, 0.473);
+
+.add-board-button:disabled {
+  border: 1px solid #27222279;
   font-weight: 200;
   border: none;
 }
-.create-board-form__add-board-button:disabled:hover {
+
+.add-board-button:disabled:hover {
   cursor: not-allowed;
   font-weight: 200;
   border: none;
 }
-.create-board-form__add-board-button:hover {
-  border: 1px solid rgba(73, 173, 73, 0.411);
+
+.add-board-button:hover {
+  border: 1px solid #49ad4969;
   border-radius: 5px;
   cursor: pointer;
 }
-.add-board-button__yes{
+
+.add-board-button-svg {
   position: absolute;
   top: -2.5px;
   left: 0;
   right: 0;
   display: block;
-  fill: rgba(73, 173, 73, 0.411);
+  fill: #49ad4969;
 }
-.create-board-form__add-board-button:hover .add-board-button__yes{
+
+.add-board-button:hover .add-board-button-svg {
   font-weight: 600;
 }
-.create-board-form__add-board-button:disabled .add-board-button__yes {
-  fill: rgba(39, 34, 34, 0.473);
-  }
-.create-board-form__add-board-button:disabled:hover .add-board-button__yes{
-  fill: rgba(39, 34, 34, 0.473);
+
+.add-board-button:disabled .add-board-button-svg {
+  fill: var(--color1);
 }
-.create-board-form__add-board-button:disabled:hover .create-board-form__add-board-button_tooltip{
-  display: inline-block;
+
+.add-board-button:disabled .add-board-button-svg.dark {
+  fill: var(--color2);
+}
+
+.add-board-button:disabled .add-board-button-svg.color {
+  fill: var(--color3);
+}
+
+.add-board-button:disabled:hover .add-board-button_tooltip {
   position: absolute;
   top: -30px;
   left: -35px;
+  display: inline-block;
   width: 100px;
   line-height: 15px;
   color: #ff7878;
   font-size: 0.75em;
   font-weight: 600;
 }
-.create-board-form__add-board-button_tooltip {
+
+.add-board-button_tooltip {
   display: none;
   border-bottom: none;
 }

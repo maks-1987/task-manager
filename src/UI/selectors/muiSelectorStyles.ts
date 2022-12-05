@@ -12,8 +12,8 @@ export const sxSelect = {
     right: 0,
   },
 
-  width: 60,
-  height: 35,
+  width: 40,
+  height: 40,
   fontWeight: 500,
   borderRadius: 1,
 };
@@ -53,4 +53,7 @@ export const sxMenuItem = {
   height: 40,
   padding: 0,
   fontWeight: 500,
+  '&:focus': {
+    backgroundColor: 'transparent',
+  },
 };

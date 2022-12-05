@@ -15,6 +15,15 @@
 
 .select:hover {
   border: var(--border1);
+  box-shadow: -1px 1px #e1e1e1;
+}
+
+.select.dark:hover {
+  border: var(--border2);
+}
+
+.select.color:hover {
+  border: var(--border3);
 }
 
 .option:hover {

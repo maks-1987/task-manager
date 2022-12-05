@@ -22,9 +22,11 @@ import {
 } from '../../redux/columns-slice/tasksFetchRequest';
 import jwtDecode from 'jwt-decode';
 import Spinner from '../../UI/spinner/Spinner';
+import { languages } from '../../locales/languages';
 import './singleBoard.css';
 
 export default function SingleBoard() {
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
   const token = useAppSelector((state) => state.userSlice.token);

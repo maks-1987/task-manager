@@ -1,31 +1,31 @@
 import React from 'react';
 import { localeEN } from '../../locales/localeEN';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
+import { languages } from '../../locales/languages';
 import './addBoardButton.css';
 
 export default function AddBoardButton() {
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const addBoardButtonHandler = () => {
     dispatch(setModalOpen(true));
     dispatch(setIsCreateBoard(true));
   };
   return (
-    <div className="add-board-button-container">
-      <span className="add-board-button-label">
-        {localeEN.boardsContet.ADD_NEW_BOARD_BUTTON_LABEL}
-      </span>
-      <button className="add-board-button" onClick={addBoardButtonHandler}>
-        <svg
-          className="add-board-button-cross"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 50 50"
-          enableBackground="new 0 0 50 50"
-        >
-          <path d="M37.304 11.282l1.414 1.414-26.022 26.02-1.414-1.413z" />
-          <path d="M12.696 11.282l26.022 26.02-1.414 1.415-26.022-26.02z" />
+    <div
+      className={'add-board-button-container ' + state.themeIndex}
+      onClick={addBoardButtonHandler}
+    >
+      <div className={'add-board-button-label ' + state.themeIndex}>
+        {languages.createBoard[state.languageIndex]}
+      </div>
+      <div>
+        <svg className={'add-board-svg ' + state.themeIndex} viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
         </svg>
-      </button>
+      </div>
     </div>
   );
 }

@@ -1,29 +1,65 @@
 .add-board-button-container {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  width: 90%;
-  min-width: 300px;
+  gap: 10px;
   height: 40px;
-  padding: 0px 5px;
+  padding: 0 5px;
+  border: var(--border1);
+  border-radius: 3px;
 }
-.add-board-button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: transparent;
-  border: none;
-  z-index: 10;
+
+.add-board-button-container.dark {
+  border: var(--border2);
 }
+
+.add-board-button-container.color {
+  border: var(--border3);
+}
+
+.add-board-button-container:hover {
+  cursor: pointer;
+  box-shadow: -1px 1px #e1e1e1;
+  background-color: var(--background-color4);
+}
+
+.add-board-button-container.dark:hover {
+  background-color: var(--background-color5);
+}
+
+.add-board-button-container.color:hover {
+  background-color: var(--background-color6);
+}
+
 .add-board-button-label {
-  width: 100px;
-  font-size: 1.2em;
-  line-height: 1.2em;
-  margin-right: 15px;
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color1);
 }
+
+.add-board-button-label.dark {
+  color: var(--color2);
+}
+
+.add-board-button-label.color {
+  color: var(--color3);
+}
+
+.add-board-svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--color1);
+}
+
+.add-board-svg.dark {
+  fill: var(--color2);
+}
+
+.add-board-svg.color {
+  fill: var(--color3);
+}
+
 .add-board-button-cross {
   transform: rotate(45deg);
   fill: rgba(39, 34, 34, 0.473);

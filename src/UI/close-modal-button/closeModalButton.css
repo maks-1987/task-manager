@@ -7,24 +7,39 @@
   align-items: center;
   width: 40px;
   height: 40px;
+  padding: 0px;
   border: none;
   background-color: transparent;
-  padding: 0px;
 }
-.close-modal-button__cross {
-  fill: rgba(39, 34, 34, 0.473);
-}
+
 .close-modal-button:hover {
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid rgba(184, 67, 67, 0.473);
 }
+
+.close-modal-button:hover .close-modal-button-svg {
+  fill: rgba(184, 67, 67, 0.473);
+}
+
 .close-modal-button:active {
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid rgba(184, 67, 67, 0.473);
   transform: scale(0.95);
 }
-.close-modal-button:hover .close-modal-button__cross{
-  fill: rgba(184, 67, 67, 0.473);
+
+.close-modal-button-svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--color1);
 }
+
+.close-modal-button-svg.dark {
+  fill: var(--color2);
+}
+
+.close-modal-button-svg.color {
+  fill: var(--color3);
+}
+

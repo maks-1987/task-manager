@@ -75,8 +75,8 @@ export const LoginPage = () => {
           <GoWelcomePageLink />
         </div>
         <div className="selectors-container">
-          <LanguageSelector />
           <ThemeSelector />
+          <LanguageSelector />
         </div>
       </div>
 
