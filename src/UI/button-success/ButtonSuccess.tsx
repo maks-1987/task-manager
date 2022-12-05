@@ -8,7 +8,7 @@ interface IProp {
   isValid?: boolean;
   isCompare?: boolean;
 }
-export default function ccess(props: IProp) {
+export default function ButtonSuccess(props: IProp) {
   const { isValid, isCompare } = props;
   const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
   const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
