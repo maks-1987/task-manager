@@ -32,6 +32,7 @@ export const TaskFiles = () => {
 
   useEffect(() => {
     getFiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

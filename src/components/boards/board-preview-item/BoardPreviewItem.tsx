@@ -15,7 +15,6 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
 import CrossButton from '../../../UI/cross-button/CrossButton';
-import { languages } from '../../../locales/languages';
 import TaskProgressBar from '../../task-progress-bar/TaskProgressBar';
 import './boardPreviewItem.css';
 
@@ -108,6 +107,7 @@ export default function BoardPreviewItem(props: IProp) {
     };
     dispatch(fetchGetAllUserColumns(dataForFetch));
     setTimeout(() => dispatch(setResetCurrentBoardData()), 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   useEffect(() => {
     const dataForFetch: IFetchQuery = {
