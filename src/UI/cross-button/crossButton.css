@@ -8,9 +8,19 @@
   background-color: transparent;
   padding: 0px;
 }
+
 .remove-button__cross {
-  fill: rgba(39, 34, 34, 0.473);
+  fill: var(--color1);
 }
+
+.remove-button__cross.dark {
+  fill: var(--color2);
+}
+
+.remove-button__cross.color {
+  fill: var(--color3);
+}
+
 .boarder-previwe-item__remove-button:hover {
   cursor: pointer;
   border-radius: 5px;

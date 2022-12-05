@@ -66,6 +66,10 @@ export const boardsSlice = createSlice({
         state.isLoading = true;
         state.errorMessage = '';
       })
+      .addCase(fetchRemoveUserBoard.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchRemoveUserBoard.fulfilled, (state, action) => {
         state.userBoards = state.userBoards.filter((board) => board.id !== action.payload.boardId);
         state.isLoading = false;

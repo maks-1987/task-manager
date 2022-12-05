@@ -26,6 +26,7 @@ import { languages } from '../../locales/languages';
 import './singleBoard.css';
 
 export default function SingleBoard() {
+  const state = useAppSelector((store) => store.settingsSlice);
   const { themeIndex, languageIndex } = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
@@ -200,9 +201,12 @@ export default function SingleBoard() {
   return (
     <main className={'project-board ' + themeIndex}>
       <div className="container">
-        <Link className={'project-board__link ' + themeIndex} to={`/boards/${user.login}`}>
-          <span>↩</span>To boards page
-        </Link>
+        <div className="boards-link-container">
+          <Link to={`/boards/${user.login}`} className={'boards-link ' + state.themeIndex}>
+            <span className={'boards-link-arrow ' + state.themeIndex}>❮</span>
+            {languages.returnBoardsPage[state.languageIndex]}
+          </Link>
+        </div>
         {isLoading && <Spinner />}
         <h2 className={'project-board__title ' + themeIndex}>{userCurrentBoard.title}</h2>
         <TaskProgressBar boardId={currentBoardId!} />

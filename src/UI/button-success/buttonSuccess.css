@@ -1,24 +1,39 @@
 .add-board-button {
+  position: absolute;
+  bottom: 50px;
+  right: 10px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   width: 30%;
   height: 40px;
+  padding-left: 10px;
+  font-size: 20px;
+  color: var(--color1);
   background-color: transparent;
   border: var(--border1);
+  border-radius: 5px;
   z-index: 1000;
 }
 
+.add-board-button.dark {
+  color: var(--color2);
+}
+
+.add-board-button.color {
+  color: var(--color3);
+}
+
 .add-board-button:disabled {
-  border: 1px solid #27222279;
+  border: var(--border1);
   font-weight: 200;
-  border: none;
+  border: var(--border1);
+  border-radius: 5px;
 }
 
 .add-board-button:disabled:hover {
   cursor: not-allowed;
-  font-weight: 200;
-  border: none;
+  border: var(--border1);
 }
 
 .add-board-button:hover {
@@ -32,7 +47,7 @@
 }
 
 .add-board-button:disabled .add-board-button-svg {
-  fill: var(--color1);
+  fill: #e1e1e1;
 }
 
 .add-board-button:disabled .add-board-button-svg.dark {

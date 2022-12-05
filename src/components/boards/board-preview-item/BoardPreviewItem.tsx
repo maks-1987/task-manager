@@ -118,28 +118,19 @@ export default function BoardPreviewItem(props: IProp) {
   }, [dispatch, token, userBoard.id]);
 
   return (
-    <div
-      id={userBoard.id!}
-      onClick={(e: React.MouseEvent<HTMLElement>) => goToCurrentUserBoardByID(e)}
-      className="board"
-    >
-      <div className={'board-number-container ' + state.themeIndex}>
-        <h4 className={'board-number ' + state.themeIndex}>#{index + 1}.</h4>
-        <div className={'board-number-svg ' + state.themeIndex}></div>
-      </div>
-      <div className="boarder-previwe-item__container" id={userBoard.id}>
+    <div className={'board ' + state.themeIndex}>
+      <h4 className={'board-number ' + state.themeIndex}>#{index + 1}.</h4>
+      <div className={'board-preview-container ' + state.themeIndex} id={userBoard.id}>
         <form
           onKeyUp={handleSubmit(changeBoardData)}
-          className="boarder-previwe-item__about-item"
+          className="board-preview-form"
           id={userBoard.id}
         >
-          <span className="boarder-previwe-item__warning-message">
-            {errors.title?.message && warnMessage}
-          </span>
+          <span className="board-preview-warning">{errors.title?.message && warnMessage}</span>
           <input
             type="text"
             placeholder={`${errors.title?.message && errors.title?.message}`}
-            className="boarder-previwe-item__title"
+            className={'board-preview-title ' + state.themeIndex}
             {...register('title', {
               onBlur: (e: React.FocusEvent<HTMLInputElement>) => onBlurValidation(e),
               required: localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE[languageIndex],
@@ -150,13 +141,13 @@ export default function BoardPreviewItem(props: IProp) {
             })}
             onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
           />
-          <span className="boarder-previwe-item__warning-message">
+          <span className="board-preview-warning">
             {errors.description?.message && warnMessage}
           </span>
           <input
             type="text"
             placeholder={`${errors.description?.message && errors.description?.message}`}
-            className="boarder-previwe-item__description"
+            className={'board-preview-description ' + state.themeIndex}
             {...register('description', {
               onBlur: (e: React.FocusEvent<HTMLInputElement>) => onBlurValidation(e),
               required: localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE[languageIndex],
@@ -182,7 +173,12 @@ export default function BoardPreviewItem(props: IProp) {
           )}
         </section>
       </div>
-      <div id={userBoard.id} className="boarder-previwe-item__todo-btn-block">
+      <div
+        className="board-clickable-area"
+        id={userBoard.id!}
+        onClick={(e: React.MouseEvent<HTMLElement>) => goToCurrentUserBoardByID(e)}
+      ></div>
+      <div id={userBoard.id} className="board-delete-btn">
         <CrossButton id={userBoard.id!} goToModalWindow={goToModalWindow} />
       </div>
     </div>

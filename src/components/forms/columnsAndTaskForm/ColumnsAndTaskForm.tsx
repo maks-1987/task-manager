@@ -93,8 +93,8 @@ export default function ColumnsAndTaskForm() {
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <section className="coluns-and-task-form_container">
-      <form onSubmit={handleSubmit(columnOrTaskCreateHandler)} className="coluns-and-task-form">
+    <section className="columns-and-task-form_container">
+      <form onSubmit={handleSubmit(columnOrTaskCreateHandler)} className="columns-and-task-form">
         <input
           {...register('title', {
             onChange: (e: React.ChangeEvent<HTMLInputElement>) => titleCompairHandler(e),
@@ -106,7 +106,8 @@ export default function ColumnsAndTaskForm() {
           })}
           type="text"
           placeholder={localeEN.placeholderText.TITLE_TASK_DESCRIPTION[state.languageIndex]}
-          className="coluns-and-task-form__title-input"
+          className="columns-and-task-form__title-input"
+          autoFocus
         />
         {isCompare ? (
           <p className="compare-warning-message">{languages.compaireColumn[languageIndex]}</p>
@@ -122,7 +123,7 @@ export default function ColumnsAndTaskForm() {
             disabled: !isCreateTask && !isEditTask,
           })}
           placeholder={localeEN.placeholderText.TASK_DESCRIPTION[state.languageIndex]}
-          className="coluns-and-task-form__description-input"
+          className="columns-and-task-form__description-input"
         />
         {isEditTask && <TaskFiles />}
         <ButtonSuccess isValid={isValid} isCompare={isCompare} />
