@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser, IUserForm } from '../../types/types';
+import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IFetchQuery, IUser, IUserForm } from '../../types/types';
 import { Endpoints } from '../../endpoints/endpoints';
+import { stat } from 'fs';
 
 interface IUserState {
   user: IUser;
@@ -77,25 +78,28 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
   }
 );
 
-export const fetchEditUserData = createAsyncThunk<string, IUserForm, { rejectValue: string }>(
-  'login/fetchLogin',
-  async (user, { rejectWithValue, dispatch }) => {
-    const response: Response = await fetch(Endpoints.SIGN_IN, {
+export const fetchEditUserData = createAsyncThunk<IUserForm, IFetchQuery, { rejectValue: string }>(
+  'edit/fetchEdit',
+  async (user, { rejectWithValue }) => {
+    const response = await fetch(`${Endpoints.USERS}/${user.userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify({
+        name: user.userData?.name,
+        login: user.userLogin,
+        password: user.userData?.password,
+      }),
     });
 
     if (!response.ok) {
-      const userData = await response.json();
-      return rejectWithValue(userData.message);
+      const data = await response.json();
+      return rejectWithValue(data.message);
     }
 
-    const userData = await response.json();
-    dispatch(userSlice.actions.setUserName(user.login));
-    dispatch(userSlice.actions.setPassword(''));
+    const userData: IUserForm = await response.json();
     return userData;
   }
 );
@@ -169,9 +173,27 @@ export const userSlice = createSlice({
         state.error = action.payload ? action.payload : '';
         state.isSignIn = false;
         state.spinnerStatus = false;
+      })
+      .addCase(fetchEditUserData.pending, (state) => {
+        state.error = '';
+        state.spinnerStatus = true;
+      })
+      .addCase(fetchEditUserData.fulfilled, (state, action) => {
+        state.error = '';
+        state.spinnerStatus = false;
+        action.payload.name !== undefined ? (state.user.name = action.payload.name) : false;
+        state.user.login = action.payload.login;
+      })
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        state.error = action.payload;
+        state.spinnerStatus = false;
       });
   },
 });
 export const { setUserData, setUserToken, setSignInStatus, setSpinnerStatus } = userSlice.actions;
 
 export default userSlice.reducer;
+
+const isError = (action: AnyAction) => {
+  return action.type.endsWith('rejected');
+};

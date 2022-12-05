@@ -122,4 +122,10 @@ export const localeEN = {
     ],
   },
   createBoardForm: {},
+  formMessages: [
+    'Successful change data!',
+    'Успішна зміна даних!',
+    'Паспяховыя змены дадзеных!',
+    'Успешное изменение данных!',
+  ],
 };
