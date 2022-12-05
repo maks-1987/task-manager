@@ -76,6 +76,7 @@ export const Task = (props: IProp) => {
 
   useEffect(() => {
     if (files?.length) getFile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files?.length]);
 
   return (

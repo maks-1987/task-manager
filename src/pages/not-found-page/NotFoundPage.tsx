@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import './notFoundPage.css';

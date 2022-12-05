@@ -1,7 +1,7 @@
 import React from 'react';
 import { localeEN } from '../../locales/localeEN';
 import { setRemovedColumnId } from '../../redux/columns-slice/columnsSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { setIsRemoveColumn, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { IComleteColumn } from '../../types/types';
 import { DeleteColumnSVG } from './svgButtons';
@@ -11,7 +11,6 @@ interface IProp {
 export const ButtonDeleteColumn = (props: IProp) => {
   const { id, title } = props.column;
   const dispatch = useAppDispatch();
-  const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
 
   const goToModalWindow = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setIsRemoveColumn(true));
