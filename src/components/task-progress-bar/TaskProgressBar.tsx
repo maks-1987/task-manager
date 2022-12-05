@@ -94,7 +94,11 @@ export default function TaskProgressBar(props: IProp) {
     <div className="progress-block">
       <div className={'done-task ' + themeIndex}>
         <span className="done-task_text">
-          {`${localeEN.columnContet.PROGRES_DONE[languageIndex]}: ${doneTasks}`}
+          {isBoardPageOpen ? (
+            <></>
+          ) : (
+            `${localeEN.columnContet.PROGRES_DONE[languageIndex]}: ${doneTasks}`
+          )}
         </span>
       </div>
       <div ref={progressBar} className={'progress-bar ' + themeIndex}>
@@ -108,7 +112,13 @@ export default function TaskProgressBar(props: IProp) {
         ></div>
       </div>
       <div className={'total-task ' + themeIndex}>
-        <span className="total-task_text">{`${localeEN.columnContet.PROGRES_TOTAL[languageIndex]}: ${uncompleteTasks}`}</span>
+        <span className="total-task_text">
+          {isBoardPageOpen ? (
+            <></>
+          ) : (
+            `${localeEN.columnContet.PROGRES_TOTAL[languageIndex]}: ${uncompleteTasks}`
+          )}
+        </span>
       </div>
     </div>
   );
