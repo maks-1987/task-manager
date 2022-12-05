@@ -77,6 +77,29 @@ export const fetchLogin = createAsyncThunk<string, IUserForm, { rejectValue: str
   }
 );
 
+export const fetchEditUserData = createAsyncThunk<string, IUserForm, { rejectValue: string }>(
+  'login/fetchLogin',
+  async (user, { rejectWithValue, dispatch }) => {
+    const response: Response = await fetch(Endpoints.SIGN_IN, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      const userData = await response.json();
+      return rejectWithValue(userData.message);
+    }
+
+    const userData = await response.json();
+    dispatch(userSlice.actions.setUserName(user.login));
+    dispatch(userSlice.actions.setPassword(''));
+    return userData;
+  }
+);
+
 export const userSlice = createSlice({
   name: 'userData',
   initialState: initFormState,

@@ -1,8 +1,7 @@
 import React from 'react';
 import './closeModalButton.css';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
-  modalSlice,
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
@@ -10,9 +9,11 @@ import {
   setIsRemoveBoard,
   setIsRemoveColumn,
   setIsRemoveTask,
+  setModalOpen,
 } from '../../redux/modal-slice/modalSlice';
 
 export default function CloseModalButton() {
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const closeModalWindow = () => {
     dispatch(setIsRemoveBoard(false));
@@ -20,21 +21,16 @@ export default function CloseModalButton() {
     dispatch(setIsRemoveTask(false));
     dispatch(setIsCreateColumn(false));
     dispatch(setIsCreateTask(false));
-    dispatch(modalSlice.actions.setModalOpen(false));
+    dispatch(setModalOpen(false));
     dispatch(setIsCreateBoard(false));
     dispatch(setIsEditTask(false));
   };
   return (
     <>
-      <button onClick={closeModalWindow} className="close-modal-button">
-        <svg
-          className="close-modal-button__cross"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 50 50"
-          enableBackground="new 0 0 50 50"
-        >
-          <path d="M37.304 11.282l1.414 1.414-26.022 26.02-1.414-1.413z" />
-          <path d="M12.696 11.282l26.022 26.02-1.414 1.415-26.022-26.02z" />
+      <button onClick={closeModalWindow} className={'close-modal-button ' + state.themeIndex}>
+        <svg className={'close-modal-button-svg ' + state.themeIndex} viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
         </svg>
       </button>
     </>

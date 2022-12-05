@@ -11,8 +11,10 @@ import {
 } from '../../../redux/modal-slice/modalSlice';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
 import { localeEN } from '../../../locales/localeEN';
+import { languages } from '../../../locales/languages';
 
 export default function CreateBoardForm() {
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const { languageIndex } = useAppSelector((state) => state.settingsSlice);
@@ -33,15 +35,16 @@ export default function CreateBoardForm() {
     dispatch(setIsRemoveBoard(false));
     dispatch(setIsCreateBoard(false));
   };
+
   useEffect(() => {
     isSubmitSuccessful && reset();
   }, [isSubmitSuccessful, reset]);
   return (
     <>
-      <form onSubmit={handleSubmit(boardCreateHandler)} className="create-board-form">
+      <form onSubmit={handleSubmit(boardCreateHandler)} className="board-form">
         <input
           {...register('title', {
-            required: 'This field is requaered',
+            required: 'This field is required',
             minLength: {
               value: 5,
               message: 'Should be min 5 character',
@@ -49,7 +52,8 @@ export default function CreateBoardForm() {
           })}
           type="text"
           placeholder={localeEN.placeholderText.TITLE_BOARD_DESCRIPTION[languageIndex]}
-          className="create-board-form__title-input"
+          className="board-form__title-input"
+          autoFocus
         />
         <input
           {...register('description', {
@@ -61,7 +65,7 @@ export default function CreateBoardForm() {
           })}
           type="text"
           placeholder={localeEN.placeholderText.BOARD_DESCRIPTION[languageIndex]}
-          className="create-board-form__description-input"
+          className="board-form__description-input"
         />
         <ButtonSuccess isValid={isValid} />
       </form>

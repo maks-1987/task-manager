@@ -14,9 +14,7 @@ export const localeEN = {
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards!',
     MIN_LENGTH_WARN_MESSAGE: 'Should be min 5 character',
   },
-  errors: {
-    FETCH_ERRORS_MESSAGE: 'Something went wrong! Try reloading the page',
-  },
+  errors: {},
   tooTipContent: {
     ADD_BOARD_TOOLTIP_MESSAGE: [
       'Both input fields must be filled',
@@ -85,7 +83,7 @@ export const localeEN = {
   tooltips: {
     CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
     CHOICE_THEME: ['Select theme', 'Оберіть тему', 'Выбраць тэму', 'Выбрать тему'],
-    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выберыце мову', 'Выберите язык'],
+    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выбраць мову', 'Выбрать язык'],
     CONFIRM_MESSAGE: ['Confirm', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
     MARK_AS_DONE: ['done', 'виконано', 'зроблена', 'выполнено'],
     CHANGE_TASK: ['change', 'змінити', 'змяніць', 'изменить'],
@@ -96,8 +94,8 @@ export const localeEN = {
   placeholderText: {
     TASK_DESCRIPTION: ['Description', 'Опис', 'Апісанне', 'Описание'],
     TITLE_TASK_DESCRIPTION: ['Title', 'Назва', 'Назва', 'Название'],
-    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне доскі', 'Описание доски'],
-    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва доскі', 'Название доски'],
+    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне дошкі', 'Описание доски'],
+    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва дошкі', 'Название доски'],
   },
   columnAndTaskMessages: {
     MESSAGE_REQUIRED: [
