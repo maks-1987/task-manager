@@ -104,3 +104,10 @@
   background-color: transparent;
   padding: 0px;
 }
+.board-previwe-item__task-propgress-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+}

@@ -28,6 +28,7 @@ import { localeEN } from '../../locales/localeEN';
 interface IColumnsSlice {
   userCurrentBoard: IBoard;
   userCurrentBoardList: IBoard[];
+  userCurrentBoardListForTaskProgressBar: IBoard[];
   userDoneColumnListByBoardId: IDoneColumnByBoardId[];
   isLoading: boolean;
   errorMessage: string;
@@ -36,6 +37,8 @@ interface IColumnsSlice {
   removedTaskId: string;
   editedTaskId: string;
   editedTaskData: ITask;
+  isSingleBoardPageOpen: boolean;
+  isBoardPageOpen: boolean;
 }
 
 const initialState: IColumnsSlice = {
@@ -46,6 +49,7 @@ const initialState: IColumnsSlice = {
     columns: [],
   },
   userCurrentBoardList: [],
+  userCurrentBoardListForTaskProgressBar: [],
   userDoneColumnListByBoardId: [],
   isLoading: true,
   errorMessage: '',
@@ -63,6 +67,8 @@ const initialState: IColumnsSlice = {
     columnId: '',
     files: [],
   },
+  isSingleBoardPageOpen: false,
+  isBoardPageOpen: true,
 };
 export const columnsSlice = createSlice({
   name: 'columns',
@@ -122,6 +128,43 @@ export const columnsSlice = createSlice({
           ? column.tasks.push(doneTask)
           : column.tasks;
       });
+
+      state.userCurrentBoardListForTaskProgressBar =
+        state.userCurrentBoardListForTaskProgressBar.map((board) => {
+          return {
+            ...board,
+            columns:
+              board.id === action.payload.boardId
+                ? board.columns.map((column) => {
+                    return {
+                      ...column,
+                      tasks:
+                        column.id === action.payload.columnId
+                          ? [...column.tasks.filter((task) => task.id !== action.payload.taskId)]
+                          : column.tasks,
+                    };
+                  })
+                : board.columns,
+          };
+        });
+
+      state.userCurrentBoardListForTaskProgressBar.map((board) => {
+        return {
+          ...board,
+          columns:
+            board.id === action.payload.boardId
+              ? board.columns.map((column) => {
+                  return {
+                    ...column,
+                    tasks:
+                      column.id === action.payload.taskData?.columnId
+                        ? column.tasks.push(doneTask)
+                        : column.tasks,
+                  };
+                })
+              : board.columns,
+        };
+      });
     },
     setClearUserCurrentBoardList(state, action: PayloadAction<IFetchQuery>) {
       state.userCurrentBoardList = state.userCurrentBoardList.filter(
@@ -130,6 +173,10 @@ export const columnsSlice = createSlice({
       state.userDoneColumnListByBoardId = state.userDoneColumnListByBoardId.filter(
         (item) => item.boardId !== action.payload.boardId
       );
+      state.userCurrentBoardListForTaskProgressBar =
+        state.userCurrentBoardListForTaskProgressBar.filter(
+          (item) => item.id !== action.payload.boardId
+        );
     },
     setDoneColumnListByBoardId(state, action: PayloadAction<IDoneColumnByBoardId>) {
       const boardIdAndDoneColumn = {
@@ -155,6 +202,59 @@ export const columnsSlice = createSlice({
       );
       column.tasks = action.payload.tasks;
     },
+    setIsSingleBoardPage(state, action: PayloadAction<boolean>) {
+      state.isSingleBoardPageOpen = action.payload;
+    },
+    setIsBoardPageOpen(state, action: PayloadAction<boolean>) {
+      state.isBoardPageOpen = action.payload;
+    },
+    setUserCurrentBoardListForTaskProgressBar(state, action: PayloadAction<IBoard>) {
+      const newArr = state.userCurrentBoardListForTaskProgressBar.filter(
+        (board) => board.id !== action.payload.id
+      );
+      state.userCurrentBoardListForTaskProgressBar.some((board) => board.id === action.payload.id)
+        ? newArr.push(action.payload)
+        : state.userCurrentBoardListForTaskProgressBar.push(action.payload);
+    },
+    setDragableTask(state, action: PayloadAction<ITask>) {
+      state.userCurrentBoardListForTaskProgressBar =
+        state.userCurrentBoardListForTaskProgressBar.map((board) => {
+          return {
+            ...board,
+            columns:
+              board.id === state.userCurrentBoard.id
+                ? board.columns.map((column) => {
+                    return {
+                      ...column,
+                      tasks:
+                        column.id === state.currentColumnId
+                          ? [...column.tasks.filter((task) => task.id !== action.payload.id)]
+                          : column.tasks,
+                    };
+                  })
+                : board.columns,
+          };
+        });
+
+      state.userCurrentBoardListForTaskProgressBar =
+        state.userCurrentBoardListForTaskProgressBar.map((board) => {
+          return {
+            ...board,
+            columns:
+              board.id === state.userCurrentBoard.id
+                ? board.columns.map((column) => {
+                    return {
+                      ...column,
+                      tasks:
+                        column.id === action.payload.columnId
+                          ? [...column.tasks, action.payload]
+                          : column.tasks,
+                    };
+                  })
+                : board.columns,
+          };
+        });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -170,10 +270,7 @@ export const columnsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
-      .addCase(fetchGetAllUserColumns.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = '';
-      })
+
       .addCase(fetchGetAllUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
         state.errorMessage = '';
@@ -188,13 +285,21 @@ export const columnsSlice = createSlice({
           ...state.userCurrentBoard,
           columns: [...filteredColumns, action.payload],
         };
+
+        state.userCurrentBoardListForTaskProgressBar =
+          state.userCurrentBoardListForTaskProgressBar.map((board) => {
+            return {
+              ...board,
+              columns:
+                board.id === state.userCurrentBoard.id
+                  ? [...filteredColumns, action.payload]
+                  : board.columns,
+            };
+          });
         state.isLoading = false;
         state.errorMessage = '';
       })
-      .addCase(fetchAddNewUserColumns.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = '';
-      })
+
       .addCase(fetchAddNewUserColumns.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCurrentBoard.columns.push(action.payload);
@@ -205,12 +310,21 @@ export const columnsSlice = createSlice({
         state.userCurrentBoard.columns = state.userCurrentBoard.columns.filter(
           (column) => column.id !== action.payload.columnId
         );
+        state.userCurrentBoardListForTaskProgressBar = [
+          ...state.userCurrentBoardListForTaskProgressBar.map((board) => {
+            return {
+              ...board,
+              columns:
+                board.id === action.payload.boardId
+                  ? board.columns.filter((column) => column.id === action.payload.columnId)
+                  : board.columns,
+            };
+          }),
+        ];
+
         state.errorMessage = '';
       })
-      .addCase(fetchChangeUserColumn.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = '';
-      })
+
       .addCase(fetchChangeUserColumn.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCurrentBoard.columns = state.userCurrentBoard.columns.map((column) => {
@@ -219,18 +333,49 @@ export const columnsSlice = createSlice({
             title: column.id === action.payload.id ? action.payload.title : column.title,
           };
         });
+
+        state.userCurrentBoardListForTaskProgressBar =
+          state.userCurrentBoardListForTaskProgressBar.map((board) => {
+            return {
+              ...board,
+              columns:
+                board.id === state.userCurrentBoard.id
+                  ? board.columns.map((column) => {
+                      return {
+                        ...column,
+                        title:
+                          column.id === action.payload.id ? action.payload.title : column.title,
+                      };
+                    })
+                  : board.columns,
+            };
+          });
+
         state.errorMessage = '';
       })
-      .addCase(fetchAddNewUserTasks.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = '';
-      })
+
       .addCase(fetchAddNewUserTasks.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCurrentBoard.columns.forEach((column) => {
           column.id === action.payload.columnId && column.tasks?.push(action.payload);
         });
         state.errorMessage = '';
+
+        state.userCurrentBoardListForTaskProgressBar.map((board) => {
+          return {
+            ...board,
+            columns:
+              board.id === action.payload.boardId
+                ? board.columns.map((column) => {
+                    return {
+                      ...column,
+                      tasks:
+                        column.id === action.payload.columnId && column.tasks.push(action.payload),
+                    };
+                  })
+                : board.columns,
+          };
+        });
       })
       .addCase(fetchRemoveUserTask.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -243,6 +388,26 @@ export const columnsSlice = createSlice({
                 : column.tasks,
           };
         });
+
+        state.userCurrentBoardListForTaskProgressBar =
+          state.userCurrentBoardListForTaskProgressBar.map((board) => {
+            return {
+              ...board,
+              columns:
+                board.id === action.payload.boardId
+                  ? board.columns.map((column) => {
+                      return {
+                        ...column,
+                        tasks:
+                          column.id === action.payload.columnId
+                            ? [...column.tasks.filter((task) => task.id !== action.payload.taskId)]
+                            : column.tasks,
+                      };
+                    })
+                  : board.columns,
+            };
+          });
+
         state.errorMessage = '';
       })
       .addCase(fetchChangeUserTask.fulfilled, (state, action) => {
@@ -300,6 +465,10 @@ export const {
   setClearUserCurrentBoardList,
   setDoneColumnListByBoardId,
   setTasksAsDone,
+  setIsSingleBoardPage,
+  setIsBoardPageOpen,
+  setUserCurrentBoardListForTaskProgressBar,
+  setDragableTask,
 } = columnsSlice.actions;
 export default columnsSlice.reducer;
 
