@@ -28,7 +28,7 @@ export const EditProfilePage = () => {
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset({ name: '', login: '', password: '' });
+      reset({ name: '', password: '' });
     }
   }, [formState.isSubmitSuccessful, reset]);
 

@@ -40,7 +40,7 @@ export default function BoardsPage() {
       <div className={'boards-container ' + state.themeIndex}>
         {isLoading && <Spinner />}
         {Boolean(fetchBoardErrorMessage) && (
-          <h4 className="fetch-erroe-message">{localeEN.errors.FETCH_ERRORS_MESSAGE}</h4>
+          <h4 className="error-message">{languages.errorBoards[state.languageIndex]}</h4>
         )}
         {!userBoards.length
           ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE

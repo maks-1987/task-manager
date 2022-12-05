@@ -102,7 +102,6 @@ export default function BurgerMenu() {
         <React.Fragment key={anchor}>
           <div className={'burger-menu-icon-border ' + state.themeIndex}>
             <Button
-              color="inherit"
               sx={{ width: 35, height: 40, '&:hover': { backgroundColor: 'transparent' } }}
               onClick={toggleDrawer(anchor, true)}
             >

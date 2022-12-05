@@ -14,9 +14,7 @@ export const localeEN = {
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards!',
     MIN_LENGTH_WARN_MESSAGE: 'Should be min 5 character',
   },
-  errors: {
-    FETCH_ERRORS_MESSAGE: 'Something went wrong! Try reloading the page',
-  },
+  errors: {},
   tooTipContent: {
     ADD_BOARD_TOOLTIP_MESSAGE: [
       'Both input fields must be filled',

@@ -34,6 +34,7 @@
   height: 23px;
   padding: 0 5px;
   font-size: 16px;
+  font-weight: 600;
   line-height: initial;
   color: var(--color1);
   text-decoration: none;
@@ -52,6 +53,7 @@
 
 .nav__link:hover {
   border: var(--border1);
+  box-shadow: -1px 1px #e1e1e1;
 }
 
 .nav__link.dark:hover {

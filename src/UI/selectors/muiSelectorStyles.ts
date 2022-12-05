@@ -53,4 +53,7 @@ export const sxMenuItem = {
   height: 40,
   padding: 0,
   fontWeight: 500,
+  '&:focus': {
+    backgroundColor: 'transparent',
+  },
 };

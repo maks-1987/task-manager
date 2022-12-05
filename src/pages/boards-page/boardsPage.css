@@ -45,3 +45,9 @@
   width: 80%;
   overflow-y: auto;
 }
+
+.error-message {
+  margin: 10px;
+  font-size: 20px;
+  color: #f3664d;
+}
