@@ -17,6 +17,10 @@
   --background-color5: #2c2c2c;
   --background-color6: #89b8a5;
 
+  --modal-blur1: #000000a6;
+  --modal-blur2: #ffffffb7;
+  --modal-blur3: #ebefd09f;
+
   --border1: 1px solid #e1e1e1;
   --border2: 1px solid #fefefe;
   --border3: 1px solid #ebefd0;
@@ -26,7 +30,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: 0.25 box-shadow, 0.25s background-color ease-in-out;
+  transition: 0.25s box-shadow, 0.25s background-color ease-in-out;
 }
 
 button,

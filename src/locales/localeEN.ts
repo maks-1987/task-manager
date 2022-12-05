@@ -94,8 +94,8 @@ export const localeEN = {
   placeholderText: {
     TASK_DESCRIPTION: ['Description', 'Опис', 'Апісанне', 'Описание'],
     TITLE_TASK_DESCRIPTION: ['Title', 'Назва', 'Назва', 'Название'],
-    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне доскі', 'Описание доски'],
-    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва доскі', 'Название доски'],
+    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне дошкі', 'Описание доски'],
+    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва дошкі', 'Название доски'],
   },
   columnAndTaskMessages: {
     MESSAGE_REQUIRED: [

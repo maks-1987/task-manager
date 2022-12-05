@@ -3,7 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserForm } from '../../types/types';
-import { fetchLogin, fetchRegistration, userSlice } from '../../redux/user-slice/userSlice';
+import {
+  fetchLogin,
+  fetchRegistration,
+  fetchEditUserData,
+  userSlice,
+} from '../../redux/user-slice/userSlice';
 import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
@@ -23,7 +28,7 @@ export const EditProfilePage = () => {
 
   const { errors } = formState;
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
-    dispatch(fetchRegistration(data));
+    dispatch(fetchEditUserData(data));
   };
 
   useEffect(() => {
