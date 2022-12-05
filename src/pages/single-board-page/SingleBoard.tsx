@@ -211,7 +211,7 @@ export default function SingleBoard() {
                 >
                   {Boolean(fetchColumnErrorMessage) && (
                     <h2 className={'fetch-erroe-message ' + languageIndex}>
-                      {localeEN.errors.FETCH_ERRORS_MESSAGE}
+                      {languages.errorBoards[state.languageIndex]}
                     </h2>
                   )}
                   {!columnState?.length
