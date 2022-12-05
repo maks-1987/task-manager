@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserForm, JwtDecode } from '../../types/types';
@@ -18,9 +18,12 @@ export const EditProfilePage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
+  const navigation = useNavigate();
   const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
-  const { error, user, spinnerStatus, token } = useAppSelector((state) => state.userSlice);
+  const { error, user, password, spinnerStatus, token } = useAppSelector(
+    (state) => state.userSlice
+  );
   const jwt_decode: JwtDecode = jwtDecode(token);
   const [successVisible, setSuccessVisible] = useState<string>('');
   const { errors } = formState;
@@ -130,6 +133,12 @@ export const EditProfilePage = () => {
         <p className="form-failed">
           {error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
         </p>
+        <div className={'delete-btn-container ' + state.themeIndex}>
+          {languages.attention[state.languageIndex]}
+          <button className={'delete-btn ' + state.themeIndex}>
+            {languages.deleteUser[state.languageIndex]}
+          </button>
+        </div>
 
         <article
           className={
