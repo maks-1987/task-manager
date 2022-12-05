@@ -15,7 +15,6 @@ import {
   setModalOpen,
 } from '../../redux/modal-slice/modalSlice';
 import './globalModal.css';
-
 import openAndRemoveModalSound from '../audio-effects/openAndRemoveModalSound';
 
 type Props = { component: ReactElement | string };
@@ -33,6 +32,7 @@ export const GlobalModal = (props: Props) => {
     isDeleteUser,
   } = useAppSelector((state) => state.modalSlice);
   const modalSliceState = useAppSelector((state) => state.modalSlice);
+
   const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   const currentModalTitle = isCreateBoard
     ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE[languageIndex]

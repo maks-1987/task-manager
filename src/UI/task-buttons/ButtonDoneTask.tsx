@@ -14,7 +14,7 @@ interface IProp {
 }
 export const ButtonDoneTask = (props: IProp) => {
   const { id } = props;
-  const { title, description, userId, order } = props.task;
+  const { title, description, userId } = props.task;
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
@@ -34,7 +34,7 @@ export const ButtonDoneTask = (props: IProp) => {
         title,
         description,
         userId,
-        order,
+        order: 1,
         columnId: doneColumnId!.id,
       },
       boardId: currentBoardId,

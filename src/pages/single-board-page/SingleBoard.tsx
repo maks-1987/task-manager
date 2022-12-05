@@ -2,10 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column } from '../../components/column/Column';
 import { localeEN } from '../../locales/localeEN';
-import {
-  fetchChangeOrderColumn,
-  fetchGetAllUserColumns,
-} from '../../redux/columns-slice/columnsFetchRequest';
+import { fetchChangeOrderColumn } from '../../redux/columns-slice/columnsFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ChangeTask, IColumn, IFetchQuery, JwtDecode } from '../../types/types';
 import { ButtonNewColumn } from '../../UI/column-buttons/ButtonNewColumn';
@@ -14,6 +11,9 @@ import TaskProgressBar from '../../components/task-progress-bar/TaskProgressBar'
 import {
   columnsSlice,
   setColumnsAfterDrag,
+  setCurrentColumnId,
+  setIsBoardPageOpen,
+  setIsSingleBoardPage,
   setTasksAfterDrag,
 } from '../../redux/columns-slice/columnsSlice';
 import {
@@ -39,11 +39,9 @@ export default function SingleBoard() {
   const userId = jwt_decode.userId;
 
   useMemo(() => {
-    const dataForFetch: IFetchQuery = {
-      boardId: currentBoardId,
-      token,
-    };
-    dispatch(fetchGetAllUserColumns(dataForFetch));
+    dispatch(setIsSingleBoardPage(true));
+    dispatch(setIsBoardPageOpen(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentBoardId, dispatch, token]);
 
   useEffect(() => {
@@ -86,6 +84,8 @@ export default function SingleBoard() {
       const startColumn = userCurrentBoard.columns.find(
         (column) => column.id === source.droppableId
       );
+
+      dispatch(setCurrentColumnId(startColumn!.id));
       const finishColumn = userCurrentBoard.columns.find(
         (column) => column.id === destination.droppableId
       );
@@ -189,6 +189,14 @@ export default function SingleBoard() {
     }
   };
 
+  useEffect(
+    () => () => {
+      dispatch(setIsSingleBoardPage(false));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <main className={'project-board ' + themeIndex}>
       <div className="container">
@@ -197,7 +205,7 @@ export default function SingleBoard() {
         </Link>
         {isLoading && <Spinner />}
         <h2 className={'project-board__title ' + themeIndex}>{userCurrentBoard.title}</h2>
-        <TaskProgressBar />
+        <TaskProgressBar boardId={currentBoardId!} />
         <ButtonNewColumn />
         <DragDropContext onDragEnd={onDragEnd}>
           <article className="project-board__columns">
