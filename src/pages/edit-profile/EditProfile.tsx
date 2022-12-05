@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserForm, JwtDecode } from '../../types/types';
-import { fetchDeleteUser, fetchEditUserData, userSlice } from '../../redux/user-slice/userSlice';
+import { fetchEditUserData, userSlice } from '../../redux/user-slice/userSlice';
 import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
@@ -19,13 +19,13 @@ export const EditProfilePage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
-  const navigation = useNavigate();
+
   const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
-  const { error, user, password, spinnerStatus, token } = useAppSelector(
+  const { error, user, spinnerStatus, token } = useAppSelector(
     (state) => state.userSlice
   );
-  const { isModalOpen } = useAppSelector((state) => state.modalSlice);
+
   const jwt_decode: JwtDecode = jwtDecode(token);
   const [successVisible, setSuccessVisible] = useState<string>('');
   const { errors } = formState;
