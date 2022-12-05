@@ -2,7 +2,10 @@ import { IFetchQuery, IBoard, IColumn } from './../../types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
 import { AppDispatch } from '../store';
-import { setDoneColumnListByBoardId } from './columnsSlice';
+import {
+  setDoneColumnListByBoardId,
+  setUserCurrentBoardListForTaskProgressBar,
+} from './columnsSlice';
 
 export const fetchGetUserBoardByID = createAsyncThunk<IBoard, IFetchQuery, { rejectValue: string }>(
   'fetch/fetchGetUserBoardByID',
@@ -165,3 +168,27 @@ export const fetchChangeOrderColumn = createAsyncThunk<
 
   return (await response.json()) as IColumn;
 });
+
+export const fetchGetUserBoardByIDForUserBoardList = createAsyncThunk<
+  IBoard,
+  IFetchQuery,
+  { rejectValue: string; dispatch: AppDispatch }
+>(
+  'fetch/fetchGetUserBoardByIDForUserBoardList',
+  async (dataForFetch, { rejectWithValue, dispatch }) => {
+    const response: Response = await fetch(`${Endpoints.BOARDS}/${dataForFetch.boardId}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${dataForFetch.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Responseend with ${response.status}`);
+    }
+    const currentUserBoard: IBoard = await response.json();
+    dispatch(setUserCurrentBoardListForTaskProgressBar(currentUserBoard));
+    return currentUserBoard;
+  }
+);

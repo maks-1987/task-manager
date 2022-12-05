@@ -3,7 +3,10 @@ import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPr
 import { localeEN } from '../../locales/localeEN';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
 import { setCurrentBoardId, setRemovedBoardId } from '../../redux/boards-slice/boardsSlice';
-import { setResetCurrentBoardData } from '../../redux/columns-slice/columnsSlice';
+import {
+  setIsBoardPageOpen,
+  setResetCurrentBoardData,
+} from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
 import Spinner from '../../UI/spinner/Spinner';
@@ -24,9 +27,17 @@ export default function BoardsPage() {
     setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));
     dispatch(setRemovedBoardId(''));
+    dispatch(setIsBoardPageOpen(true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(
+    () => () => {
+      dispatch(setIsBoardPageOpen(false));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
   return (
     <section className="boards-page">
       <div className="boards-page__container">
