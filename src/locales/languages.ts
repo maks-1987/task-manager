@@ -63,6 +63,13 @@ export const languages = {
   newName: ['New name', 'Нове iм`я', 'Новае iмя', 'Новое имя'],
   newPassword: ['New password', 'Новий пароль', 'Новы пароль', 'Новый пароль'],
   submit: ['Submit', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
+  deleteUser: ['Delete', 'Вилучити', 'Выдалiць', 'Удалить'],
+  attention: [
+    'Attention! Deleting a user.',
+    'Увага! Видалення користувача.',
+    'Увага! Выдаленне карыстальніка.',
+    'Внимание! Удаление пользователя.',
+  ],
   formWarnMin: [
     '*only letters and numbers & min 3 chars',
     '*тільки літери та цифри & мін. 3 символи',
