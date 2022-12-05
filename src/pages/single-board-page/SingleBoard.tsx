@@ -37,6 +37,7 @@ export default function SingleBoard() {
   const { user } = useAppSelector((state) => state.userSlice);
   const jwt_decode: JwtDecode = jwtDecode(token);
   const userId = jwt_decode.userId;
+  const { themeIndex, languageIndex } = useAppSelector((store) => store.settingsSlice);
 
   useMemo(() => {
     const dataForFetch: IFetchQuery = {
@@ -190,39 +191,41 @@ export default function SingleBoard() {
   };
 
   return (
-    <main className="project-board">
-      <Link className="project-board__link" to={`/boards/${user.login}`}>
-        <span>↩</span>To boards page
-      </Link>
-      {isLoading && <Spinner />}
-      <h2 className="project-board__title">{userCurrentBoard.title}</h2>
-      <TaskProgressBar />
-      <DragDropContext onDragEnd={onDragEnd}>
-        <article className="project-board__columns">
-          <Droppable droppableId="all-columns" direction="horizontal" type="column">
-            {(provided) => (
-              <section
-                className="project-board__columns-list"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {Boolean(fetchColumnErrorMessage) && (
-                  <h2 className="fetch-erroe-message">
-                    {languages.errorBoards[state.languageIndex]}
-                  </h2>
-                )}
-                {!columnState?.length
-                  ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
-                  : userCurrentBoard.columns.map((column, index) => (
-                      <Column key={column.id} column={column} index={index} />
-                    ))}
-                {provided.placeholder}
-              </section>
-            )}
-          </Droppable>
-          <ButtonNewColumn />
-        </article>
-      </DragDropContext>
+    <main className={'project-board ' + themeIndex}>
+      <div className="container">
+        <Link className={'project-board__link ' + themeIndex} to={`/boards/${user.login}`}>
+          <span>↩</span>To boards page
+        </Link>
+        {isLoading && <Spinner />}
+        <h2 className={'project-board__title ' + themeIndex}>{userCurrentBoard.title}</h2>
+        <TaskProgressBar />
+        <ButtonNewColumn />
+        <DragDropContext onDragEnd={onDragEnd}>
+          <article className="project-board__columns">
+            <Droppable droppableId="all-columns" direction="horizontal" type="column">
+              {(provided) => (
+                <section
+                  className={'project-board__columns-list ' + themeIndex}
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {Boolean(fetchColumnErrorMessage) && (
+                    <h2 className={'fetch-erroe-message ' + languageIndex}>
+                      {localeEN.errors.FETCH_ERRORS_MESSAGE}
+                    </h2>
+                  )}
+                  {!columnState?.length
+                    ? localeEN.columnContet.HAVE_NOT_COLUMN_MESSAGE
+                    : userCurrentBoard.columns.map((column, index) => (
+                        <Column key={column.id} column={column} index={index} />
+                      ))}
+                  {provided.placeholder}
+                </section>
+              )}
+            </Droppable>
+          </article>
+        </DragDropContext>
+      </div>
     </main>
   );
 }
