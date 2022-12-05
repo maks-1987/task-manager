@@ -14,9 +14,7 @@ export const localeEN = {
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards!',
     MIN_LENGTH_WARN_MESSAGE: 'Should be min 5 character',
   },
-  errors: {
-    FETCH_ERRORS_MESSAGE: 'Something went wrong! Try reloading the page',
-  },
+  errors: {},
   tooTipContent: {
     ADD_BOARD_TOOLTIP_MESSAGE: [
       'Both input fields must be filled',
@@ -42,6 +40,9 @@ export const localeEN = {
       'Hет выполненых задач!',
     ],
     DEFAULT_DONE_COLUMN: ['Done', 'Виконано', 'Выканана', 'Выполнено'],
+    ADD_NEW_COLUMN: ['New Column', 'Нова колонка', 'Новы слупок', 'Новая колонка'],
+    PROGRES_DONE: ['Done', 'Зроблено', 'Зроблена', 'Выполнено'],
+    PROGRES_TOTAL: ['Total', 'Всього', 'Усяго', 'Всего'],
   },
   modalContetntMessage: {
     REMOVE_BOARD_CONFIRM_MESSAGE: [
@@ -85,19 +86,20 @@ export const localeEN = {
   tooltips: {
     CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
     CHOICE_THEME: ['Select theme', 'Оберіть тему', 'Выбраць тэму', 'Выбрать тему'],
-    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выберыце мову', 'Выберите язык'],
+    CHOICE_LANG: ['Select language', 'Оберіть мову', 'Выбраць мову', 'Выбрать язык'],
     CONFIRM_MESSAGE: ['Confirm', 'Підтвердити', 'Пацвердзіць', 'Подтвердить'],
     MARK_AS_DONE: ['done', 'виконано', 'зроблена', 'выполнено'],
     CHANGE_TASK: ['change', 'змінити', 'змяніць', 'изменить'],
     DELETE_TASK: ['delete task', 'видалити справу', 'выдаліць задачу', 'удалить задачу'],
     DELETE_COLUMN: ['delete column', 'видалити стовпець', 'выдаліць', 'удалить колонку'],
     ADD_TASK: ['add task', 'додати справу', 'дадаць задачу', 'добавить задачу'],
+    UPLOAD_FILE: ['upload file', 'завантвжити файл', 'загрузіць файл', 'загрузить файл'],
   },
   placeholderText: {
     TASK_DESCRIPTION: ['Description', 'Опис', 'Апісанне', 'Описание'],
     TITLE_TASK_DESCRIPTION: ['Title', 'Назва', 'Назва', 'Название'],
-    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне доскі', 'Описание доски'],
-    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва доскі', 'Название доски'],
+    BOARD_DESCRIPTION: ['Board description', 'Опис дошки', 'Апісанне дошкі', 'Описание доски'],
+    TITLE_BOARD_DESCRIPTION: ['Board title', 'Назва дошки', 'Назва дошкі', 'Название доски'],
   },
   columnAndTaskMessages: {
     MESSAGE_REQUIRED: [

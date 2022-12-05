@@ -7,8 +7,6 @@
     border-radius: 6px;
     padding: 4px;
     background-color: white;
-    overflow: hidden;
-    line-break: anywhere;
     flex-wrap: wrap;
 }
 
@@ -35,18 +33,18 @@
 .task__title {
   display: block;
   max-width: 100%;
-  line-height: 1em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-decoration: underline;
 }
 
 .task__description {
   width: 100%;
-  height: 150px;
+  min-height: 150px;
   max-height: 300px;
   padding: 4px;
+  overflow: hidden;
+  word-break: break-word;
 }
 
 .task_button-block {
@@ -64,21 +62,6 @@
   margin: 0;
 }
 
-.user-file {
-  width: 70px;
-  height: 70px;
-}
-
-.default-task-image {
-  height: 40px;
-  width: 40px;
-}
-
-.default-task-image svg {
-  height: 100%;
-  width: 100%;
-}
-
 .upload-file-task {
   width: 25px;
   height: 25px;
@@ -87,9 +70,15 @@
   border: none;
   cursor: pointer;
   margin: 0 3px 0 3px;
+  background-image: url("../../assets/icons/pick-file.png");
+  background-size: contain;
 }
 
 .upload-file-task svg {
   height: 100%;
   width: 100%;
+}
+
+.task__description_content {
+  overflow: hidden;
 }

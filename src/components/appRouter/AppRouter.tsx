@@ -9,6 +9,7 @@ import { LoginPage } from '../../pages/login-page/LoginPage';
 import SingleBoard from '../../pages/single-board-page/SingleBoard';
 import LogOut from '../log-out/LogOut';
 import AuthRequire from '../../hoc/AuthRequire';
+import { EditProfilePage } from '../../pages/edit-profile/EditProfile';
 
 export default function AppRouter() {
   return (
@@ -34,6 +35,7 @@ export default function AppRouter() {
         <Route path="login" element={<LoginPage />} />
         <Route path="logout" element={<LogOut />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="profile" element={<EditProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

@@ -7,7 +7,6 @@ import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import Spinner from '../../UI/spinner/Spinner';
 import './welcomePage.css';
-import GoWelcomePageBtn from '../../UI/go-welcome-page-link/goToWelcomePageBtn';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlice);
@@ -17,10 +16,9 @@ function WelcomePage() {
   return (
     <>
       <div className={'welcome-page-container ' + state.themeIndex}>
+        {spinnerStatus && <Spinner />}
         <div className="blur-background">
-          {spinnerStatus && <Spinner />}
           <div className="selectors-container">
-            <GoWelcomePageBtn />
             <ThemeSelector />
             <LanguageSelector />
           </div>
@@ -81,7 +79,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src="../FotoPassport.png"
+              src="../Max.png"
               alt="Max"
               sx={{ width: 100, height: 100 }}
             />
@@ -93,7 +91,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src=""
+              src="../Den1.png"
               alt="Den1"
               sx={{ width: 100, height: 100 }}
             />
@@ -105,7 +103,7 @@ function WelcomePage() {
           <div className={'content-item ' + state.themeIndex}>
             <Avatar
               className="content-item-img"
-              src="../Denis.jpg"
+              src="../Den2.jpg"
               alt="Den2"
               sx={{ width: 110, height: 110 }}
             />

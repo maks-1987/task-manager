@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
 import CrossButton from '../../../UI/cross-button/CrossButton';
+import { languages } from '../../../locales/languages';
 import TaskProgressBar from '../../task-progress-bar/TaskProgressBar';
 import './boardPreviewItem.css';
 
@@ -24,6 +25,7 @@ interface IProp {
 }
 export default function BoardPreviewItem(props: IProp) {
   const { userBoard, index } = props;
+  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [warnMessage, setWarnMessage] = useState<string>('');
@@ -106,7 +108,6 @@ export default function BoardPreviewItem(props: IProp) {
     };
     dispatch(fetchGetAllUserColumns(dataForFetch));
     setTimeout(() => dispatch(setResetCurrentBoardData()), 100);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   useEffect(() => {
     const dataForFetch: IFetchQuery = {
@@ -117,13 +118,16 @@ export default function BoardPreviewItem(props: IProp) {
   }, [dispatch, token, userBoard.id]);
 
   return (
-    <article
+    <div
       id={userBoard.id!}
       onClick={(e: React.MouseEvent<HTMLElement>) => goToCurrentUserBoardByID(e)}
-      className="boarder-preview-item"
+      className="board"
     >
+      <div className={'board-number-container ' + state.themeIndex}>
+        <h4 className={'board-number ' + state.themeIndex}>#{index + 1}.</h4>
+        <div className={'board-number-svg ' + state.themeIndex}></div>
+      </div>
       <div className="boarder-previwe-item__container" id={userBoard.id}>
-        <h4 className="boarder-previwe-item__item-number">#{index + 1}. </h4>
         <form
           onKeyUp={handleSubmit(changeBoardData)}
           className="boarder-previwe-item__about-item"
@@ -181,6 +185,6 @@ export default function BoardPreviewItem(props: IProp) {
       <div id={userBoard.id} className="boarder-previwe-item__todo-btn-block">
         <CrossButton id={userBoard.id!} goToModalWindow={goToModalWindow} />
       </div>
-    </article>
+    </div>
   );
 }

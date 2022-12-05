@@ -6,6 +6,9 @@
   --color3: #ebefd0;
   --color4: #3a3939;
 
+  --error-color: #e71212;
+  --success-color: #08995c;
+
   --link-color1: #2270ec;
   --link-color2: #2270ec;
   --link-color3: #2270ec;
@@ -16,6 +19,14 @@
   --background-color4: #f8f8f8;
   --background-color5: #2c2c2c;
   --background-color6: #89b8a5;
+  --background-color7: #696969;
+  --background-color8: #e0d2d2;
+  --background-color9: #b895ff;
+  --background-color10: #df0000;
+
+  --modal-blur1: #000000a6;
+  --modal-blur2: #ffffffb7;
+  --modal-blur3: #ebefd09f;
 
   --border1: 1px solid #e1e1e1;
   --border2: 1px solid #fefefe;
@@ -26,6 +37,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: 0.25s box-shadow, 0.25s background-color ease-in-out;
 }
 
 button,
@@ -46,4 +58,11 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
 }

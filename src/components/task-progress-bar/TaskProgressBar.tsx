@@ -7,6 +7,7 @@ interface IProp {
 }
 export default function TaskProgressBar(props: IProp) {
   const userCurrentBoard = useAppSelector((state) => state.columnsSlice.userCurrentBoard);
+  const { languageIndex, themeIndex } = useAppSelector((state) => state.settingsSlice);
   const [uncompleteTasks, setUncompleteTasks] = useState<number>(0);
   const [doneTasks, setDoneTasks] = useState<number>(0);
   const [visible, setVisible] = useState<DocumentVisibilityState | undefined>('hidden');
@@ -91,21 +92,23 @@ export default function TaskProgressBar(props: IProp) {
 
   return (
     <div className="progress-block">
-      <div className="done-task">
-        <span className="done-task_text"> Done:{doneTasks} </span>
+      <div className={'done-task ' + themeIndex}>
+        <span className="done-task_text">
+          {`${localeEN.columnContet.PROGRES_DONE[languageIndex]}: ${doneTasks}`}
+        </span>
       </div>
-      <div ref={progressBar} className="progress-bar">
+      <div ref={progressBar} className={'progress-bar ' + themeIndex}>
         <div
           ref={progressScale}
-          className="progress-scale"
+          className={'progress-scale ' + themeIndex}
           style={{
             width: `${step * doneTasks}px`,
             visibility: visible,
           }}
         ></div>
       </div>
-      <div className="total-task">
-        <span className="total-task_text"> Total:{uncompleteTasks} </span>
+      <div className={'total-task ' + themeIndex}>
+        <span className="total-task_text">{`${localeEN.columnContet.PROGRES_TOTAL[languageIndex]}: ${uncompleteTasks}`}</span>
       </div>
     </div>
   );
