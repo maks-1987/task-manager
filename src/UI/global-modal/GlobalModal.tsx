@@ -4,6 +4,7 @@ import ConfirmButton from '../modal-confirm-button/ConfirmButton';
 import CloseModalButton from '../close-modal-button/CloseModalButton';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
+  setDeleteUser,
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
@@ -28,6 +29,7 @@ export const GlobalModal = (props: Props) => {
     isCreateTask,
     isCreateBoard,
     isEditTask,
+    isDeleteUser,
   } = useAppSelector((state) => state.modalSlice);
   const modalSliceState = useAppSelector((state) => state.modalSlice);
 
@@ -44,6 +46,8 @@ export const GlobalModal = (props: Props) => {
     ? localeEN.modalContetntMessage.REMOVE_COLUMN_CONFIRM_MESSAGE[languageIndex]
     : isRemoveTask
     ? localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE[languageIndex]
+    : isDeleteUser
+    ? localeEN.modalContetntMessage.DELETE_USER_CONFIRM_MESSAGE[languageIndex]
     : localeEN.modalContetntMessage.EDIT_TASK_MESSAGE[languageIndex];
 
   const state = useAppSelector((store) => store.settingsSlice);
@@ -57,6 +61,7 @@ export const GlobalModal = (props: Props) => {
     dispatch(setModalOpen(false));
     dispatch(setIsCreateBoard(false));
     dispatch(setIsEditTask(false));
+    dispatch(setDeleteUser(false));
   };
   useEffect(() => {
     openAndRemoveModalSound(modalSliceState);
@@ -81,6 +86,7 @@ export const GlobalModal = (props: Props) => {
         {isRemoveBoard && <ConfirmButton />}
         {isRemoveColumn && <ConfirmButton />}
         {isRemoveTask && <ConfirmButton />}
+        {isDeleteUser && <ConfirmButton />}
       </div>
     </div>
   );
