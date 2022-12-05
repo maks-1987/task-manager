@@ -51,6 +51,7 @@ export const Task = (props: IProp) => {
 
   useEffect(() => {
     setFileCounter(files?.length !== undefined ? files.length : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files?.length]);
 
   return (

@@ -36,6 +36,8 @@ export interface IFetchQuery {
   newOrder?: number;
   userId?: string;
   newColumn?: string;
+  userData?: IUserForm;
+  userLogin?: string;
 }
 
 export interface IBoard {

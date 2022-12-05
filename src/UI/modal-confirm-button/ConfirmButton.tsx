@@ -8,6 +8,7 @@ import {
 import { fetchRemoveUserTask } from '../../redux/columns-slice/tasksFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
+  setDeleteUser,
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
@@ -16,9 +17,12 @@ import {
   setIsRemoveTask,
   setModalOpen,
 } from '../../redux/modal-slice/modalSlice';
-import { IFetchQuery } from '../../types/types';
+import { IFetchQuery, JwtDecode } from '../../types/types';
 import { languages } from '../../locales/languages';
 import './confirmButton.css';
+import { fetchDeleteUser } from '../../redux/user-slice/userSlice';
+import jwtDecode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 export default function ConfirmButton() {
   const state = useAppSelector((store) => store.settingsSlice);
@@ -32,7 +36,9 @@ export default function ConfirmButton() {
   const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
   const isRemoveColumn = useAppSelector((state) => state.modalSlice.isRemoveColumn);
   const isRemoveTask = useAppSelector((state) => state.modalSlice.isRemoveTask);
-
+  const isDeleteUser = useAppSelector((state) => state.modalSlice.isDeleteUser);
+  const jwt_decode: JwtDecode = jwtDecode(token);
+  const navigate = useNavigate();
   const removeHandler = () => {
     const dataForFetch: IFetchQuery = isRemoveBoard
       ? {
@@ -55,6 +61,8 @@ export default function ConfirmButton() {
     isRemoveBoard && dispatch(setClearUserCurrentBoardList(dataForFetch));
     isRemoveColumn && dispatch(fetchRemoveUserColumn(dataForFetch));
     isRemoveTask && dispatch(fetchRemoveUserTask(dataForFetch));
+    isDeleteUser && dispatch(fetchDeleteUser({ userId: jwt_decode.userId, token }));
+    isDeleteUser && navigate('/logout');
     dispatch(setModalOpen(false));
     dispatch(setIsRemoveBoard(false));
     dispatch(setIsRemoveColumn(false));
@@ -63,6 +71,7 @@ export default function ConfirmButton() {
     dispatch(setIsCreateTask(false));
     dispatch(setIsCreateBoard(false));
     dispatch(setCurrentColumnId(''));
+    dispatch(setDeleteUser(false));
   };
 
   return (

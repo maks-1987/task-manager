@@ -104,3 +104,17 @@
 .delete-btn.color:hover {
   background-color: var(--background-color3);
 }
+
+.form-success-change {
+  color: green;
+  opacity: 0;
+  transition: 1.0s opacity ease-in-out;
+  min-height: 1rem;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-success-change.visible {
+  opacity: initial;
+}

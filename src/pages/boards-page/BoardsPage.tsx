@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import BoardPreviewItem from '../../components/boards/board-preview-item/BoardPreviewItem';
-import { localeEN } from '../../locales/localeEN';
 import { fetchGetUserBoards } from '../../redux/boards-slice/boardsFechRequest';
 import { setCurrentBoardId, setRemovedBoardId } from '../../redux/boards-slice/boardsSlice';
-import { setResetCurrentBoardData } from '../../redux/columns-slice/columnsSlice';
+import {
+  setIsBoardPageOpen,
+  setResetCurrentBoardData,
+} from '../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import AddBoardButton from '../../UI/add-board-button/AddBoardButton';
 import Spinner from '../../UI/spinner/Spinner';
@@ -26,8 +28,17 @@ export default function BoardsPage() {
     setTimeout(() => dispatch(setResetCurrentBoardData()), 500);
     dispatch(setCurrentBoardId(''));
     dispatch(setRemovedBoardId(''));
+    dispatch(setIsBoardPageOpen(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(
+    () => () => {
+      dispatch(setIsBoardPageOpen(false));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
   return (
     <div className={'boards-page__container ' + state.themeIndex}>
       <div className="boards-page-items">
@@ -43,7 +54,7 @@ export default function BoardsPage() {
           <h4 className="error-message">{languages.errorBoards[state.languageIndex]}</h4>
         )}
         {!userBoards.length
-          ? localeEN.boardsContet.HAVE_NOT_BOARD_MESSAGE
+          ? languages.boardsPageNoBoardsMessage[state.languageIndex]
           : userBoards.map((board, index) => (
               <BoardPreviewItem key={board.id} userBoard={board} index={index} />
             ))}

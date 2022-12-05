@@ -145,3 +145,11 @@
   height: 100%;
   cursor: pointer;
 }
+
+.board-previwe-item__task-propgress-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+}

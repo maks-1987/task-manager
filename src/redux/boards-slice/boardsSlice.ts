@@ -53,8 +53,18 @@ export const boardsSlice = createSlice({
         state.isLoading = false;
         state.errorMessage = '';
       })
+      .addCase(fetchAddNewUserBoard.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
+      })
       .addCase(fetchAddNewUserBoard.fulfilled, (state, action) => {
         state.userBoards.push(action.payload);
+        state.isLoading = false;
+        state.errorMessage = '';
+      })
+      .addCase(fetchRemoveUserBoard.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = '';
       })
       .addCase(fetchRemoveUserBoard.pending, (state) => {
         state.isLoading = true;

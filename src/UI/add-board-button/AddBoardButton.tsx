@@ -1,5 +1,4 @@
 import React from 'react';
-import { localeEN } from '../../locales/localeEN';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsCreateBoard, setModalOpen } from '../../redux/modal-slice/modalSlice';
 import { languages } from '../../locales/languages';

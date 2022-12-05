@@ -4,6 +4,7 @@ import ConfirmButton from '../modal-confirm-button/ConfirmButton';
 import CloseModalButton from '../close-modal-button/CloseModalButton';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
+  setDeleteUser,
   setIsCreateBoard,
   setIsCreateColumn,
   setIsCreateTask,
@@ -14,10 +15,7 @@ import {
   setModalOpen,
 } from '../../redux/modal-slice/modalSlice';
 import './globalModal.css';
-
 import openAndRemoveModalSound from '../audio-effects/openAndRemoveModalSound';
-import removeSound from '../../../src/assets/removeWarningModal.mp3';
-import openModalSound from '../../../src/assets/openModalWindow.mp3';
 
 type Props = { component: ReactElement | string };
 
@@ -31,16 +29,10 @@ export const GlobalModal = (props: Props) => {
     isCreateTask,
     isCreateBoard,
     isEditTask,
+    isDeleteUser,
   } = useAppSelector((state) => state.modalSlice);
   const modalSliceState = useAppSelector((state) => state.modalSlice);
 
-  // const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
-  // const isRemoveColumn = useAppSelector((state) => state.modalSlice.isRemoveColumn);
-  // const isRemoveTask = useAppSelector((state) => state.modalSlice.isRemoveTask);
-  // const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
-  // const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
-  // const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
-  // const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   const currentModalTitle = isCreateBoard
     ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE[languageIndex]
@@ -54,6 +46,8 @@ export const GlobalModal = (props: Props) => {
     ? localeEN.modalContetntMessage.REMOVE_COLUMN_CONFIRM_MESSAGE[languageIndex]
     : isRemoveTask
     ? localeEN.modalContetntMessage.REMOVE_TASK_CONFIRM_MESSAGE[languageIndex]
+    : isDeleteUser
+    ? localeEN.modalContetntMessage.DELETE_USER_CONFIRM_MESSAGE[languageIndex]
     : localeEN.modalContetntMessage.EDIT_TASK_MESSAGE[languageIndex];
 
   const state = useAppSelector((store) => store.settingsSlice);
@@ -67,6 +61,7 @@ export const GlobalModal = (props: Props) => {
     dispatch(setModalOpen(false));
     dispatch(setIsCreateBoard(false));
     dispatch(setIsEditTask(false));
+    dispatch(setDeleteUser(false));
   };
   useEffect(() => {
     openAndRemoveModalSound(modalSliceState);
@@ -91,6 +86,7 @@ export const GlobalModal = (props: Props) => {
         {isRemoveBoard && <ConfirmButton />}
         {isRemoveColumn && <ConfirmButton />}
         {isRemoveTask && <ConfirmButton />}
+        {isDeleteUser && <ConfirmButton />}
       </div>
     </div>
   );

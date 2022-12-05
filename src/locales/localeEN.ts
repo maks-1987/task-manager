@@ -12,7 +12,12 @@ export const localeEN = {
   boardsContet: {
     ADD_NEW_BOARD_BUTTON_LABEL: 'Add new board',
     HAVE_NOT_BOARD_MESSAGE: 'You have not any boards!',
-    MIN_LENGTH_WARN_MESSAGE: 'Should be min 5 character',
+    MIN_LENGTH_WARN_MESSAGE: [
+      'Should be min 5 character',
+      'Має бути не менше 5 символів',
+      'Павінна быць мінімум 5 сімвалаў',
+      'Должно быть не менее 5 символов',
+    ],
   },
   errors: {},
   tooTipContent: {
@@ -28,10 +33,20 @@ export const localeEN = {
       'Поле павінна быць запоўненае. Мінімум 2 сімвалы',
       'Поле должно быть заполнено. Минимум 2 символа',
     ],
-    CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE: 'Сannot be empty',
+    CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE: [
+      'Сannot be empty!',
+      'Не може бути порожнім!',
+      'Не можа быць пустым!',
+      'Не может быть пустым!',
+    ],
   },
   columnContet: {
-    HAVE_NOT_COLUMN_MESSAGE: 'You have not any columns!',
+    HAVE_NOT_COLUMN_MESSAGE: [
+      "You don't have any columns!",
+      'У вас немає жодної колонки!',
+      'У вас няма ніводнай калонкі!',
+      'У вас нет ни одной колонки!',
+    ],
     HAVE_NOT_TASK_MESSAGE: ['No tasks!', 'Немає завдань!', 'Hяма задач!', 'Hет задач!'],
     HAVE_NOT_TASK_DONE_MESSAGE: [
       'No completed tasks!',
@@ -82,6 +97,12 @@ export const localeEN = {
       'Создать новую задачу',
     ],
     EDIT_TASK_MESSAGE: ['Edit task', 'Створити завдання', 'Стварыце задачу', 'Создать задачу'],
+    DELETE_USER_CONFIRM_MESSAGE: [
+      'Delete user',
+      'Видалити користувача',
+      'Выдаліць карыстальніка',
+      'Удалить пользователя',
+    ],
   },
   tooltips: {
     CREATE_NEW_BOARD: ['New board', 'Нова дошка', 'Новая дошка', 'Новая доска'],
@@ -122,4 +143,10 @@ export const localeEN = {
     ],
   },
   createBoardForm: {},
+  formMessages: [
+    'Successful change data!',
+    'Успішна зміна даних!',
+    'Паспяховыя змены дадзеных!',
+    'Успешное изменение данных!',
+  ],
 };

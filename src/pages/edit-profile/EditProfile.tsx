@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IUserForm } from '../../types/types';
-import {
-  fetchLogin,
-  fetchRegistration,
-  fetchEditUserData,
-  userSlice,
-} from '../../redux/user-slice/userSlice';
+import { IUserForm, JwtDecode } from '../../types/types';
+import { fetchEditUserData, userSlice } from '../../redux/user-slice/userSlice';
 import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
@@ -16,35 +11,49 @@ import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import Spinner from '../../UI/spinner/Spinner';
 import '../register-page/registerPage.css';
 import './editProfile.css';
+import jwtDecode from 'jwt-decode';
+import { localeEN } from '../../locales/localeEN';
+import { modalSlice } from '../../redux/modal-slice/modalSlice';
 
 export const EditProfilePage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
     mode: 'onChange',
   });
-  const navigation = useNavigate();
+
   const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
-  const { error, user, password, spinnerStatus } = useAppSelector((state) => state.userSlice);
+  const { error, user, spinnerStatus, token } = useAppSelector((state) => state.userSlice);
 
+  const jwt_decode: JwtDecode = jwtDecode(token);
+  const [successVisible, setSuccessVisible] = useState<string>('');
   const { errors } = formState;
+
   const onSubmitForm: SubmitHandler<IUserForm> = (data) => {
-    dispatch(fetchEditUserData(data));
+    dispatch(
+      fetchEditUserData({
+        userId: jwt_decode.userId,
+        token: token,
+        userData: data,
+        userLogin: jwt_decode.login,
+      })
+    );
   };
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset({ name: '', password: '' });
+      setSuccessVisible('visible');
     }
+    setTimeout(() => setSuccessVisible(''), 2000);
   }, [formState.isSubmitSuccessful, reset]);
 
   useEffect(() => {
     dispatch(userSlice.actions.setError(''));
   }, [dispatch]);
 
-  const handleLogin = () => {
-    dispatch(fetchLogin({ login: user.login, password: password }));
-    dispatch(userSlice.actions.setSignInStatus(true));
-    navigation(`/boards/${user.login}`);
+  const handleDeleteUser = () => {
+    dispatch(modalSlice.actions.setModalOpen(true));
+    dispatch(modalSlice.actions.setDeleteUser(true));
   };
 
   return (
@@ -127,25 +136,22 @@ export const EditProfilePage = () => {
           </div>
         </form>
         <p className="form-failed">
-          {error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
+          {error && error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
         </p>
         <div className={'delete-btn-container ' + state.themeIndex}>
           {languages.attention[state.languageIndex]}
-          <button className={'delete-btn ' + state.themeIndex}>
+          <button className={'delete-btn ' + state.themeIndex} onClick={handleDeleteUser}>
             {languages.deleteUser[state.languageIndex]}
           </button>
         </div>
 
-        {password && (
-          <article className="form-success">
-            <p className="form-success__message">
-              {languages.successRegister[state.languageIndex]}
-            </p>
-            <button className={'form-success__button ' + state.themeIndex} onClick={handleLogin}>
-              {languages.signIn[state.languageIndex]}
-            </button>
-          </article>
-        )}
+        <article
+          className={
+            successVisible === 'visible' ? 'form-success-change visible' : 'form-success-change'
+          }
+        >
+          <p className="form-success__message">{localeEN.formMessages[state.languageIndex]}</p>
+        </article>
       </div>
     </>
   );

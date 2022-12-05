@@ -22,7 +22,8 @@ export const Column = (props: IProp) => {
   const { id, title, order, tasks } = props.column;
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
-  const isLoading = useAppSelector((state) => state.columnsSlice.isLoading);
+  const isTaskLoading = useAppSelector((state) => state.columnsSlice.isTaskLoading);
+  const currentColumnId = useAppSelector((state) => state.columnsSlice.currentColumnId);
   const token = useAppSelector((state) => state.userSlice.token);
   const { languageIndex, themeIndex } = useAppSelector((state) => state.settingsSlice);
 
@@ -71,7 +72,9 @@ export const Column = (props: IProp) => {
                   className="column-item__title"
                   type="text"
                   defaultValue={title}
-                  placeholder={`${localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE}`}
+                  placeholder={
+                    localeEN.tooTipContent.CANNOT_BE_EMPTY_PLACEHOLDER_MESSAGE[languageIndex]
+                  }
                   onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     changeColumnTitleHandler(e)
                   }
@@ -89,7 +92,7 @@ export const Column = (props: IProp) => {
                   {...provided.droppableProps}
                 >
                   <section className="task-list">
-                    {isLoading && <Spinner />}
+                    {currentColumnId === id && isTaskLoading && <Spinner />}
                     {tasks?.length === 0 ? (
                       <span className={'column-item__message ' + themeIndex}>
                         {localeEN.columnContet.DEFAULT_DONE_COLUMN.some((lang) => lang === title)
