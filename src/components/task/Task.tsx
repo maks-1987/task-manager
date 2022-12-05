@@ -3,12 +3,10 @@ import { IComleteColumn, ITask } from '../../types/types';
 import { ButtonDeleteTask } from '../../UI/task-buttons/ButtonDeleteTask';
 import { ButtonDoneTask } from '../../UI/task-buttons/ButtonDoneTask';
 import { ButtonEditTask } from '../../UI/task-buttons/ButtonEditTask';
-
 import './task.css';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../redux/hooks';
 import { Endpoints } from '../../endpoints/endpoints';
-import { DefaultTaskIcon, UploadFileIcon } from '../../UI/column-buttons/svgButtons';
 
 interface IProp {
   task: ITask;
@@ -18,11 +16,9 @@ interface IProp {
 
 export const Task = (props: IProp) => {
   const { token } = useAppSelector((state) => state.userSlice);
-  const { id, order, title, description } = props.task;
-  const [returnedFile, setReturnedFile] = useState<Blob>();
+  const { id, order, title, description, files } = props.task;
   const fileBtn = useRef<HTMLInputElement | null>(null);
-  const { files } = props.task;
-
+  const [fileCounter, setFileCounter] = useState<number | undefined>(0);
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     await handleFetch(event.currentTarget.files![0]);
   };
@@ -31,12 +27,12 @@ export const Task = (props: IProp) => {
     fileBtn.current?.click();
   };
 
-  const handleFetch = async (files: File) => {
+  const handleFetch = async (file: File) => {
     const formData = new FormData();
     formData.append('taskId', id);
-    formData.append('file', files as string | File);
+    formData.append('file', file as string | File);
 
-    await fetch(`${Endpoints.FILE}`, {
+    const response = await fetch(`${Endpoints.FILE}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,37 +41,13 @@ export const Task = (props: IProp) => {
       body: formData,
     });
 
-    const responseFile = await fetch(`${Endpoints.FILE}/${id}/${files.name}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (responseFile.ok) {
-      const data = await responseFile.blob();
-      setReturnedFile(data);
+    if (response.ok) {
+      setFileCounter(() => (fileCounter ? fileCounter + 1 : 1));
     }
   };
 
-  const getFile = async () => {
-    const lastFile = files?.length ? files?.length - 1 : 0;
-    const responseFile = await fetch(
-      `${Endpoints.FILE}/${props.task.id}/${files![lastFile].filename}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await responseFile.blob();
-    setReturnedFile(data);
-  };
-
   useEffect(() => {
-    if (files?.length) getFile();
+    setFileCounter(files?.length !== undefined ? files.length : 0);
   }, [files?.length]);
 
   return (
@@ -100,9 +72,7 @@ export const Task = (props: IProp) => {
             <ButtonEditTask id={id} column={props.column} />
             <ButtonDeleteTask id={id} column={props.column} />
 
-            <button className="upload-file-task" onClick={handleLoadFile}>
-              {<UploadFileIcon />}
-            </button>
+            <button className="upload-file-task" onClick={handleLoadFile}></button>
             <input
               type="file"
               onChange={handleFile}
@@ -110,18 +80,7 @@ export const Task = (props: IProp) => {
               className="vis-hidden"
               accept="image/*"
             />
-            {!returnedFile ? (
-              <span className="default-task-image">
-                <DefaultTaskIcon />
-              </span>
-            ) : (
-              <img
-                className="user-file"
-                alt={files![files?.length ? files?.length - 1 : 0].filename}
-                id="userfile"
-                src={returnedFile && URL.createObjectURL(returnedFile as Blob)}
-              />
-            )}
+            <span className="task__counter-files">{fileCounter}</span>
           </div>
         </div>
       )}

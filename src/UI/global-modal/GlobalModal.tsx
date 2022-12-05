@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { localeEN } from '../../locales/localeEN';
 import ConfirmButton from '../modal-confirm-button/ConfirmButton';
 import CloseModalButton from '../close-modal-button/CloseModalButton';
@@ -15,17 +15,32 @@ import {
 } from '../../redux/modal-slice/modalSlice';
 import './globalModal.css';
 
+import openAndRemoveModalSound from '../audio-effects/openAndRemoveModalSound';
+import removeSound from '../../../src/assets/removeWarningModal.mp3';
+import openModalSound from '../../../src/assets/openModalWindow.mp3';
+
 type Props = { component: ReactElement | string };
 
 export const GlobalModal = (props: Props) => {
-  const { isModalOpen } = useAppSelector((state) => state.modalSlice);
-  const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
-  const isRemoveColumn = useAppSelector((state) => state.modalSlice.isRemoveColumn);
-  const isRemoveTask = useAppSelector((state) => state.modalSlice.isRemoveTask);
-  const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
-  const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
-  const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
-  const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
+  const {
+    isModalOpen,
+    isRemoveBoard,
+    isRemoveColumn,
+    isRemoveTask,
+    isCreateColumn,
+    isCreateTask,
+    isCreateBoard,
+    isEditTask,
+  } = useAppSelector((state) => state.modalSlice);
+  const modalSliceState = useAppSelector((state) => state.modalSlice);
+
+  // const isRemoveBoard = useAppSelector((state) => state.modalSlice.isRemoveBoard);
+  // const isRemoveColumn = useAppSelector((state) => state.modalSlice.isRemoveColumn);
+  // const isRemoveTask = useAppSelector((state) => state.modalSlice.isRemoveTask);
+  // const isCreateColumn = useAppSelector((state) => state.modalSlice.isCreateColumn);
+  // const isCreateTask = useAppSelector((state) => state.modalSlice.isCreateTask);
+  // const isCreateBoard = useAppSelector((state) => state.modalSlice.isCreateBoard);
+  // const isEditTask = useAppSelector((state) => state.modalSlice.isEditTask);
   const { languageIndex } = useAppSelector((state) => state.settingsSlice);
   const currentModalTitle = isCreateBoard
     ? localeEN.modalContetntMessage.CREATE_NEW_BOARD_MESSAGE[languageIndex]
@@ -53,6 +68,10 @@ export const GlobalModal = (props: Props) => {
     dispatch(setIsCreateBoard(false));
     dispatch(setIsEditTask(false));
   };
+  useEffect(() => {
+    openAndRemoveModalSound(modalSliceState);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalSliceState]);
 
   return (
     <div

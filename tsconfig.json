@@ -22,6 +22,8 @@
   },
   "include": [
     "./src/**/*",
-    "styled.d.ts"
+    "styled.d.ts",
+    "audio.d.ts",
+    
   ]
 }
