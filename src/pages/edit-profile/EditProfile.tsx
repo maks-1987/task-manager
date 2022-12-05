@@ -129,6 +129,12 @@ export const EditProfilePage = () => {
         <p className="form-failed">
           {error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
         </p>
+        <div className={'delete-btn-container ' + state.themeIndex}>
+          {languages.attention[state.languageIndex]}
+          <button className={'delete-btn ' + state.themeIndex}>
+            {languages.deleteUser[state.languageIndex]}
+          </button>
+        </div>
 
         {password && (
           <article className="form-success">

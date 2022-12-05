@@ -177,6 +177,7 @@
 .submit__button:hover,
 .form-success__button:hover {
   background-color: var(--background-color1);
+  box-shadow: -1px 1px #e1e1e1;
 }
 
 .submit__button.dark:hover,
