@@ -26,7 +26,6 @@ import { languages } from '../../locales/languages';
 import './singleBoard.css';
 
 export default function SingleBoard() {
-  const state = useAppSelector((store) => store.settingsSlice);
   const { themeIndex, languageIndex } = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const currentBoardId = useAppSelector((state) => state.boardsSlice.currentBoardId);
@@ -211,7 +210,7 @@ export default function SingleBoard() {
                 >
                   {Boolean(fetchColumnErrorMessage) && (
                     <h2 className={'fetch-erroe-message ' + languageIndex}>
-                      {languages.errorBoards[state.languageIndex]}
+                      {languages.errorBoards[languageIndex]}
                     </h2>
                   )}
                   {!columnState?.length
