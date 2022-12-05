@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserForm, JwtDecode } from '../../types/types';
-import { fetchEditUserData, userSlice } from '../../redux/user-slice/userSlice';
+import { fetchDeleteUser, fetchEditUserData, userSlice } from '../../redux/user-slice/userSlice';
 import { languages } from '../../locales/languages';
 import GoWelcomePageLink from '../../UI/go-welcome-page-link/GoWelcomePageLink';
 import LanguageSelector from '../../UI/selectors/LanguageSelector';
@@ -13,6 +13,7 @@ import '../register-page/registerPage.css';
 import './editProfile.css';
 import jwtDecode from 'jwt-decode';
 import { localeEN } from '../../locales/localeEN';
+import { modalSlice } from '../../redux/modal-slice/modalSlice';
 
 export const EditProfilePage = () => {
   const { register, handleSubmit, reset, formState } = useForm<IUserForm>({
@@ -24,6 +25,7 @@ export const EditProfilePage = () => {
   const { error, user, password, spinnerStatus, token } = useAppSelector(
     (state) => state.userSlice
   );
+  const { isModalOpen } = useAppSelector((state) => state.modalSlice);
   const jwt_decode: JwtDecode = jwtDecode(token);
   const [successVisible, setSuccessVisible] = useState<string>('');
   const { errors } = formState;
@@ -50,6 +52,12 @@ export const EditProfilePage = () => {
   useEffect(() => {
     dispatch(userSlice.actions.setError(''));
   }, [dispatch]);
+
+  const handleDeleteUser = () => {
+    dispatch(modalSlice.actions.setModalOpen(true));
+    dispatch(modalSlice.actions.setDeleteUser(true));
+    // dispatch(fetchDeleteUser({ userId: jwt_decode.userId, token }));
+  };
 
   return (
     <>
@@ -131,11 +139,11 @@ export const EditProfilePage = () => {
           </div>
         </form>
         <p className="form-failed">
-          {error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
+          {error && error.includes('userExist') ? languages.userExist[state.languageIndex] : error}
         </p>
         <div className={'delete-btn-container ' + state.themeIndex}>
           {languages.attention[state.languageIndex]}
-          <button className={'delete-btn ' + state.themeIndex}>
+          <button className={'delete-btn ' + state.themeIndex} onClick={handleDeleteUser}>
             {languages.deleteUser[state.languageIndex]}
           </button>
         </div>

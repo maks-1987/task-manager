@@ -104,6 +104,27 @@ export const fetchEditUserData = createAsyncThunk<IUserForm, IFetchQuery, { reje
   }
 );
 
+export const fetchDeleteUser = createAsyncThunk<string, IFetchQuery, { rejectValue: string }>(
+  'edit/fetchDelete',
+  async (user, { rejectWithValue }) => {
+    const response = await fetch(`${Endpoints.USERS}/${user.userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return rejectWithValue(data.message);
+    }
+
+    const data = await response.json();
+    return data;
+  }
+);
+
 export const userSlice = createSlice({
   name: 'userData',
   initialState: initFormState,
@@ -170,6 +191,8 @@ export const userSlice = createSlice({
       .addCase(fetchLogin.rejected, (state, action) => {
         state.user.name = '';
         state.user.id = '';
+        state.user.login = '';
+        state.token = '';
         state.error = action.payload ? action.payload : '';
         state.isSignIn = false;
         state.spinnerStatus = false;
@@ -184,8 +207,16 @@ export const userSlice = createSlice({
         action.payload.name !== undefined ? (state.user.name = action.payload.name) : false;
         state.user.login = action.payload.login;
       })
+      .addCase(fetchDeleteUser.rejected, (state) => {
+        state.error = '';
+        state.user.id = '';
+        state.user.name = '';
+        state.user.login = '';
+        state.password = '';
+        // state.token = '';
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload;
+        state.error = action.payload !== undefined ? action.payload : '';
         state.spinnerStatus = false;
       });
   },
