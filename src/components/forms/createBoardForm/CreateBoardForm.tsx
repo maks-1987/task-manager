@@ -11,10 +11,8 @@ import {
 } from '../../../redux/modal-slice/modalSlice';
 import { fetchAddNewUserBoard } from '../../../redux/boards-slice/boardsFechRequest';
 import { localeEN } from '../../../locales/localeEN';
-import { languages } from '../../../locales/languages';
 
 export default function CreateBoardForm() {
-  const state = useAppSelector((store) => store.settingsSlice);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.token);
   const { languageIndex } = useAppSelector((state) => state.settingsSlice);

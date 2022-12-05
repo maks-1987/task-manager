@@ -8,13 +8,14 @@ import {
   fetchAddNewUserColumns,
   fetchGetAllUserColumns,
   fetchGetUserBoardByID,
+  fetchGetUserBoardByIDForUserBoardList,
 } from '../../../redux/columns-slice/columnsFetchRequest';
 import { setResetCurrentBoardData } from '../../../redux/columns-slice/columnsSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setIsRemoveBoard, setModalOpen } from '../../../redux/modal-slice/modalSlice';
 import { IFetchQuery, IUserBoard } from '../../../types/types';
 import CrossButton from '../../../UI/cross-button/CrossButton';
-import { languages } from '../../../locales/languages';
+import TaskProgressBar from '../../task-progress-bar/TaskProgressBar';
 import './boardPreviewItem.css';
 
 interface IProp {
@@ -33,6 +34,10 @@ export default function BoardPreviewItem(props: IProp) {
   const languageIndex = useAppSelector((state) => state.settingsSlice.languageIndex);
   const userDoneColumnListByBoardId = useAppSelector(
     (state) => state.columnsSlice.userDoneColumnListByBoardId
+  );
+  const isBoardPageOpen = useAppSelector((state) => state.columnsSlice.isBoardPageOpen);
+  const userCurrentBoardListForTaskProgressBar = useAppSelector(
+    (state) => state.columnsSlice.userCurrentBoardListForTaskProgressBar
   );
 
   const {
@@ -102,7 +107,15 @@ export default function BoardPreviewItem(props: IProp) {
     };
     dispatch(fetchGetAllUserColumns(dataForFetch));
     setTimeout(() => dispatch(setResetCurrentBoardData()), 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+  useEffect(() => {
+    const dataForFetch: IFetchQuery = {
+      boardId: userBoard.id,
+      token,
+    };
+    setTimeout(() => dispatch(fetchGetUserBoardByIDForUserBoardList(dataForFetch)), 200);
+  }, [dispatch, token, userBoard.id]);
 
   return (
     <div
@@ -155,6 +168,19 @@ export default function BoardPreviewItem(props: IProp) {
             onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
           />
         </form>
+        <section className="board-previwe-item__task-propgress-bar ">
+          {isBoardPageOpen &&
+          userCurrentBoardList.length === 0 &&
+          userCurrentBoardListForTaskProgressBar.length === 0 ? (
+            <></>
+          ) : (
+            isBoardPageOpen &&
+            userCurrentBoardList.length > 0 &&
+            userCurrentBoardList.some((board) => board.id === userBoard.id) && (
+              <TaskProgressBar boardId={userBoard.id!} />
+            )
+          )}
+        </section>
       </div>
       <div id={userBoard.id} className="boarder-previwe-item__todo-btn-block">
         <CrossButton id={userBoard.id!} goToModalWindow={goToModalWindow} />
