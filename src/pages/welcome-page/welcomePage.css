@@ -149,3 +149,12 @@
   line-height: 0.9;
   white-space: pre-line;
 }
+
+.welcome-page__description {
+  font-size: 18px;
+}
+
+.text-padding {
+  display: inline-block;
+  width: 24px;
+}

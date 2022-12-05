@@ -7,6 +7,7 @@ import LanguageSelector from '../../UI/selectors/LanguageSelector';
 import ThemeSelector from '../../UI/selectors/ThemeSelector';
 import Spinner from '../../UI/spinner/Spinner';
 import './welcomePage.css';
+import { localeEN } from '../../locales/localeEN';
 
 function WelcomePage() {
   const state = useAppSelector((store) => store.settingsSlice);
@@ -115,6 +116,20 @@ function WelcomePage() {
             </p>
           </div>
         </div>
+        <article className={'welcome-page-content ' + state.themeIndex}>
+          <p className="welcome-page__description">
+            <span className="text-padding"></span>
+            {localeEN.welcomePageDescr_1[state.languageIndex]}
+          </p>
+          <p className="welcome-page__description">
+            <span className="text-padding"></span>
+            {localeEN.welcomePageDescr_2[state.languageIndex]}
+          </p>
+          <p className="welcome-page__description">
+            <span className="text-padding"></span>
+            {localeEN.welcomePageDescr_3[state.languageIndex]}
+          </p>
+        </article>
       </div>
     </>
   );
